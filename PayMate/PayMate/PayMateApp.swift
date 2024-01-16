@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct PayMateApp: App {
+    
+    @StateObject var launchScreenManager = LaunchScreenManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                ContentView()
+                
+                if launchScreenManager.state != .completed {
+                    LaunchScreenView()
+                }
+            }
+            .environmentObject(launchScreenManager)
         }
     }
 }
