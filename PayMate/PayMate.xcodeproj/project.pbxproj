@@ -14,6 +14,7 @@
 		0498DF412B55EA6C00E848BE /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0498DF402B55EA6C00E848BE /* PhoneNumberKit */; };
 		0498DF442B56195600E848BE /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF432B56195600E848BE /* LaunchScreenView.swift */; };
 		0498DF462B561D1100E848BE /* LaunchScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF452B561D1100E848BE /* LaunchScreenManager.swift */; };
+		0498DF492B562CE700E848BE /* WelcomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF482B562CE700E848BE /* WelcomeScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		0498DF422B56169200E848BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0498DF432B56195600E848BE /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		0498DF452B561D1100E848BE /* LaunchScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenManager.swift; sourceTree = "<group>"; };
+		0498DF482B562CE700E848BE /* WelcomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				0498DF422B56169200E848BE /* Info.plist */,
 				0498DF312B55E77500E848BE /* PayMateApp.swift */,
 				0498DF332B55E77500E848BE /* ContentView.swift */,
+				0498DF4A2B562CF000E848BE /* WelcomeScreen */,
 				0498DF472B561D1800E848BE /* LaunchScreen */,
 				0498DF352B55E77600E848BE /* Assets.xcassets */,
 				0498DF372B55E77600E848BE /* Preview Content */,
@@ -83,6 +86,14 @@
 				0498DF432B56195600E848BE /* LaunchScreenView.swift */,
 			);
 			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		0498DF4A2B562CF000E848BE /* WelcomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0498DF482B562CE700E848BE /* WelcomeScreenView.swift */,
+			);
+			path = WelcomeScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0498DF342B55E77500E848BE /* ContentView.swift in Sources */,
+				0498DF492B562CE700E848BE /* WelcomeScreenView.swift in Sources */,
 				0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */,
 				0498DF462B561D1100E848BE /* LaunchScreenManager.swift in Sources */,
 				0498DF442B56195600E848BE /* LaunchScreenView.swift in Sources */,

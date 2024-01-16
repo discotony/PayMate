@@ -40,12 +40,10 @@ struct LaunchScreenView: View {
             }
             VStack {
                 Spacer()
-                Image("textlogo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: UIScreen.main.bounds.size.width / 5)
-                .padding(.bottom, 24)
-                .transition(.opacity)
+                Image(.textLogo)
+                    .customResize(width: 0.2)
+                    .padding(.bottom, 24)
+                    .transition(.opacity)
             }
         }.opacity(secondPhaseIsAnimating ? 0 : 1)
     }
@@ -54,14 +52,14 @@ struct LaunchScreenView: View {
 private extension LaunchScreenView {
     
     var background: some View {
-        Color("launchScreenColor")
+        Color(.customBackground)
             .edgesIgnoringSafeArea(.all)
     }
     
     var logo: some View {
-        Image("logo")
+        Image(.logo)
             .scaleEffect(firstPhaseIsAnimating ? 0.65 : 1)
-            .scaleEffect(secondPhaseIsAnimating ? UIScreen.main.bounds.size.height / 20 : 1)
+            .scaleEffect(secondPhaseIsAnimating ? UIScreen.main.bounds.size.height / 4 : 1)
     }
 }
 
