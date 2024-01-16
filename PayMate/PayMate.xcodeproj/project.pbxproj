@@ -12,6 +12,8 @@
 		0498DF362B55E77600E848BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0498DF352B55E77600E848BE /* Assets.xcassets */; };
 		0498DF392B55E77600E848BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0498DF382B55E77600E848BE /* Preview Assets.xcassets */; };
 		0498DF412B55EA6C00E848BE /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0498DF402B55EA6C00E848BE /* PhoneNumberKit */; };
+		0498DF442B56195600E848BE /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF432B56195600E848BE /* LaunchScreenView.swift */; };
+		0498DF462B561D1100E848BE /* LaunchScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF452B561D1100E848BE /* LaunchScreenManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,9 @@
 		0498DF332B55E77500E848BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0498DF352B55E77600E848BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0498DF382B55E77600E848BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0498DF422B56169200E848BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0498DF432B56195600E848BE /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
+		0498DF452B561D1100E848BE /* LaunchScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +58,10 @@
 		0498DF302B55E77500E848BE /* PayMate */ = {
 			isa = PBXGroup;
 			children = (
+				0498DF422B56169200E848BE /* Info.plist */,
 				0498DF312B55E77500E848BE /* PayMateApp.swift */,
 				0498DF332B55E77500E848BE /* ContentView.swift */,
+				0498DF472B561D1800E848BE /* LaunchScreen */,
 				0498DF352B55E77600E848BE /* Assets.xcassets */,
 				0498DF372B55E77600E848BE /* Preview Content */,
 			);
@@ -67,6 +74,15 @@
 				0498DF382B55E77600E848BE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0498DF472B561D1800E848BE /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0498DF452B561D1100E848BE /* LaunchScreenManager.swift */,
+				0498DF432B56195600E848BE /* LaunchScreenView.swift */,
+			);
+			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +163,8 @@
 			files = (
 				0498DF342B55E77500E848BE /* ContentView.swift in Sources */,
 				0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */,
+				0498DF462B561D1100E848BE /* LaunchScreenManager.swift in Sources */,
+				0498DF442B56195600E848BE /* LaunchScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,9 +301,9 @@
 				DEVELOPMENT_TEAM = X6JB7G9XQ7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PayMate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -313,9 +331,9 @@
 				DEVELOPMENT_TEAM = X6JB7G9XQ7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PayMate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
