@@ -12,19 +12,14 @@ struct ContentView: View {
     @EnvironmentObject var launchScreenManager: LaunchScreenManager
     
     var body: some View {
-        VStack {
-            Button("Tap Me") {
-                print("Button Tapped")
+        WelcomeScreenView()
+            .onAppear() {
+                DispatchQueue
+                    .main
+                    .asyncAfter(deadline: .now() + 3) {
+                        launchScreenManager.dismiss()
+                    }
             }
-            Text("Hello World")
-                .onAppear() {
-                    DispatchQueue
-                        .main
-                        .asyncAfter(deadline: .now() + 3) {
-                            launchScreenManager.dismiss()
-                        }
-                }
-        }
     }
 }
 
