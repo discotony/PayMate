@@ -16,18 +16,17 @@ struct PhoneNumberTextFieldView: UIViewRepresentable {
     func makeUIView(context: Context) -> PhoneNumberTextField {
         
         numberField.withFlag = true
-        numberField.withPrefix = false
-        numberField.numberPlaceholderColor = .white // NEED TO UPDATE
-//        numberField.countryCodePlaceholderColor = .white.withAlphaComponent(0.5)
+        numberField.withPrefix = true
+        numberField.numberPlaceholderColor = .placeholderText // NEED TO UPDATE
+        numberField.countryCodePlaceholderColor = .placeholderText
         
         numberField.withExamplePlaceholder = true
-//        numberField.numberPlaceholderColor = .white.withAlphaComponent(0.9)
 //        numberField.placeholder = "Enter your U.S. Phone number"
         
         numberField.textColor = .white
         numberField.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         
-        numberField.becomeFirstResponder()
+//        numberField.becomeFirstResponder()
         return numberField
     }
 
