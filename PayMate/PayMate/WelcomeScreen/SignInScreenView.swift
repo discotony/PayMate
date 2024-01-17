@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhoneNumberKit
 
 struct SignInScreenView: View {
     
@@ -15,6 +16,12 @@ struct SignInScreenView: View {
     @State private var rotationDegrees2 = 360.0     // NEED TO UPDATE
     @State private var swingAngle: Double = 5
     @State private var scale: CGFloat = 1.0
+    
+    let phoneNumberKit = PhoneNumberKit()
+    @State private var phoneNumber = String()
+    @State private var validationError = false
+    @State private var errorMessage = Text("")
+    @State private var numberField: PhoneNumberTextFieldView?
     
     var body: some View {
         
@@ -29,9 +36,10 @@ struct SignInScreenView: View {
             }
         
         return VStack {
-            Spacer().frame(height: 100)
             
             VStack {
+                
+                Spacer(minLength: 24)
                 
                 ZStack {
                     Image(.otpOuterCircle)
@@ -62,14 +70,14 @@ struct SignInScreenView: View {
                         }
                 }
                 
-                Spacer()
+                Spacer(minLength: 24)
                 
                 Text("OTP Verification")
                     .multilineTextAlignment(.center)
                     .font(.title.bold())
                     .foregroundStyle(.white)
                 
-                Spacer().frame(height: 16)
+                Spacer().frame(height: 8)
                 
                 Text("We will send you one-time password (OTP) to your mobile number")
                     .multilineTextAlignment(.center)
@@ -79,16 +87,37 @@ struct SignInScreenView: View {
                 
                 Spacer()
                 
-                Rectangle()
-                    .fill(.white)
-                    .opacity(0.3)
-                    .cornerRadius(25)
-                    .frame(width: 300, height: 100)
+                HStack {
+                    Spacer()
+                    self.numberField
+                        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
+                               maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,
+                               minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
+                               maxHeight: 100,
+                               alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .keyboardType(.phonePad)
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .offset(x: 70)
+//                    .multilineTextAlignment(.center)
+//                .border(.red)
                 
                 Spacer()
                 
                 Button(action: {
-                    
+                    do {
+                        self.numberField?.getInputNumber()
+                        print("Input Number: \(self.phoneNumber)")
+                        let validatedPhoneNumber = try self.phoneNumberKit.parse(self.phoneNumber)
+                        print("Validated Number: \(validatedPhoneNumber)")
+                        // To Do
+                    }
+                    catch {
+                        self.validationError = true
+                        self.errorMessage = Text("Error: Please enter a valid phone number.")
+                    }
+
                 }) {
                     Text("Get OTP")
                         .foregroundStyle(Color(.customBackground))
@@ -117,6 +146,12 @@ struct SignInScreenView: View {
             ToolbarItem(placement: .principal) {
                 NavigationLogo()
             }
+        }
+        .onAppear() {
+            self.numberField = PhoneNumberTextFieldView(phoneNumber: self.$phoneNumber)
+        }
+        .alert(isPresented: self.$validationError) {
+            Alert(title: Text(""), message: self.errorMessage, dismissButton: .default(Text("OK")))
         }
         .gesture(dragGesture)
     }
