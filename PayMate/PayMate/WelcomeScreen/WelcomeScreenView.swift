@@ -10,61 +10,75 @@ import SwiftUI
 struct WelcomeScreenView: View {
     
     @State private var contentOpacity: Double = 0
-
+    
     var body: some View {
-        VStack {
-            Spacer().frame(height: 100)
-
+        NavigationView {
             VStack {
-                Image(.logoWithText)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: UIScreen.main.bounds.size.width * 0.5)
-
-                Spacer()
-
-                Image(.welcomeBackground)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: UIScreen.main.bounds.size.width * 0.8)
-
-                Spacer()
-
-                Button(action: {
-                    // Handle button tap
-                }) {
-                    Text("Sign In")
-                        .foregroundColor(Color(.customBackground)) // Ensure this color is defined
-                        .font(.title3.bold())
-                        .padding()
-                        .frame(width: 200, height: 50)
-                        .background(Color.white)
-                        .cornerRadius(25)
+                Spacer().frame(height: 100)
+                
+                VStack {
+                    Image(.logoWithText)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: UIScreen.main.bounds.size.width * 0.5)
+                    
+                    Spacer()
+                    
+                    WelcomeTextView()
+                    
+                    Spacer().frame(height: 32)
+                    
+                    Image(.welcomeBackground)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: UIScreen.main.bounds.size.width * 0.8)
+                    
+                    Spacer()
+                    
+                    NavigationLink {
+                        SignInScreenView()
+                    } label: {
+                        Text("Sign In")
+                            .foregroundStyle(Color(.customBackground)) // Ensure this color is defined
+                            .font(.title3.bold())
+                            .padding()
+                            .frame(width: 200, height: 50)
+                            .background(Color.white)
+                            .cornerRadius(25)
+                    }
                 }
-            }
-            .opacity(contentOpacity)
-            .onAppear {
-                withAnimation(.easeIn(duration: 1.0)) {
-                    contentOpacity = 1
+                .opacity(contentOpacity)
+                .onAppear {
+                    withAnimation(.easeIn(duration: 1.5)) {
+                        contentOpacity = 1
+                    }
                 }
+                
+                Spacer().frame(height: 100)
             }
-            
-            Spacer().frame(height: 100)
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.customBackground)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.customBackground)
     }
 }
 
 extension Image {
-    func customResize(width: Float, usingScreen: Bool = true) -> some View {
+    func customScaleResize(widthScale: Float) -> some View {
         
-        let outputWidth = usingScreen ? Float(UIScreen.main.bounds.size.width) * width : width
+        let outputWidth = Float(UIScreen .main.bounds.size.width) * widthScale
         
         return self
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: CGFloat(outputWidth))
+    }
+    
+    func customFixedResize(width: CGFloat? = nil, height: CGFloat? = nil) -> some View {
+        self
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: width, height: height)
     }
 }
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04417F352B5784A400EA12C6 /* SignInScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F342B5784A400EA12C6 /* SignInScreenView.swift */; };
+		04417F372B5787A600EA12C6 /* WelcomeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F362B5787A600EA12C6 /* WelcomeTextView.swift */; };
 		0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF312B55E77500E848BE /* PayMateApp.swift */; };
 		0498DF342B55E77500E848BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF332B55E77500E848BE /* ContentView.swift */; };
 		0498DF362B55E77600E848BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0498DF352B55E77600E848BE /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04417F342B5784A400EA12C6 /* SignInScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenView.swift; sourceTree = "<group>"; };
+		04417F362B5787A600EA12C6 /* WelcomeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeTextView.swift; sourceTree = "<group>"; };
 		0498DF2E2B55E77500E848BE /* PayMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PayMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0498DF312B55E77500E848BE /* PayMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMateApp.swift; sourceTree = "<group>"; };
 		0498DF332B55E77500E848BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				0498DF482B562CE700E848BE /* WelcomeScreenView.swift */,
+				04417F342B5784A400EA12C6 /* SignInScreenView.swift */,
+				04417F362B5787A600EA12C6 /* WelcomeTextView.swift */,
 			);
 			path = WelcomeScreen;
 			sourceTree = "<group>";
@@ -179,7 +185,9 @@
 				0498DF492B562CE700E848BE /* WelcomeScreenView.swift in Sources */,
 				0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */,
 				0498DF462B561D1100E848BE /* LaunchScreenManager.swift in Sources */,
+				04417F372B5787A600EA12C6 /* WelcomeTextView.swift in Sources */,
 				0498DF4C2B573E1F00E848BE /* LaunchScreenAnimationView.swift in Sources */,
+				04417F352B5784A400EA12C6 /* SignInScreenView.swift in Sources */,
 				0498DF442B56195600E848BE /* LaunchScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
