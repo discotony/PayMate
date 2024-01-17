@@ -13,13 +13,13 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-//            if showLaunchAnimation {
-//                LaunchScreenAnimationView {
-//                    showLaunchAnimation = false
-//                }
-//            } else {
+            if showLaunchAnimation {
+                LaunchScreenAnimationView {
+                    showLaunchAnimation = false
+                }
+            } else {
                     WelcomeScreenView()
-//            }
+            }
         }
     }
 }
