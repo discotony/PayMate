@@ -9,21 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var launchScreenManager: LaunchScreenManager
+    @State private var showLaunchAnimation = true
     
     var body: some View {
-        WelcomeScreenView()
-            .onAppear() {
-                DispatchQueue
-                    .main
-                    .asyncAfter(deadline: .now() + 3) {
-                        launchScreenManager.dismiss()
-                    }
+        Group {
+            if showLaunchAnimation {
+                LaunchScreenAnimationView {
+                    showLaunchAnimation = false
+                }
+            } else {
+                WelcomeScreenView()
             }
+        }
     }
-}
-
-#Preview {
-    ContentView()
-        .environmentObject(LaunchScreenManager())
 }

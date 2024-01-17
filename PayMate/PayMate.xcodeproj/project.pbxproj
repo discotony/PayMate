@@ -15,6 +15,7 @@
 		0498DF442B56195600E848BE /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF432B56195600E848BE /* LaunchScreenView.swift */; };
 		0498DF462B561D1100E848BE /* LaunchScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF452B561D1100E848BE /* LaunchScreenManager.swift */; };
 		0498DF492B562CE700E848BE /* WelcomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF482B562CE700E848BE /* WelcomeScreenView.swift */; };
+		0498DF4C2B573E1F00E848BE /* LaunchScreenAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF4B2B573E1F00E848BE /* LaunchScreenAnimationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		0498DF432B56195600E848BE /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		0498DF452B561D1100E848BE /* LaunchScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenManager.swift; sourceTree = "<group>"; };
 		0498DF482B562CE700E848BE /* WelcomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenView.swift; sourceTree = "<group>"; };
+		0498DF4B2B573E1F00E848BE /* LaunchScreenAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenAnimationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			children = (
 				0498DF452B561D1100E848BE /* LaunchScreenManager.swift */,
 				0498DF432B56195600E848BE /* LaunchScreenView.swift */,
+				0498DF4B2B573E1F00E848BE /* LaunchScreenAnimationView.swift */,
 			);
 			path = LaunchScreen;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				0498DF492B562CE700E848BE /* WelcomeScreenView.swift in Sources */,
 				0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */,
 				0498DF462B561D1100E848BE /* LaunchScreenManager.swift in Sources */,
+				0498DF4C2B573E1F00E848BE /* LaunchScreenAnimationView.swift in Sources */,
 				0498DF442B56195600E848BE /* LaunchScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
