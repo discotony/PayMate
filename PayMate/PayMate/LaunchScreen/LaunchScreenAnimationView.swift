@@ -36,7 +36,7 @@ struct LaunchScreenAnimationView: View {
 
             VStack {
                 Spacer()
-                Image(.textlogo)
+                Image(.textLogo)
                     .customScaleResize(widthScale: 0.2)
                     .padding(.bottom, 24)
                     .opacity(textLogoOpacity)
