@@ -18,7 +18,7 @@ struct LaunchScreenAnimationView: View {
     let animationDuration = 1.0
     let delayDuration = 0.5
     let pauseDuration = 0.5
-    let loopCount = 1
+    let loopCount = 3
     
     var onCompletion: (() -> Void)?
     

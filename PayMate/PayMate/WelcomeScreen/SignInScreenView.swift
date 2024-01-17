@@ -10,9 +10,21 @@ import SwiftUI
 struct SignInScreenView: View {
     
     @Environment(\.presentationMode) var presentationMode
+    @GestureState private var dragOffset = CGSize.zero
     
     var body: some View {
-        VStack {
+        
+        let dragGesture = DragGesture()
+            .updating($dragOffset, body: { (value, state, _) in
+                state = value.translation
+            })
+            .onEnded {
+                if $0.startLocation.x < 20 && $0.translation.width > 100 {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            }
+        
+        return VStack {
             Spacer().frame(height: 100)
             
             VStack {
@@ -76,6 +88,7 @@ struct SignInScreenView: View {
                 NavigationLogo()
             }
         }
+        .gesture(dragGesture)
     }
 }
 
