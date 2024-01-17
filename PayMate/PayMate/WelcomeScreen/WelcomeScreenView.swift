@@ -10,7 +10,7 @@ import SwiftUI
 struct WelcomeScreenView: View {
     
     @State private var contentOpacity: Double = 0
-    @State private var rotationDegrees = 0.0
+    @State private var rotationDegrees = 360.0
     @State private var isMovingRight = true
     
     var body: some View {
@@ -39,7 +39,7 @@ struct WelcomeScreenView: View {
                             .offset(x: isMovingRight ? 0 : -100, y: 75) // Horizontal movement
                             .onAppear() {
                                 withAnimation(Animation.easeInOut(duration: 8).repeatForever(autoreverses: true)) {
-                                    rotationDegrees = 400
+                                    rotationDegrees = 0
                                 }
                                 withAnimation(Animation.easeInOut(duration: 8).repeatForever(autoreverses: true)) {
                                     isMovingRight.toggle() // Move back and forth
