@@ -10,6 +10,8 @@ import SwiftUI
 struct WelcomeScreenView: View {
     
     @State private var contentOpacity: Double = 0
+    @State private var rotationDegrees = 0.0
+    @State private var isMovingRight = true
     
     var body: some View {
         NavigationView {
@@ -28,10 +30,22 @@ struct WelcomeScreenView: View {
                     
                     Spacer().frame(height: 32)
                     
-                    Image(.welcomeBackground)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: UIScreen.main.bounds.size.width * 0.8)
+                    ZStack {
+                        Image(.welcomeBackground)
+                            .customScaleResize(widthScale: 0.8)
+                        Image(.coin)
+                            .customScaleResize(widthScale: 0.08)
+                            .rotationEffect(.degrees(rotationDegrees))
+                            .offset(x: isMovingRight ? 0 : -100, y: 75) // Horizontal movement
+                            .onAppear() {
+                                withAnimation(Animation.easeInOut(duration: 8).repeatForever(autoreverses: true)) {
+                                    rotationDegrees = 400
+                                }
+                                withAnimation(Animation.easeInOut(duration: 8).repeatForever(autoreverses: true)) {
+                                    isMovingRight.toggle() // Move back and forth
+                                }
+                            }
+                    }
                     
                     Spacer()
                     
@@ -39,7 +53,7 @@ struct WelcomeScreenView: View {
                         SignInScreenView()
                     } label: {
                         Text("Sign In")
-                            .foregroundStyle(Color(.customBackground)) // Ensure this color is defined
+                            .foregroundStyle(Color(.customBackground))
                             .font(.title3.bold())
                             .padding()
                             .frame(width: 200, height: 50)
