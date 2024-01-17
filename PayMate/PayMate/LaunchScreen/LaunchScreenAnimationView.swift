@@ -18,7 +18,7 @@ struct LaunchScreenAnimationView: View {
     let animationDuration = 1.0
     let delayDuration = 0.5
     let pauseDuration = 0.5
-    let loopCount = 3
+    let loopCount = 1
     
     var onCompletion: (() -> Void)?
     
@@ -37,7 +37,7 @@ struct LaunchScreenAnimationView: View {
             VStack {
                 Spacer()
                 Image(.textLogo)
-                    .customResize(width: 0.2)
+                    .customScaleResize(widthScale: 0.2)
                     .padding(.bottom, 24)
                     .opacity(textLogoOpacity)
             }

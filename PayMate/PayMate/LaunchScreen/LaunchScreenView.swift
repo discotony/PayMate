@@ -41,7 +41,7 @@ struct LaunchScreenView: View {
             VStack {
                 Spacer()
                 Image(.textLogo)
-                    .customResize(width: 0.2)
+                    .customScaleResize(widthScale: 0.2)
                     .padding(.bottom, 24)
                     .transition(.opacity)
             }
