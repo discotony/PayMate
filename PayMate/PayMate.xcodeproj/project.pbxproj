@@ -15,8 +15,6 @@
 		0498DF362B55E77600E848BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0498DF352B55E77600E848BE /* Assets.xcassets */; };
 		0498DF392B55E77600E848BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0498DF382B55E77600E848BE /* Preview Assets.xcassets */; };
 		0498DF412B55EA6C00E848BE /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0498DF402B55EA6C00E848BE /* PhoneNumberKit */; };
-		0498DF442B56195600E848BE /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF432B56195600E848BE /* LaunchScreenView.swift */; };
-		0498DF462B561D1100E848BE /* LaunchScreenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF452B561D1100E848BE /* LaunchScreenManager.swift */; };
 		0498DF492B562CE700E848BE /* WelcomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF482B562CE700E848BE /* WelcomeScreenView.swift */; };
 		0498DF4C2B573E1F00E848BE /* LaunchScreenAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF4B2B573E1F00E848BE /* LaunchScreenAnimationView.swift */; };
 /* End PBXBuildFile section */
@@ -31,8 +29,6 @@
 		0498DF352B55E77600E848BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0498DF382B55E77600E848BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0498DF422B56169200E848BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		0498DF432B56195600E848BE /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
-		0498DF452B561D1100E848BE /* LaunchScreenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenManager.swift; sourceTree = "<group>"; };
 		0498DF482B562CE700E848BE /* WelcomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenView.swift; sourceTree = "<group>"; };
 		0498DF4B2B573E1F00E848BE /* LaunchScreenAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenAnimationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,8 +86,6 @@
 		0498DF472B561D1800E848BE /* LaunchScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0498DF452B561D1100E848BE /* LaunchScreenManager.swift */,
-				0498DF432B56195600E848BE /* LaunchScreenView.swift */,
 				0498DF4B2B573E1F00E848BE /* LaunchScreenAnimationView.swift */,
 			);
 			path = LaunchScreen;
@@ -187,12 +181,10 @@
 				0498DF342B55E77500E848BE /* ContentView.swift in Sources */,
 				0498DF492B562CE700E848BE /* WelcomeScreenView.swift in Sources */,
 				0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */,
-				0498DF462B561D1100E848BE /* LaunchScreenManager.swift in Sources */,
 				04417F372B5787A600EA12C6 /* WelcomeTextView.swift in Sources */,
 				0498DF4C2B573E1F00E848BE /* LaunchScreenAnimationView.swift in Sources */,
 				04417F352B5784A400EA12C6 /* SignInScreenView.swift in Sources */,
 				04417F582B57A6E400EA12C6 /* PhoneNumberTextFieldView.swift in Sources */,
-				0498DF442B56195600E848BE /* LaunchScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
