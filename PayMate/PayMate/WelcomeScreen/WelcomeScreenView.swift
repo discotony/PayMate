@@ -8,18 +8,27 @@
 import SwiftUI
 
 struct WelcomeScreenView: View {
+    
     @State private var contentOpacity: Double = 0
     
     var body: some View {
+        
         NavigationView {
-            VStack(spacing: 32) {  // Use spacing to automatically add space between children
+            VStack {
+                Spacer(minLength: 10)
                 
                 Image(.logoWithText)
                     .customScaleResize(widthScale: 0.5)
                 
+                Spacer()
+                
                 WelcomeTextView()
                 
+                Spacer().frame(height: 48)
+                
                 WelcomeImageView()
+                
+                Spacer()
                 
                 NavigationLink(destination: SignInScreenView()) {
                     Text("Sign In")
@@ -30,6 +39,9 @@ struct WelcomeScreenView: View {
                         .background(Color.white)
                         .cornerRadius(25)
                 }
+                
+                Spacer()
+                
             }
             .opacity(contentOpacity)
             .onAppear {
