@@ -19,7 +19,7 @@ struct WelcomeTextView: View {
     
     var body: some View {
         Text(displayedText)
-            .font(.subheadline)
+            .font(.callout)
             .foregroundStyle(.white)
             .multilineTextAlignment(.center)
             .onAppear {

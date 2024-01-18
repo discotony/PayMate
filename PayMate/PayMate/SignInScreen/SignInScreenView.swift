@@ -11,11 +11,17 @@ import PhoneNumberKit
 struct SignInScreenView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @GestureState private var dragOffset = CGSize.zero
-    @State private var rotationDegrees = 0.0        // NEED TO UPDATE
-    @State private var rotationDegrees2 = 360.0     // NEED TO UPDATE
+    @GestureState private var dragOffset: CGSize = CGSize.zero
+    @State private var rotationDegrees: Double = 0.0        // NEED TO UPDATE
+    @State private var rotationDegrees2: Double = 360.0     // NEED TO UPDATE
     @State private var swingAngle: Double = 5
     @State private var scale: CGFloat = 1.0
+    
+    private let instructions: [String] = ["We will send you one-time password (OTP) to your mobile number",
+                                          "Please enter your U.S. phone nuber below"
+    ]
+    @State private var instructionIndex: Int = 0
+    @State private var timer: Timer?
     
     let phoneNumberKit = PhoneNumberKit()
     @State private var phoneNumber = String()
@@ -24,17 +30,7 @@ struct SignInScreenView: View {
     @State private var numberField: PhoneNumberTextFieldView?
     
     var body: some View {
-        
-        let dragGesture = DragGesture()
-            .updating($dragOffset, body: { (value, state, _) in
-                state = value.translation
-            })
-            .onEnded {
-                if $0.startLocation.x < 20 && $0.translation.width > 100 {
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            }
-        
+
         return VStack {
             
             VStack {
@@ -77,13 +73,24 @@ struct SignInScreenView: View {
                     .font(.title.bold())
                     .foregroundStyle(.white)
                 
-                Spacer().frame(height: 8)
+                Spacer().frame(height: 16)
                 
-                Text("We will send you one-time password (OTP) to your mobile number")
+                Text(instructions[instructionIndex])
                     .multilineTextAlignment(.center)
                     .font(.callout)
                     .foregroundStyle(.white)
                     .padding(.horizontal, 48)
+                    .onAppear() {
+                        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+                            withAnimation {
+                                instructionIndex = (instructionIndex + 1) % instructions.count
+                            }
+                        }
+                    }
+                    .onDisappear() {
+                        timer?.invalidate()
+                        timer = nil
+                    }
                 
                 Spacer()
                 
@@ -95,13 +102,13 @@ struct SignInScreenView: View {
                                minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
                                maxHeight: 100,
                                alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .keyboardType(.phonePad)
+                        .keyboardType(.phonePad)
                     Spacer()
                 }
                 .padding(.horizontal)
                 .offset(x: 70)
-//                    .multilineTextAlignment(.center)
-//                .border(.red)
+                //                    .multilineTextAlignment(.center)
+                //                .border(.red)
                 
                 Spacer()
                 
@@ -117,7 +124,7 @@ struct SignInScreenView: View {
                         self.validationError = true
                         self.errorMessage = Text("Error: Please enter a valid phone number.")
                     }
-
+                    
                 }) {
                     Text("Get OTP")
                         .foregroundStyle(Color(.customBackground))
@@ -153,7 +160,6 @@ struct SignInScreenView: View {
         .alert(isPresented: self.$validationError) {
             Alert(title: Text(""), message: self.errorMessage, dismissButton: .default(Text("OK")))
         }
-        .gesture(dragGesture)
     }
 }
 
