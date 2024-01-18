@@ -7,18 +7,19 @@
 
 import SwiftUI
 
-struct LaunchScreenAnimationView: View {
-    @State private var rotations = [-24.0, -12.0, 0.0]
-    @State private var isAnimating = false
-    @State private var currentLoop = 0
+struct LaunchScreenView: View {
+    
+    @State private var rotations: [Double] = [-24.0, -12.0, 0.0]
+    @State private var isAnimating: Bool = false
+    @State private var currentLoop: Int = 0
     @State private var scale: CGFloat = 1
     @State private var opacity: Double = 1
     @State private var textLogoOpacity: Double = 1
     
-    let animationDuration = 1.0
-    let delayDuration = 0.5
-    let pauseDuration = 0.5
-    let loopCount = 3
+    let animationDuration: Double = 0.8
+    let delayDuration: Double = 0.5
+    let pauseDuration: Double = 0.1
+    let loopCount: Int = 2
     
     var onCompletion: (() -> Void)?
     
@@ -26,14 +27,14 @@ struct LaunchScreenAnimationView: View {
         ZStack {
             ZStack {
                 Color(.customBackground).ignoresSafeArea()
-                ForEach(0..<3, id: \.self) { index in
+                ForEach(0...2, id: \.self) { index in
                     createCardView(for: index)
                 }
             }
             .onAppear {
                 startAnimationCycle()
             }
-
+            
             VStack {
                 Spacer()
                 Image(.textLogo)
@@ -46,9 +47,7 @@ struct LaunchScreenAnimationView: View {
     
     private func createCardView(for index: Int) -> some View {
         Image(getCardImageName(for: index))
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 78)
+            .customFixedResize(width: 78)
             .offset(x: 5, y: 12)
             .rotationEffect(Angle.degrees(rotations[index]), anchor: .bottomLeading)
             .scaleEffect(scale)
@@ -58,26 +57,26 @@ struct LaunchScreenAnimationView: View {
     
     private func getCardImageName(for index: Int) -> String {
         switch index {
-        case 0: return "card3"
-        case 1: return "card2"
-        case 2: return "card1"
+        case 0: return "card0"
+        case 1: return "card1"
+        case 2: return "card2"
         default: return ""
         }
     }
     
     private func startAnimationCycle() {
         guard currentLoop < loopCount else {
-            // Start fading out the text logo earlier
+            // Start fading out the text logo earlier than the card images
             withAnimation(.easeInOut(duration: animationDuration * 0.5)) {
                 textLogoOpacity = 0
             }
-
+            
             // Start scaling and fading out other images
             withAnimation(.easeInOut(duration: animationDuration)) {
                 scale = UIScreen.main.bounds.size.height / 4
                 opacity = 0
             }
-
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
                 onCompletion?()
             }
@@ -105,5 +104,5 @@ struct LaunchScreenAnimationView: View {
 }
 
 #Preview {
-    LaunchScreenAnimationView()
+    LaunchScreenView()
 }
