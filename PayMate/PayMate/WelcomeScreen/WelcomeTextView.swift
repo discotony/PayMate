@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct WelcomeTextView: View {
-    let textArray = ["Welcome to the Future of Payments!",
-                     "Unlock a World of Convenience with PayMate",
-                     "Your Money, Your Way, Your PayMate",
-                     "Experience Easy, Fast, and Secure Transactions",
-                     "Money Made Mobile – Welcome to PayMate"]
-
-    // Create a @State variable to store the currently displayed text.
-    @State private var displayedText = ""
-
+    
+    let textArray: [String] = ["Welcome to the Future of Payments!",
+                               "Unlock a World of Convenience with PayMate",
+                               "Your Money, Your Way, Your PayMate",
+                               "Experience Easy, Fast, and Secure Transactions",
+                               "Money Made Mobile – Welcome to PayMate"]
+    
+    @State private var displayedText: String = ""
+    
     var body: some View {
         Text(displayedText)
             .font(.subheadline)
