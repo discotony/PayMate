@@ -15,17 +15,20 @@ struct WelcomeTextLabel: View {
                                "Money Made Mobile – Welcome to PayMate"]
     
     @State private var displayedText: String = ""
+    @State private var currentIndex: Int = 0
     
     var body: some View {
         Text(displayedText)
             .font(.callout)
             .foregroundStyle(.white)
             .multilineTextAlignment(.center)
+            .transition(.move(edge: .bottom))
             .onAppear {
-                self.displayedText = self.textArray.randomElement() ?? ""
+                self.displayedText = self.textArray[currentIndex]
                 
-                Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { _ in
+                Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
                     withAnimation {
+                        self.currentIndex = (self.currentIndex + 1) % self.textArray.count
                         self.displayedText = self.textArray.randomElement() ?? ""
                     }
                 }
