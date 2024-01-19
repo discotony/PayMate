@@ -88,7 +88,8 @@ struct SignInScreenView: View {
                          isInputValid: $isInputValid,
                          errorMessage: $errorMessage,
                          isNumValid: $isNumValid,
-                         formattedNumber: $formattedNumber)
+                         formattedNumber: $formattedNumber,
+                         isTextFieldFocused: $isTextFieldFocused)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)

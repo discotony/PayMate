@@ -16,6 +16,8 @@ struct getOtpButton: View {
     @Binding var formattedNumber: String
     @State private var showAlert: Bool = false
     
+    @FocusState.Binding var isTextFieldFocused: Bool
+    
     let phoneNumberKit = PhoneNumberKit()
     
     var body: some View {
@@ -27,6 +29,7 @@ struct getOtpButton: View {
                 isNumValid = true
                 formattedNumber = formatToE164(phoneNumber: validatedPhoneNumber)
                 showAlert = true  // Show alert on success
+                isTextFieldFocused = false
                 // Additional actions for HW 2
             }
             catch {
