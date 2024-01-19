@@ -8,29 +8,6 @@
 import SwiftUI
 import PhoneNumberKit
 
-enum ErrorType: Error {
-    case invalidNum
-    case numTooShortOrLong
-    case startsWithOne
-    case null
-    case customError(message: String)
-    
-    var localizedDescription: String {
-        switch self {
-        case .numTooShortOrLong:
-            return "Your number must be 10-digit long"
-        case .invalidNum:
-            return "Please enter a valid U.S. phone number"
-        case .startsWithOne:
-            return "Your number must not start with \"1\""
-        case .null:
-            return ""
-        case .customError(let message):
-            return message
-        }
-    }
-}
-
 struct NumberTextField: View {
     @Binding var inputText: String
     @Binding var isInputValid: Bool
@@ -75,6 +52,7 @@ struct NumberTextField: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
+    // Validate input after user clicks a button
     private func validateInput(of input: String) -> Bool {
         let charactersToRemove: Set<Character> = ["+", "(", ")", "-", " "]
         let filteredString = input.filter { !charactersToRemove.contains($0) }

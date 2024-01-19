@@ -18,6 +18,7 @@ struct SignInAnimationImage: View {
     
     var body: some View {
         ZStack {
+            // Check device screen dimension and focus state to display/hide sign in animation image for smaller devices
             if !isTextFieldFocused || !isSmallDevice {
                 Image(.otpOuterCircle)
                     .customScaleResize(widthScale: 0.4)

@@ -26,10 +26,10 @@ struct getOtpButton: View {
             do {
                 let validatedPhoneNumber = try self.phoneNumberKit.parse(self.inputText)
                 print("Validated Number: \(validatedPhoneNumber)")
+                isTextFieldFocused = false
                 isNumValid = true
                 formattedNumber = formatToE164(phoneNumber: validatedPhoneNumber)
                 showAlert = true  // Show alert on success
-                isTextFieldFocused = false
                 // Additional actions for HW 2
             }
             catch {
@@ -53,6 +53,7 @@ struct getOtpButton: View {
         }
     }
     
+    // Format number to E164 format
     private func formatToE164(phoneNumber: PhoneNumber, defaultRegion: String = "US") -> String {
         return phoneNumberKit.format(phoneNumber, toType: .e164)
     }
