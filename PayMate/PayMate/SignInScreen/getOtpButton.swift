@@ -20,6 +20,7 @@ struct getOtpButton: View {
     
     var body: some View {
         Button(action: {
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             do {
                 let validatedPhoneNumber = try self.phoneNumberKit.parse(self.inputText)
                 print("Validated Number: \(validatedPhoneNumber)")

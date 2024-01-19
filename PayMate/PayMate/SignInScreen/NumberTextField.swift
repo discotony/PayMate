@@ -60,9 +60,11 @@ struct NumberTextField: View {
                 .opacity(isInputValid ? 0 : 1)
             Spacer()
             
-            Text(isNumValid ? inputText : errorMessage.localizedDescription)
-                .foregroundStyle(.white.opacity(0.8))
-                .font(.subheadline)
+            if !inputText.isEmpty {
+                Text(isNumValid ? inputText : errorMessage.localizedDescription)
+                    .foregroundStyle(isNumValid ? .white : .yellow)
+                    .font(.subheadline)
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)

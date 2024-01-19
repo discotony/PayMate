@@ -100,6 +100,7 @@ struct SignInScreenView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }) {
                     Image(systemName: "arrow.left.circle.fill")
                         .font(.title)

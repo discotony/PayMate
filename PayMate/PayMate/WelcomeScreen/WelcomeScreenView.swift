@@ -34,6 +34,9 @@ struct WelcomeScreenView: View {
                         .background(Color.white)
                         .cornerRadius(25)
                 }
+                .simultaneousGesture(TapGesture().onEnded {
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                })
                 Spacer()
             }
             .opacity(contentOpacity)
