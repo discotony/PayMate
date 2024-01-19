@@ -12,6 +12,8 @@ struct getOtpButton: View {
     @Binding var inputText: String
     @Binding var isInputValid: Bool
     @Binding var errorMessage: ErrorType
+    @Binding var isNumValid: Bool
+    @Binding var formattedNumber: String
     
     let phoneNumberKit = PhoneNumberKit()
     
@@ -20,13 +22,14 @@ struct getOtpButton: View {
             do {
                 let validatedPhoneNumber = try self.phoneNumberKit.parse(self.inputText)
                 print("Validated Number: \(validatedPhoneNumber)")
-                isInputValid = true
-                // To Do
+                isNumValid = true
+                formattedNumber = formatToE164(phoneNumber: validatedPhoneNumber)
+                // To Do for HW 2
                 
             }
             catch {
-                isInputValid = false
-                errorMessage = ErrorType.inValidNum
+                isNumValid = false
+                errorMessage = ErrorType.invalidNum
             }
         }) {
             Text("Get OTP")
@@ -38,6 +41,13 @@ struct getOtpButton: View {
                 .cornerRadius(25)
         }
         .disabled(!isInputValid)
+        .alert(isPresented: self.$isNumValid) {
+            Alert(title: Text(""), message: Text("OTP sent to \(self.inputText) \n E.164 Format: \(formattedNumber)"), dismissButton: .default(Text("OK")))
+        }
+    }
+    
+    private func formatToE164(phoneNumber: PhoneNumber, defaultRegion: String = "US") -> String {
+        return phoneNumberKit.format(phoneNumber, toType: .e164)
     }
 }
 

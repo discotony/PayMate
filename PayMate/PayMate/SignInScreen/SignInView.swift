@@ -10,10 +10,12 @@ import PhoneNumberKit
 
 struct SignInView: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @State private var inputText: String = ""
     @State private var isInputValid: Bool = false
     @State private var errorMessage: ErrorType = ErrorType.numTooShortOrLong
-    @Environment(\.presentationMode) var presentationMode
+    @State private var isNumValid: Bool = false
+    @State private var formattedNumber: String = ""
     
     private let instructions: [String] = ["We will send you one-time password (OTP) to your mobile number",
                                           "Please enter your U.S. phone number below"
@@ -65,7 +67,6 @@ struct SignInView: View {
                 .font(.callout)
                 .foregroundStyle(.white)
                 .padding(.horizontal, 32)
-                .border(.red)
                 .onAppear() {
                     timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
                         withAnimation {
@@ -80,12 +81,12 @@ struct SignInView: View {
             
             Spacer().frame(height: 24)
 
-            NumberTextField(inputText: $inputText, isInputValid: $isInputValid, errorMessage: $errorMessage)
+            NumberTextField(inputText: $inputText, isInputValid: $isInputValid, errorMessage: $errorMessage, isNumValid: $isNumValid, formattedNumber: $formattedNumber)
                 .fixedSize()
             
             Spacer().frame(height: 24)
             
-            getOtpButton(inputText: $inputText, isInputValid: $isInputValid, errorMessage: $errorMessage)
+            getOtpButton(inputText: $inputText, isInputValid: $isInputValid, errorMessage: $errorMessage, isNumValid: $isNumValid, formattedNumber: $formattedNumber)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -113,17 +114,6 @@ struct SignInView: View {
 //        }
     }
     
-    func formatToE164(phoneNumber: String, defaultRegion: String = "US") -> String? {
-        let phoneNumberKit = PhoneNumberKit()
-        do {
-            let parsedNumber = try phoneNumberKit.parse(phoneNumber, withRegion: defaultRegion, ignoreType: true)
-            return phoneNumberKit.format(parsedNumber, toType: .e164)
-        } catch {
-            print("Invalid phone number")
-            return nil
-        }
-    }
-    
     private func validateInput(of input: String) -> Bool {
         let charactersToRemove: Set<Character> = ["+", "(", ")", "-", " "]
         let filteredString = input.filter { !charactersToRemove.contains($0) }
@@ -148,6 +138,6 @@ struct NavigationLogo: View {
     }
 }
 
-#Preview {
-    SignInView()
-}
+//#Preview {
+//    SignInView()
+//}

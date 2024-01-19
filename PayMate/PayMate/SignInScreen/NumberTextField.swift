@@ -9,7 +9,7 @@ import SwiftUI
 import PhoneNumberKit
 
 enum ErrorType: Error {
-    case inValidNum
+    case invalidNum
     case numTooShortOrLong
     case startsWithOne
     case customError(message: String)
@@ -17,8 +17,8 @@ enum ErrorType: Error {
     var localizedDescription: String {
         switch self {
         case .numTooShortOrLong:
-            return "Your number must be 10-digit long."
-        case .inValidNum:
+            return "Your number must be 10-digit long"
+        case .invalidNum:
             return "Please enter a valid U.S. phone number"
         case .startsWithOne:
             return "Your number must not start with \"1\""
@@ -33,30 +33,42 @@ struct NumberTextField: View {
     @Binding var inputText: String
     @Binding var isInputValid: Bool
     @Binding var errorMessage: ErrorType
+    @Binding var isNumValid: Bool
+    @Binding var formattedNumber: String
     
     var body: some View {
         VStack {
-            HStack {
+            HStack(alignment: .center) {
                 Text("+1").foregroundStyle(.white)
-                TextField("Enter Somethiing", text: $inputText)
+                TextField("", text: $inputText, prompt: Text("(707) 234-0420").foregroundColor(.gray.opacity(0.5)))
                     .keyboardType(.numberPad)
-                    .textFieldStyle(.roundedBorder)
-                    .padding()
+                    .background(.clear)
+                    .foregroundStyle(.white)
+                    .font(.title3)
+                    .frame(width: 150)
                     .onChange(of: inputText) {
                         isInputValid = validateInput(of: inputText)
                         inputText = PartialFormatter().formatPartial(inputText)
+                        isNumValid = false
                     }
             }
             
-            Text(isInputValid ? "" : errorMessage.localizedDescription)
+            Spacer().frame(height: 8)
+            
+            Divider()
+                .overlay(.white)
+//                .overlay(isInputValid ? .clear : .white)
+//                .opacity(isInputValid ? 0 : 1)
+            
+            
+            Spacer()
+            
+            Text(isNumValid ? inputText : errorMessage.localizedDescription)
                 .foregroundStyle(.white.opacity(0.8))
                 .font(.subheadline)
-            
-//            Spacer(minLength: 24)            
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.customBackground)
         .animation(.easeInOut, value: isInputValid)
     }
     
