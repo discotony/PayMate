@@ -29,7 +29,6 @@ enum ErrorType: Error {
 }
 
 struct NumberTextField: View {
-    
     @Binding var inputText: String
     @Binding var isInputValid: Bool
     @Binding var errorMessage: ErrorType
@@ -40,7 +39,7 @@ struct NumberTextField: View {
         VStack {
             HStack(alignment: .center) {
                 Text("+1").foregroundStyle(.white)
-                TextField("", text: $inputText, prompt: Text("(707) 234-0420").foregroundColor(.gray.opacity(0.5)))
+                TextField("", text: $inputText, prompt: Text("(000) 000-0000").foregroundColor(.gray.opacity(0.5)))
                     .keyboardType(.numberPad)
                     .background(.clear)
                     .foregroundStyle(.white)
@@ -57,8 +56,8 @@ struct NumberTextField: View {
             
             Divider()
                 .overlay(.white)
-//                .overlay(isInputValid ? .clear : .white)
-//                .opacity(isInputValid ? 0 : 1)
+                .overlay(isInputValid ? .clear : .white)
+                .opacity(isInputValid ? 0 : 1)
             Spacer()
             
             Text(isNumValid ? inputText : errorMessage.localizedDescription)
@@ -68,9 +67,6 @@ struct NumberTextField: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .animation(.easeInOut, value: isInputValid)
-//        .onTapGesture {
-//             = false
-//        }
     }
     
     private func validateInput(of input: String) -> Bool {
@@ -87,7 +83,3 @@ struct NumberTextField: View {
         return true
     }
 }
-
-//#Preview {
-//    NumberTextField()
-//}

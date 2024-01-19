@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LaunchScreenView: View {
-    
     @State private var rotations: [Double] = [-24.0, -12.0, 0.0]
     @State private var isAnimating: Bool = false
     @State private var currentLoop: Int = 0
@@ -19,7 +18,7 @@ struct LaunchScreenView: View {
     let animationDuration: Double = 0.8
     let delayDuration: Double = 0.5
     let pauseDuration: Double = 0.1
-    let loopCount: Int = 0
+    let loopCount: Int = 2
     
     var onCompletion: (() -> Void)?
     
@@ -49,7 +48,8 @@ struct LaunchScreenView: View {
         Image(getCardImageName(for: index))
             .customFixedResize(width: 78)
             .offset(x: 5, y: 12)
-            .rotationEffect(Angle.degrees(rotations[index]), anchor: .bottomLeading)
+            .rotationEffect(Angle.degrees(rotations[index]),
+                            anchor: .bottomLeading)
             .scaleEffect(scale)
             .opacity(opacity)
             .animation(isAnimating ? Animation.linear(duration: animationDuration).delay(delayDuration * Double(index) * 0.25) : .default, value: rotations[index])

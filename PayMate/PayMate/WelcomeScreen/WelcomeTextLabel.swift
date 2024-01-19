@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct WelcomeTextView: View {
-    
+struct WelcomeTextLabel: View {
     let textArray: [String] = ["Welcome to the Future of Payments!",
                                "Unlock a World of Convenience with PayMate",
                                "Your Money, Your Way, Your PayMate",
@@ -25,7 +24,7 @@ struct WelcomeTextView: View {
             .onAppear {
                 self.displayedText = self.textArray.randomElement() ?? ""
                 
-                Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+                Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { _ in
                     withAnimation {
                         self.displayedText = self.textArray.randomElement() ?? ""
                     }
@@ -35,5 +34,5 @@ struct WelcomeTextView: View {
 }
 
 #Preview {
-    WelcomeTextView()
+    WelcomeTextLabel()
 }

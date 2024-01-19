@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @State private var showLaunchAnimation = true
     
     var body: some View {
@@ -18,7 +17,7 @@ struct ContentView: View {
                     showLaunchAnimation = false
                 }
             } else {
-                    WelcomeScreenView()
+                WelcomeScreenView()
             }
         }
     }
