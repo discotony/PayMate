@@ -23,6 +23,8 @@ struct SignInView: View {
     @State private var instructionIndex: Int = 0
     @State private var timer: Timer?
     
+    @FocusState private var isTextFieldFocused: Bool
+    
     enum errorType: Error {
         case inValidNum
         case numTooShortOrLong
@@ -48,9 +50,6 @@ struct SignInView: View {
     var body: some View {
         
         VStack {
-            
-//            Spacer().frame(height: 16)
-            
             SignInImageView()
             
             Spacer().frame(height: 36)
@@ -81,8 +80,13 @@ struct SignInView: View {
             
             Spacer().frame(height: 24)
 
-            NumberTextField(inputText: $inputText, isInputValid: $isInputValid, errorMessage: $errorMessage, isNumValid: $isNumValid, formattedNumber: $formattedNumber)
+            NumberTextField(inputText: $inputText,
+                            isInputValid: $isInputValid,
+                            errorMessage: $errorMessage,
+                            isNumValid: $isNumValid,
+                            formattedNumber: $formattedNumber)
                 .fixedSize()
+                .focused($isTextFieldFocused)
             
             Spacer().frame(height: 24)
             
@@ -92,6 +96,9 @@ struct SignInView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.customBackground)
         .navigationBarBackButtonHidden(true)
+        .onTapGesture {
+            isTextFieldFocused = false
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
@@ -106,12 +113,6 @@ struct SignInView: View {
                 NavigationLogo()
             }
         }
-//        .onAppear() {
-//            self.numberField = PhoneNumberTextFieldView(phoneNumber: self.$phoneNumber)
-//        }
-//        .alert(isPresented: self.$validationError) {
-//            Alert(title: Text(""), message: self.errorMessage, dismissButton: .default(Text("OK")))
-//        }
     }
     
     private func validateInput(of input: String) -> Bool {

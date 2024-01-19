@@ -14,6 +14,7 @@ struct getOtpButton: View {
     @Binding var errorMessage: ErrorType
     @Binding var isNumValid: Bool
     @Binding var formattedNumber: String
+    @State private var showAlert: Bool = false
     
     let phoneNumberKit = PhoneNumberKit()
     
@@ -24,8 +25,8 @@ struct getOtpButton: View {
                 print("Validated Number: \(validatedPhoneNumber)")
                 isNumValid = true
                 formattedNumber = formatToE164(phoneNumber: validatedPhoneNumber)
-                // To Do for HW 2
-                
+                showAlert = true  // Show alert on success
+                // Additional actions for HW 2
             }
             catch {
                 isNumValid = false
@@ -41,7 +42,7 @@ struct getOtpButton: View {
                 .cornerRadius(25)
         }
         .disabled(!isInputValid)
-        .alert(isPresented: self.$isNumValid) {
+        .alert(isPresented: $showAlert) {
             Alert(title: Text(""), message: Text("OTP sent to \(self.inputText) \n E.164 Format: \(formattedNumber)"), dismissButton: .default(Text("OK")))
         }
     }
