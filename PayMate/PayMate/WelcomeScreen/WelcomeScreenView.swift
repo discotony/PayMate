@@ -30,7 +30,7 @@ struct WelcomeScreenView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: SignInScreenView()) {
+                NavigationLink(destination: SignInView()) {
                     Text("Sign In")
                         .foregroundStyle(Color(.customBackground))
                         .font(.title3.bold())
