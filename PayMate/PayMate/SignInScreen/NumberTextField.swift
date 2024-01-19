@@ -59,8 +59,6 @@ struct NumberTextField: View {
                 .overlay(.white)
 //                .overlay(isInputValid ? .clear : .white)
 //                .opacity(isInputValid ? 0 : 1)
-            
-            
             Spacer()
             
             Text(isNumValid ? inputText : errorMessage.localizedDescription)
@@ -70,6 +68,9 @@ struct NumberTextField: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .animation(.easeInOut, value: isInputValid)
+//        .onTapGesture {
+//             = false
+//        }
     }
     
     private func validateInput(of input: String) -> Bool {
