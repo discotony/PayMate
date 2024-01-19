@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct SignInImageView: View {
-    
-    @State private var rotationDegrees: Double = 0.0        // NEED TO UPDATE
-    @State private var rotationDegrees2: Double = 360.0     // NEED TO UPDATE
+struct SignInAnimationImage: View {
+    @State private var outerRotationDegrees: Double = 0.0
+    @State private var InnerRotationDegrees: Double = 360.0
     @State private var swingAngle: Double = 5
     @State private var scale: CGFloat = 1.0
     
@@ -18,18 +17,18 @@ struct SignInImageView: View {
         ZStack {
             Image(.otpOuterCircle)
                 .customScaleResize(widthScale: 0.4)
-                .rotationEffect(.degrees(rotationDegrees))
+                .rotationEffect(.degrees(outerRotationDegrees))
                 .onAppear() {
                     withAnimation(Animation.linear(duration: 60).repeatForever(autoreverses: false)) {
-                        rotationDegrees = 360
+                        outerRotationDegrees = 360
                     }
                 }
             Image(.otpInnerCircle)
                 .customScaleResize(widthScale: 0.4)
-                .rotationEffect(.degrees(rotationDegrees2))
+                .rotationEffect(.degrees(InnerRotationDegrees))
                 .onAppear() {
                     withAnimation(Animation.linear(duration: 60).repeatForever(autoreverses: false)) {
-                        rotationDegrees2 = 0
+                        InnerRotationDegrees = 0
                     }
                 }
             Image(.otpHand)
@@ -47,5 +46,5 @@ struct SignInImageView: View {
 }
 
 #Preview {
-    SignInImageView()
+    SignInAnimationImage()
 }

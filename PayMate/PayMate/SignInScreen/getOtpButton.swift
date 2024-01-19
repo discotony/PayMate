@@ -43,7 +43,9 @@ struct getOtpButton: View {
         }
         .disabled(!isInputValid)
         .alert(isPresented: $showAlert) {
-            Alert(title: Text(""), message: Text("OTP sent to \(self.inputText) \n E.164 Format: \(formattedNumber)"), dismissButton: .default(Text("OK")))
+            Alert(title: Text(""), 
+                  message: Text("OTP sent to \(self.inputText) \n E.164 Format: \(formattedNumber)"),
+                  dismissButton: .default(Text("OK")))
         }
     }
     
@@ -51,7 +53,3 @@ struct getOtpButton: View {
         return phoneNumberKit.format(phoneNumber, toType: .e164)
     }
 }
-
-//#Preview {
-//    getButton()
-//}

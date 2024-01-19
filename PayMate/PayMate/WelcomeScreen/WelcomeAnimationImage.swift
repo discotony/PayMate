@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct WelcomeImageView: View {
-    
+struct WelcomeAnimationImage: View {
     @State private var personRotationDegrees: Double = 0.0
     @State private var arrowRotationDegrees: Double = 4.0
     @State private var arrowScale: Double = 1.0
@@ -16,7 +15,6 @@ struct WelcomeImageView: View {
     @State private var isMovingRight: Bool = true
     
     var body: some View {
-        
         GeometryReader { geometry in
             ZStack {
                 Image(.welcomeBackground)
@@ -26,7 +24,8 @@ struct WelcomeImageView: View {
                     .customScaleResize(widthScale: 0.8)
                     .rotationEffect(.degrees(personRotationDegrees))
                     .onAppear {
-                        withAnimation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
+                        withAnimation(Animation.easeInOut(duration: 1)
+                            .repeatForever(autoreverses: true)) {
                             personRotationDegrees = 3.0
                         }
                     }
@@ -34,8 +33,8 @@ struct WelcomeImageView: View {
                 Image(.welcomeCoin)
                     .customScaleResize(widthScale: 0.08)
                     .rotationEffect(.degrees(coinRotationDegrees))
-                    .offset(x: isMovingRight ? geometry.size.width * -0.08: geometry.size.width * -0.335, y: geometry.size.height * 0.355)
-                    // Dynamically set offset values based on screen sizes
+                    .offset(x: isMovingRight ? geometry.size.width * -0.08: geometry.size.width * -0.335,
+                            y: geometry.size.height * 0.355) // Dynamically set offset values based on screen sizes
                 
                     .animation(Animation.easeInOut(duration: 8).repeatForever(autoreverses: true), value: isMovingRight)
                     .onAppear {
@@ -55,10 +54,11 @@ struct WelcomeImageView: View {
                     }
             }
         }
-        .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.width * 0.8 / 3 * 2)
+        .frame(width: UIScreen.main.bounds.width * 0.8,
+               height: UIScreen.main.bounds.width * 0.8 / 3 * 2)
     }
 }
 
 #Preview {
-    WelcomeImageView()
+    WelcomeAnimationImage()
 }

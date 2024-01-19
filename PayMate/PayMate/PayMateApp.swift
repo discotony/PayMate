@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct PayMateApp: App {
-    
     var body: some Scene {
         WindowGroup {
             ContentView()
