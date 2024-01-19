@@ -1,8 +1,8 @@
 //
-//  SignInView.swift
+//  LogInScreenView.swift
 //  PayMate
 //
-//  Created by Antony Bluemel on 1/18/24.
+//  Created by Antony Bluemel on 1/16/24.
 //
 
 import SwiftUI
@@ -10,74 +10,107 @@ import PhoneNumberKit
 
 struct SignInView: View {
     
-    let phoneNumberKit = PhoneNumberKit()
-    @State private var phoneNumber = String()
-    @State private var validationError = false
-    @State private var errorMessage = Text("")
-    @State private var numberField: PhoneNumberTextFieldView?
+    @State private var inputText: String = ""
+    @State private var isInputValid: Bool = false
+    @State private var errorMessage: ErrorType = ErrorType.numTooShortOrLong
+    @Environment(\.presentationMode) var presentationMode
     
+    private let instructions: [String] = ["We will send you one-time password (OTP) to your mobile number",
+                                          "Please enter your U.S. phone number below"
+    ]
+    @State private var instructionIndex: Int = 0
+    @State private var timer: Timer?
+    
+    enum errorType: Error {
+        case inValidNum
+        case numTooShortOrLong
+        case startsWithOne
+        case customError(message: String)
+        
+        var localizedDescription: String {
+            switch self {
+            case .numTooShortOrLong:
+                return "Your number must be 10-digit long."
+            case .inValidNum:
+                return "Please enter a valid U.S. phone number"
+            case .startsWithOne:
+                return "Your number must not start with \"1\""
+            case .customError(let message):
+                return message
+            }
+        }
+    }
+    
+    let phoneNumberKit = PhoneNumberKit()
+
     var body: some View {
         
         VStack {
+            
+//            Spacer().frame(height: 16)
+            
+            SignInImageView()
+            
+            Spacer().frame(height: 36)
             
             Text("OTP Verification")
                 .multilineTextAlignment(.center)
                 .font(.title.bold())
                 .foregroundStyle(.white)
             
+            Spacer().frame(height: 16)
             
-            HStack {
-                Spacer()
-                self.numberField
-                    .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
-                           maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,
-                           minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/,
-                           maxHeight: 100,
-                           alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .keyboardType(.phonePad)
-                Spacer()
-            }
-            .padding(.horizontal)
-            .offset(x: 70)
+            Text(instructions[instructionIndex])
+                .multilineTextAlignment(.center)
+                .font(.callout)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 32)
+                .border(.red)
+                .onAppear() {
+                    timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
+                        withAnimation {
+                            instructionIndex = (instructionIndex + 1) % instructions.count
+                        }
+                    }
+                }
+                .onDisappear() {
+                    timer?.invalidate()
+                    timer = nil
+                }
             
-            NumberTextFieldView()
+            Spacer().frame(height: 24)
 
+            NumberTextField(inputText: $inputText, isInputValid: $isInputValid, errorMessage: $errorMessage)
+                .fixedSize()
             
-            Spacer()
+            Spacer().frame(height: 24)
             
-            Button(action: {
-                do {
-                    self.numberField?.getInputNumber()
-                    print("Input Number: \(self.phoneNumber)")
-                    let validatedPhoneNumber = try self.phoneNumberKit.parse(self.phoneNumber)
-                    print("Validated Number: \(validatedPhoneNumber)")
-                    // To Do
-                }
-                catch {
-                    self.validationError = true
-                    self.errorMessage = Text("Error: Please enter a valid phone number.")
-                }
-                
-            }) {
-                Text("Get OTP")
-                    .foregroundStyle(Color(.customBackground))
-                    .font(.title3.bold())
-                    .padding()
-                    .frame(width: 200, height: 50)
-                    .background(Color.white)
-                    .cornerRadius(25)
-            }
+            getOtpButton(inputText: $inputText, isInputValid: $isInputValid, errorMessage: $errorMessage)
         }
-        
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.customBackground)
-        .onAppear() {
-            self.numberField = PhoneNumberTextFieldView(phoneNumber: self.$phoneNumber)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "arrow.left.circle.fill")
+                        .font(.title)
+                        .foregroundStyle(.white)
+                }
+            }
+            ToolbarItem(placement: .principal) {
+                NavigationLogo()
+            }
         }
-        .alert(isPresented: self.$validationError) {
-            Alert(title: Text(""), message: self.errorMessage, dismissButton: .default(Text("OK")))
-        }
+//        .onAppear() {
+//            self.numberField = PhoneNumberTextFieldView(phoneNumber: self.$phoneNumber)
+//        }
+//        .alert(isPresented: self.$validationError) {
+//            Alert(title: Text(""), message: self.errorMessage, dismissButton: .default(Text("OK")))
+//        }
     }
     
     func formatToE164(phoneNumber: String, defaultRegion: String = "US") -> String? {
@@ -90,9 +123,31 @@ struct SignInView: View {
             return nil
         }
     }
+    
+    private func validateInput(of input: String) -> Bool {
+        let charactersToRemove: Set<Character> = ["+", "(", ")", "-", " "]
+        let filteredString = input.filter { !charactersToRemove.contains($0) }
+        
+        if filteredString.first == "1" {
+            errorMessage = ErrorType.startsWithOne
+            return false
+        } else if filteredString.count != 10 {
+            errorMessage = ErrorType.numTooShortOrLong
+            return false
+        }
+        return true
+    }
 
 }
 
+
+struct NavigationLogo: View {
+    var body: some View {
+        Image(.logoWithText)
+            .customFixedResize(height: 32)
+    }
+}
+
 #Preview {
-    SignInScreenView()
+    SignInView()
 }
