@@ -22,27 +22,7 @@ struct SignInScreenView: View {
     @State private var timer: Timer?
     
     @FocusState private var isTextFieldFocused: Bool
-    
-    enum errorType: Error {
-        case inValidNum
-        case numTooShortOrLong
-        case startsWithOne
-        case customError(message: String)
-        
-        var localizedDescription: String {
-            switch self {
-            case .numTooShortOrLong:
-                return "Your number must be 10-digit long."
-            case .inValidNum:
-                return "Please enter a valid U.S. phone number"
-            case .startsWithOne:
-                return "Your number must not start with \"1\""
-            case .customError(let message):
-                return message
-            }
-        }
-    }
-    
+
     let phoneNumberKit = PhoneNumberKit()
     
     var body: some View {
@@ -117,6 +97,7 @@ struct SignInScreenView: View {
         .animation(.easeInOut, value: isInputValid)
     }
     
+    // Validate text field input as user types
     private func validateInput(of input: String) -> Bool {
         let charactersToRemove: Set<Character> = ["+", "(", ")", "-", " "]
         let filteredString = input.filter { !charactersToRemove.contains($0) }
@@ -130,7 +111,6 @@ struct SignInScreenView: View {
         }
         return true
     }
-    
 }
 
 struct NavigationLogo: View {

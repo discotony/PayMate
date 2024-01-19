@@ -44,6 +44,7 @@ struct LaunchScreenView: View {
         }
     }
     
+    // Create custom card view
     private func createCardView(for index: Int) -> some View {
         Image(getCardImageName(for: index))
             .customFixedResize(width: 78)
@@ -55,6 +56,7 @@ struct LaunchScreenView: View {
             .animation(isAnimating ? Animation.linear(duration: animationDuration).delay(delayDuration * Double(index) * 0.25) : .default, value: rotations[index])
     }
     
+    // Get card images
     private func getCardImageName(for index: Int) -> String {
         switch index {
         case 0: return "card0"
@@ -64,6 +66,7 @@ struct LaunchScreenView: View {
         }
     }
     
+    // Start animaton cycle for each card
     private func startAnimationCycle() {
         guard currentLoop < loopCount else {
             // Start fading out the text logo earlier than the card images

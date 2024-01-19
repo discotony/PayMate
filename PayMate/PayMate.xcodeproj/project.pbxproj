@@ -14,6 +14,7 @@
 		04417F6B2B5A24A600EA12C6 /* getOtpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F6A2B5A24A600EA12C6 /* getOtpButton.swift */; };
 		04417F6D2B5A278D00EA12C6 /* SignInAnimationImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F6C2B5A278D00EA12C6 /* SignInAnimationImage.swift */; };
 		04417F732B5A47A900EA12C6 /* Image+PayMate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F722B5A47A900EA12C6 /* Image+PayMate.swift */; };
+		0462C3C72B5B226500816F7D /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462C3C62B5B226500816F7D /* ErrorType.swift */; };
 		0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF312B55E77500E848BE /* PayMateApp.swift */; };
 		0498DF342B55E77500E848BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF332B55E77500E848BE /* ContentView.swift */; };
 		0498DF362B55E77600E848BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0498DF352B55E77600E848BE /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		04417F6A2B5A24A600EA12C6 /* getOtpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getOtpButton.swift; sourceTree = "<group>"; };
 		04417F6C2B5A278D00EA12C6 /* SignInAnimationImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAnimationImage.swift; sourceTree = "<group>"; };
 		04417F722B5A47A900EA12C6 /* Image+PayMate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+PayMate.swift"; sourceTree = "<group>"; };
+		0462C3C62B5B226500816F7D /* ErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
 		0498DF2E2B55E77500E848BE /* PayMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PayMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0498DF312B55E77500E848BE /* PayMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMateApp.swift; sourceTree = "<group>"; };
 		0498DF332B55E77500E848BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				04417F6C2B5A278D00EA12C6 /* SignInAnimationImage.swift */,
 				04417F662B59E7FB00EA12C6 /* NumberTextField.swift */,
 				04417F6A2B5A24A600EA12C6 /* getOtpButton.swift */,
+				0462C3C62B5B226500816F7D /* ErrorType.swift */,
 			);
 			path = SignInScreen;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				0498DF4C2B573E1F00E848BE /* LaunchScreenView.swift in Sources */,
 				04417F6B2B5A24A600EA12C6 /* getOtpButton.swift in Sources */,
 				04417F352B5784A400EA12C6 /* SignInScreenView.swift in Sources */,
+				0462C3C72B5B226500816F7D /* ErrorType.swift in Sources */,
 				04417F732B5A47A900EA12C6 /* Image+PayMate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
