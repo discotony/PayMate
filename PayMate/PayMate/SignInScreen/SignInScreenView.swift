@@ -54,14 +54,14 @@ struct SignInScreenView: View {
                 .multilineTextAlignment(.center)
                 .font(.title.bold())
                 .foregroundStyle(.white)
-            Spacer().frame(height: 16)
+            Spacer().frame(height: isTextFieldFocused ? 0 : 16)
             
             Text(instructions[instructionIndex])
                 .multilineTextAlignment(.center)
                 .font(.callout)
                 .foregroundStyle(.white)
                 .padding(.horizontal, 32)
-                .frame(height: 80)
+                .frame(height: 60)
                 .onAppear() {
                     timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
                         withAnimation {
@@ -112,6 +112,8 @@ struct SignInScreenView: View {
                 NavigationLogo()
             }
         }
+        .animation(.easeInOut, value: !inputText.isEmpty)
+        .animation(.easeInOut, value: isInputValid)
     }
     
     private func validateInput(of input: String) -> Bool {
