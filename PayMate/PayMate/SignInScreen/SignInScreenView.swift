@@ -47,7 +47,7 @@ struct SignInScreenView: View {
     
     var body: some View {
         VStack {
-            SignInAnimationImage()
+            SignInAnimationImage(isTextFieldFocused: $isTextFieldFocused)
             Spacer().frame(height: 36)
             
             Text("OTP Verification")
@@ -61,6 +61,7 @@ struct SignInScreenView: View {
                 .font(.callout)
                 .foregroundStyle(.white)
                 .padding(.horizontal, 32)
+                .frame(height: 80)
                 .onAppear() {
                     timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { _ in
                         withAnimation {

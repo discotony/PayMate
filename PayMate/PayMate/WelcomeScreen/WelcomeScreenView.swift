@@ -20,6 +20,7 @@ struct WelcomeScreenView: View {
                 Spacer()
                 
                 WelcomeTextLabel()
+                    .frame(height: 60)
                 Spacer().frame(height: 48)
                 
                 WelcomeAnimationImage()
