@@ -12,6 +12,7 @@ enum ErrorType: Error {
     case invalidNum
     case numTooShortOrLong
     case startsWithOne
+    case null
     case customError(message: String)
     
     var localizedDescription: String {
@@ -22,6 +23,8 @@ enum ErrorType: Error {
             return "Please enter a valid U.S. phone number"
         case .startsWithOne:
             return "Your number must not start with \"1\""
+        case .null:
+            return ""
         case .customError(let message):
             return message
         }
@@ -58,16 +61,20 @@ struct NumberTextField: View {
                 .overlay(.white)
                 .overlay(isInputValid ? .clear : .white)
                 .opacity(isInputValid ? 0 : 1)
+                .transition(.move(edge: .bottom))
             Spacer()
             
             if !inputText.isEmpty {
                 Text(isNumValid ? inputText : errorMessage.localizedDescription)
                     .foregroundStyle(isNumValid ? .white : .yellow)
                     .font(.subheadline)
+                    .transition(.move(edge: .bottom))
             }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        
+        .animation(.easeInOut, value: !inputText.isEmpty)
         .animation(.easeInOut, value: isInputValid)
     }
     
@@ -82,6 +89,7 @@ struct NumberTextField: View {
             errorMessage = ErrorType.numTooShortOrLong
             return false
         }
+        errorMessage = ErrorType.null
         return true
     }
 }
