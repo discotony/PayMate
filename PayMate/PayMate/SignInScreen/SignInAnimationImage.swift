@@ -14,7 +14,7 @@ struct SignInAnimationImage: View {
     @State private var scale: CGFloat = 1.0
     
     @FocusState.Binding var isTextFieldFocused: Bool
-    private let isSmallDevice = UIScreen.main.bounds.width <= 375
+    private let isSmallDevice = UIScreen.main.bounds.height <= 736
     
     var body: some View {
         ZStack {
@@ -23,10 +23,6 @@ struct SignInAnimationImage: View {
                     .customScaleResize(widthScale: 0.4)
                     .rotationEffect(.degrees(outerRotationDegrees))
                     .onAppear() {
-                        print(isSmallDevice)
-                        print(UIScreen.main.bounds.width)
-                        print(isTextFieldFocused)
-                        print(isSmallDevice)
                         withAnimation(Animation.linear(duration: 60).repeatForever(autoreverses: false)) {
                             outerRotationDegrees = 360
                         }

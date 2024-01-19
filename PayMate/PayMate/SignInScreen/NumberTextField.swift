@@ -73,9 +73,6 @@ struct NumberTextField: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
-        .animation(.easeInOut, value: !inputText.isEmpty)
-        .animation(.easeInOut, value: isInputValid)
     }
     
     private func validateInput(of input: String) -> Bool {
