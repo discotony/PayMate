@@ -51,7 +51,7 @@ PayMate smartly handles various error types related to phone number input:
 
 <img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/StartsWithOne.gif" width="277" height="600"/>
 
-- **Error Type 3**: Validation using the PhoneNumberKit Swift framework for incorrect phone numbers.
+- **Error Type 3**: Validation using the [PhoneNumberKit](https://github.com/marmelroy/PhoneNumberKit) Swift framework for incorrect phone numbers.
 
 <img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/InvalidNumber.gif" width="277" height="600"/>
 
