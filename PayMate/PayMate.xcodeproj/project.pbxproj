@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04305BAD2B5F8F2100397256 /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04305BAC2B5F8F2100397256 /* VerificationView.swift */; };
 		04417F352B5784A400EA12C6 /* SignInScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F342B5784A400EA12C6 /* SignInScreenView.swift */; };
 		04417F372B5787A600EA12C6 /* WelcomeTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F362B5787A600EA12C6 /* WelcomeTextLabel.swift */; };
 		04417F5A2B59BFA100EA12C6 /* WelcomeAnimationImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F592B59BFA100EA12C6 /* WelcomeAnimationImage.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04305BAC2B5F8F2100397256 /* VerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationView.swift; sourceTree = "<group>"; };
 		04417F342B5784A400EA12C6 /* SignInScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreenView.swift; sourceTree = "<group>"; };
 		04417F362B5787A600EA12C6 /* WelcomeTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeTextLabel.swift; sourceTree = "<group>"; };
 		04417F592B59BFA100EA12C6 /* WelcomeAnimationImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeAnimationImage.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				04417F662B59E7FB00EA12C6 /* NumberTextField.swift */,
 				04417F6A2B5A24A600EA12C6 /* getOtpButton.swift */,
 				0462C3C62B5B226500816F7D /* ErrorType.swift */,
+				04305BAC2B5F8F2100397256 /* VerificationView.swift */,
 			);
 			path = SignInScreen;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0498DF342B55E77500E848BE /* ContentView.swift in Sources */,
+				04305BAD2B5F8F2100397256 /* VerificationView.swift in Sources */,
 				0498DF492B562CE700E848BE /* WelcomeScreenView.swift in Sources */,
 				0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */,
 				04417F5A2B59BFA100EA12C6 /* WelcomeAnimationImage.swift in Sources */,
