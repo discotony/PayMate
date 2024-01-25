@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WelcomeTextLabel: View {
+struct WelcomeText: View {
     let textArray: [String] = ["Welcome to the Future of Payments!",
                                "Unlock a World of Convenience with PayMate",
                                "Your Money, Your Way, Your PayMate",
@@ -37,5 +37,5 @@ struct WelcomeTextLabel: View {
 }
 
 #Preview {
-    WelcomeTextLabel()
+    WelcomeText()
 }

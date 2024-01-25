@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct WelcomeScreenView: View {
+struct WelcomeView: View {
     @State private var contentOpacity: Double = 0
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Spacer(minLength: 10)
                 
@@ -19,14 +19,14 @@ struct WelcomeScreenView: View {
                     .customScaleResize(widthScale: 0.5)
                 Spacer()
                 
-                WelcomeTextLabel()
+                WelcomeText()
                     .frame(height: 60)
                 Spacer().frame(height: 48)
                 
                 WelcomeAnimationImage()
                 Spacer()
                 
-                NavigationLink(destination: SignInScreenView()) {
+                NavigationLink(destination: SignInView()) {
                     Text("Sign In")
                         .foregroundStyle(Color(.customBackground))
                         .font(.title3.bold())
@@ -55,5 +55,5 @@ struct WelcomeScreenView: View {
 }
 
 #Preview {
-    WelcomeScreenView()
+    WelcomeView()
 }
