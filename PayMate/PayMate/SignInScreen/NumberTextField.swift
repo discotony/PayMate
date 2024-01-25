@@ -27,7 +27,7 @@ struct NumberTextField: View {
                     .frame(width: 150)
                     .onChange(of: inputText) {
                         isInputValid = validateInput(of: inputText)
-//                        inputText = PartialFormatter().formatPartial(inputText) // Revisit
+                        inputText = PartialFormatter().formatPartial(inputText)
 //                        isInputValid = false // Revisit
                     }
             }
