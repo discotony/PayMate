@@ -12,6 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         Group {
+            /*
             // Diplays LaunchScreenView first before presenting WelcomeScreenView
             if showLaunchAnimation {
                 LaunchScreenView {
@@ -19,7 +20,8 @@ struct ContentView: View {
                 }
             } else {
                 WelcomeScreenView()
-            }
+            }*/
+            OTPVerificationView()
         }
     }
 }
