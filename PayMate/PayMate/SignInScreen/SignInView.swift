@@ -96,7 +96,7 @@ struct SignInView: View {
         .animation(.easeInOut, value: inputText.isEmpty)
         .animation(.easeInOut, value: isInputValid)
         .navigationDestination(isPresented: $isNumValid) {
-            OTPVerificationView()
+            OTPVerificationView(formattedNumber: $formattedNumber)
         }
     }
     
