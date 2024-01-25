@@ -11,9 +11,9 @@ import PhoneNumberKit
 struct NumberTextField: View {
     @Binding var inputText: String
     @Binding var isInputValid: Bool
-    @Binding var errorMessage: ErrorType
+    @Binding var errorMessage: NumErrorType
     @Binding var isNumValid: Bool
-    @Binding var formattedNumber: String
+    @Binding var e164Number: String
     
     var body: some View {
         VStack {
@@ -60,13 +60,13 @@ struct NumberTextField: View {
         let filteredString = input.filter { !charactersToRemove.contains($0) }
         
         if filteredString.first == "1" {
-            errorMessage = ErrorType.startsWithOne
+            errorMessage = NumErrorType.startsWithOne
             return false
         } else if filteredString.count != 10 {
-            errorMessage = ErrorType.numTooShortOrLong
+            errorMessage = NumErrorType.numTooShortOrLong
             return false
         }
-        errorMessage = ErrorType.null
+        errorMessage = NumErrorType.null
         return true
     }
 }

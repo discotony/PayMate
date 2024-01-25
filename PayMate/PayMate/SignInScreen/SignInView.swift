@@ -12,9 +12,9 @@ struct SignInView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var inputText: String = ""
     @State private var isInputValid: Bool = false
-    @State private var errorMessage: ErrorType = ErrorType.numTooShortOrLong
+    @State private var errorMessage: NumErrorType = NumErrorType.numTooShortOrLong
     @State private var isNumValid: Bool = false
-    @State private var formattedNumber: String = ""
+    @State private var e164Number: String = ""
     
     private let instructions: [String] = ["We will send you one-time password (OTP) to your mobile number",
                                           "Please enter your U.S. phone number below"]
@@ -34,7 +34,8 @@ struct SignInView: View {
                 .multilineTextAlignment(.center)
                 .font(.title.bold())
                 .foregroundStyle(.white)
-            Spacer().frame(height: isTextFieldFocused ? 0 : 16)
+//            Spacer().frame(height: isTextFieldFocused ? 0 : 16) // Revisit
+            Spacer().frame(height: 8)
             
             Text(instructions[instructionIndex])
                 .multilineTextAlignment(.center)
@@ -59,7 +60,7 @@ struct SignInView: View {
                             isInputValid: $isInputValid,
                             errorMessage: $errorMessage,
                             isNumValid: $isNumValid,
-                            formattedNumber: $formattedNumber)
+                            e164Number: $e164Number)
             .fixedSize()
             .focused($isTextFieldFocused)
             Spacer().frame(height: 24)
@@ -68,7 +69,7 @@ struct SignInView: View {
                          isInputValid: $isInputValid,
                          errorMessage: $errorMessage,
                          isNumValid: $isNumValid,
-                         formattedNumber: $formattedNumber,
+                         e164Number: $e164Number,
                          isTextFieldFocused: $isTextFieldFocused)
         }
         .padding()
@@ -96,7 +97,7 @@ struct SignInView: View {
         .animation(.easeInOut, value: inputText.isEmpty)
         .animation(.easeInOut, value: isInputValid)
         .navigationDestination(isPresented: $isNumValid) {
-            OTPVerificationView(formattedNumber: $formattedNumber)
+            OTPVerificationView(e164Number: $e164Number, displayNumber: $inputText)
         }
     }
     
@@ -106,10 +107,10 @@ struct SignInView: View {
         let filteredString = input.filter { !charactersToRemove.contains($0) }
         
         if filteredString.first == "1" {
-            errorMessage = ErrorType.startsWithOne
+            errorMessage = NumErrorType.startsWithOne
             return false
         } else if filteredString.count != 10 { // Revisit
-            errorMessage = ErrorType.numTooShortOrLong
+            errorMessage = NumErrorType.numTooShortOrLong
             return false
         }
         return true

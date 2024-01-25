@@ -11,9 +11,9 @@ import PhoneNumberKit
 struct getOTPButton: View {
     @Binding var inputText: String
     @Binding var isInputValid: Bool
-    @Binding var errorMessage: ErrorType
+    @Binding var errorMessage: NumErrorType
     @Binding var isNumValid: Bool
-    @Binding var formattedNumber: String
+    @Binding var e164Number: String
     @State private var showAlert: Bool = false
     
     @FocusState.Binding var isTextFieldFocused: Bool
@@ -26,13 +26,14 @@ struct getOTPButton: View {
             do {
                 let validatedPhoneNumber = try self.phoneNumberKit.parse(self.inputText)
                 print("Validated Number: \(validatedPhoneNumber)")
+                
                 isTextFieldFocused = false
                 isNumValid = true
-                formattedNumber = formatToE164(phoneNumber: validatedPhoneNumber)
+                e164Number = formatToE164(phoneNumber: validatedPhoneNumber)
             }
             catch {
                 isNumValid = false
-                errorMessage = ErrorType.invalidNum
+                errorMessage = NumErrorType.invalidNum
                 showAlert = true
             }
         }) {
