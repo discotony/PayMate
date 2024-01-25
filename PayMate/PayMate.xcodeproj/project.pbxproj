@@ -24,6 +24,7 @@
 		0498DF412B55EA6C00E848BE /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0498DF402B55EA6C00E848BE /* PhoneNumberKit */; };
 		0498DF492B562CE700E848BE /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF482B562CE700E848BE /* WelcomeView.swift */; };
 		0498DF4C2B573E1F00E848BE /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF4B2B573E1F00E848BE /* LaunchScreenView.swift */; };
+		04CB9E1F2B630FE800A58BAB /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB9E1E2B630FE800A58BAB /* Api.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		0498DF422B56169200E848BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0498DF482B562CE700E848BE /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		0498DF4B2B573E1F00E848BE /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
+		04CB9E1E2B630FE800A58BAB /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				045888E12B622D1F0014FA21 /* OTPVerificationView.swift */,
+				04CB9E1E2B630FE800A58BAB /* Api.swift */,
 			);
 			path = OTPScreen;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				0498DF342B55E77500E848BE /* ContentView.swift in Sources */,
 				045888E62B630DB80014FA21 /* HomeView.swift in Sources */,
 				0498DF492B562CE700E848BE /* WelcomeView.swift in Sources */,
+				04CB9E1F2B630FE800A58BAB /* Api.swift in Sources */,
 				0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */,
 				04417F5A2B59BFA100EA12C6 /* WelcomeAnimationImage.swift in Sources */,
 				045888E22B622D1F0014FA21 /* OTPVerificationView.swift in Sources */,
