@@ -11,21 +11,25 @@ struct OTPVerificationView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var otpText: String = ""
     @FocusState private var isTextFieldFocused: Bool
-    @Binding  var formattedNumber: String
+    @Binding  var e164Number: String
+    @Binding var displayNumber: String
     @State private var isOTPValid: Bool = false
+    @State private var showAlert: Bool = false
     
     var body: some View {
         VStack {
             SignInAnimationImage(isTextFieldFocused: $isTextFieldFocused)
+                .fixedSize()
             Spacer().frame(height: 36)
             
             Text("OTP Verification")
                 .multilineTextAlignment(.center)
                 .font(.title.bold())
                 .foregroundStyle(.white)
-            Spacer().frame(height: isTextFieldFocused ? 0 : 16)
+            //            Spacer().frame(height: isTextFieldFocused ? 0 : 16) // Revisit
+            Spacer().frame(height: 8)
             
-            Text("Enter the OTP sent to \(formattedNumber)")
+            Text("Enter the OTP sent to \(displayNumber)")
                 .multilineTextAlignment(.center)
                 .font(.callout)
                 .foregroundStyle(.white)
@@ -48,16 +52,13 @@ struct OTPVerificationView: View {
                     .blendMode(.screen)
                     .focused($isTextFieldFocused)
             })
-            .onTapGesture {
-                isTextFieldFocused.toggle()
-            }
             Spacer().frame(height: 24)
             
             HStack(spacing: 8) {
                 Text("Didn't receive OTP?")
                     .font(.caption)
                     .foregroundStyle(.white).opacity(0.8)
-                                
+                
                 Button(action: {
                     print("RESEND OTP BUTTON PRESSED")
                 }, label: {
@@ -71,22 +72,35 @@ struct OTPVerificationView: View {
         .background(.customBackground)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                }) {
-                    Image(systemName: "arrow.left.circle.fill")
-                        .font(.title)
-                        .foregroundStyle(.white)
-                }
-            }
+            //            ToolbarItem(placement: .navigationBarLeading) {
+            //                Button(action: {
+            //                    presentationMode.wrappedValue.dismiss()
+            //                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+            //                }) {
+            //                    Image(systemName: "arrow.left.circle.fill")
+            //                        .font(.title)
+            //                        .foregroundStyle(.white)
+            //                }
+            //            }
             ToolbarItem(placement: .principal) {
                 NavigationLogo()
             }
         }
         .navigationDestination(isPresented: $isOTPValid) {
             HomeView()
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.isTextFieldFocused = true
+            }
+        }
+        .onTapGesture {
+            isTextFieldFocused.toggle()
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(""),
+                  message: Text("ERROR"),
+                  dismissButton: .default(Text("OK")))
         }
     }
     
@@ -126,5 +140,5 @@ extension Binding where Value == String {
 }
 
 #Preview {
-    OTPVerificationView(formattedNumber: .constant("(500) 454-5454"))
+    OTPVerificationView(e164Number: .constant("(500) 454-5454"), displayNumber: .constant("(500) 454-5454"))
 }

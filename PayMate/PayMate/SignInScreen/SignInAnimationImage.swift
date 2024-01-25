@@ -18,37 +18,44 @@ struct SignInAnimationImage: View {
     
     var body: some View {
         ZStack {
-            // Check device screen dimension and focus state to display/hide sign in animation image for smaller devices
-            if !isTextFieldFocused || !isSmallDevice {
-                Image(.otpOuterCircle)
-                    .customScaleResize(widthScale: 0.4)
-                    .rotationEffect(.degrees(outerRotationDegrees))
-                    .onAppear() {
-                        withAnimation(Animation.linear(duration: 60).repeatForever(autoreverses: false)) {
-                            outerRotationDegrees = 360
+            Rectangle()
+                .foregroundStyle(.clear)
+                .aspectRatio(1.0, contentMode: .fit)
+                .frame(width: CGFloat(UIScreen .main.bounds.size.width) * 0.45)
+            ZStack {
+                // Check device screen dimension and focus state to display/hide sign in animation image for smaller devices
+                if !isTextFieldFocused || !isSmallDevice {
+                    Image(.otpOuterCircle)
+                        .customScaleResize(widthScale: 0.4)
+                        .rotationEffect(.degrees(outerRotationDegrees))
+                        .onAppear() {
+                            withAnimation(Animation.linear(duration: 60).repeatForever(autoreverses: false)) {
+                                outerRotationDegrees = 360
+                            }
                         }
-                    }
-                Image(.otpInnerCircle)
-                    .customScaleResize(widthScale: 0.4)
-                    .rotationEffect(.degrees(InnerRotationDegrees))
-                    .onAppear() {
-                        withAnimation(Animation.linear(duration: 60).repeatForever(autoreverses: false)) {
-                            InnerRotationDegrees = 0
+                    Image(.otpInnerCircle)
+                        .customScaleResize(widthScale: 0.4)
+                        .rotationEffect(.degrees(InnerRotationDegrees))
+                        .onAppear() {
+                            withAnimation(Animation.linear(duration: 60).repeatForever(autoreverses: false)) {
+                                InnerRotationDegrees = 0
+                            }
                         }
-                    }
-                Image(.otpHand)
-                    .customScaleResize(widthScale: 0.4)
-                    .rotationEffect(.degrees(swingAngle))
-                    .scaleEffect(scale)
-                    .onAppear() {
-                        withAnimation(Animation.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
-                            swingAngle = -5
-                            scale = 1.1
+                    Image(.otpHand)
+                        .customScaleResize(widthScale: 0.4)
+                        .rotationEffect(.degrees(swingAngle))
+                        .scaleEffect(scale)
+                        .onAppear() {
+                            withAnimation(Animation.easeInOut(duration: 3).repeatForever(autoreverses: true)) {
+                                swingAngle = -5
+                                scale = 1.1
+                            }
                         }
-                    }
+                }
             }
         }
         .transition(.move(edge: .top))
+//        .transition(.opacity)
         .animation(.linear(duration: 0.25), value: isTextFieldFocused)
     }
 }

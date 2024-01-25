@@ -5,7 +5,7 @@
 //  Created by Antony Bluemel on 1/19/24.
 //
 
-enum ErrorType: Error {
+enum NumErrorType: Error {
     case invalidNum
     case numTooShortOrLong
     case startsWithOne
