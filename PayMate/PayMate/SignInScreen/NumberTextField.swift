@@ -27,8 +27,8 @@ struct NumberTextField: View {
                     .frame(width: 150)
                     .onChange(of: inputText) {
                         isInputValid = validateInput(of: inputText)
-                        inputText = PartialFormatter().formatPartial(inputText)
-                        isNumValid = false
+//                        inputText = PartialFormatter().formatPartial(inputText) // Revisit
+//                        isInputValid = false // Revisit
                     }
             }
             
@@ -36,16 +36,18 @@ struct NumberTextField: View {
             
             Divider()
                 .overlay(.white)
-                .overlay(isInputValid ? .clear : .white)
-                .opacity(isInputValid ? 0 : 1)
+//                .overlay(isInputValid ? .clear : .white)
+//                .opacity(isInputValid ? 0 : 1)
                 .transition(.move(edge: .bottom))
             Spacer()
             
-            if !inputText.isEmpty {
-                Text(isNumValid ? inputText : errorMessage.localizedDescription)
-                    .foregroundStyle(isNumValid ? .white : .yellow)
-                    .font(.subheadline)
-                    .transition(.move(edge: .bottom))
+            if !inputText.isEmpty { // revisit
+                if !isInputValid {
+                    Text(errorMessage.localizedDescription)
+                        .foregroundStyle(isInputValid ? .white : .yellow)
+                        .font(.subheadline)
+                        .transition(.move(edge: .bottom))
+                }
             }
         }
         .padding()

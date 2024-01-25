@@ -8,7 +8,7 @@
 import SwiftUI
 import PhoneNumberKit
 
-struct getOtpButton: View {
+struct getOTPButton: View {
     @Binding var inputText: String
     @Binding var isInputValid: Bool
     @Binding var errorMessage: ErrorType
@@ -29,12 +29,11 @@ struct getOtpButton: View {
                 isTextFieldFocused = false
                 isNumValid = true
                 formattedNumber = formatToE164(phoneNumber: validatedPhoneNumber)
-                showAlert = true  // Show alert on success
-                // Additional actions for HW 2
             }
             catch {
                 isNumValid = false
                 errorMessage = ErrorType.invalidNum
+                showAlert = true
             }
         }) {
             Text("Get OTP")
@@ -47,8 +46,8 @@ struct getOtpButton: View {
         }
         .disabled(!isInputValid)
         .alert(isPresented: $showAlert) {
-            Alert(title: Text(""), 
-                  message: Text("OTP sent to \(self.inputText) \n E.164 Format: \(formattedNumber)"),
+            Alert(title: Text(""),
+                  message: Text(errorMessage.localizedDescription),
                   dismissButton: .default(Text("OK")))
         }
     }

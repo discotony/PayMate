@@ -8,7 +8,7 @@
 import SwiftUI
 import PhoneNumberKit
 
-struct SignInScreenView: View {
+struct SignInView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var inputText: String = ""
     @State private var isInputValid: Bool = false
@@ -64,7 +64,7 @@ struct SignInScreenView: View {
             .focused($isTextFieldFocused)
             Spacer().frame(height: 24)
             
-            getOtpButton(inputText: $inputText, 
+            getOTPButton(inputText: $inputText, 
                          isInputValid: $isInputValid,
                          errorMessage: $errorMessage,
                          isNumValid: $isNumValid,
@@ -93,8 +93,11 @@ struct SignInScreenView: View {
                 NavigationLogo()
             }
         }
-        .animation(.easeInOut, value: !inputText.isEmpty)
+        .animation(.easeInOut, value: inputText.isEmpty)
         .animation(.easeInOut, value: isInputValid)
+        .navigationDestination(isPresented: $isNumValid) {
+            OTPVerificationView()
+        }
     }
     
     // Validate text field input as user types
@@ -105,7 +108,7 @@ struct SignInScreenView: View {
         if filteredString.first == "1" {
             errorMessage = ErrorType.startsWithOne
             return false
-        } else if filteredString.count != 10 {
+        } else if filteredString.count != 10 { // Revisit
             errorMessage = ErrorType.numTooShortOrLong
             return false
         }
