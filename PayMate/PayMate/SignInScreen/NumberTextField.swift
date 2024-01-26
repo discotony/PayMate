@@ -14,6 +14,7 @@ struct NumberTextField: View {
     @Binding var errorMessage: NumErrorType
     @Binding var isNumValid: Bool
     @Binding var e164Number: String
+    @State private var previousInput: String = ""
     
     var body: some View {
         VStack {
@@ -25,9 +26,14 @@ struct NumberTextField: View {
                     .foregroundStyle(.white)
                     .font(.title3)
                     .frame(width: 150)
-                    .onChange(of: inputText) {
-                        isInputValid = validateInput(of: inputText)
-                        inputText = PartialFormatter().formatPartial(inputText)
+                    .onChange(of: inputText) { _, newInput in
+                        if newInput.count < previousInput.count && newInput.count == previousInput.count - 1 {
+                            inputText = ""
+                        } else {
+                            isInputValid = validateInput(of: newInput)
+                            inputText = PartialFormatter().formatPartial(newInput)
+                            previousInput = newInput
+                        }
                     }
             }
             
