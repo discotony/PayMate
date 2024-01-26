@@ -44,6 +44,7 @@ struct OTPVerificationView: View {
                     .animation(shouldShake ? Animation.default.repeatCount(10).speed(20) : .default, value: shouldShake)
                     .onChange(of: shouldShake) { _, newValue in
                         if newValue {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 shouldShake = false
                             }
