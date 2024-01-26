@@ -43,6 +43,7 @@ struct OTPVerificationView: View {
                     .offset(x: shouldShake ? CGFloat(sin(Double(3) * .pi / 2)) : 0)
                     .animation(shouldShake ? Animation.default.repeatCount(10).speed(20) : .default, value: shouldShake)
                     .onChange(of: shouldShake) { _, newValue in
+                        // Perform shake animation to visually indicate when the OTP has been resent
                         if newValue {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -51,7 +52,6 @@ struct OTPVerificationView: View {
                         }
                     }
 
-                
                 Spacer().frame(height: 24)
                 
                 HStack {
@@ -62,6 +62,7 @@ struct OTPVerificationView: View {
                 .padding(.leading, 24)
                 .padding(.trailing, 24)
                 .background(content: {
+                    // Limit OTP to 6 character long
                     TextField("", text: $otpText.limit(6))
                         .keyboardType(.numberPad)
                         .textContentType(.oneTimeCode)
@@ -69,6 +70,7 @@ struct OTPVerificationView: View {
                         .blendMode(.screen)
                         .focused($isTextFieldFocused)
                         .onChange(of: otpText) { _, otp in
+                            // Call API to verify OTP automatically once 6 digits are entered
                             if otp.count == 6 {
                                 isTextFieldFocused = false
                                 isLoading = true
@@ -113,12 +115,14 @@ struct OTPVerificationView: View {
                 }
                 Spacer().frame(height: 16)
             }
+            // Shift UI elemenets upwards for smaller device to center them on screen
             .offset(y: isSmallDevice && isTextFieldFocused ? -100 : 0)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.customBackground)
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
+                    // Custom back button navigation bar item
                     Button(action: {
                         presentationMode.wrappedValue.dismiss()
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
@@ -148,6 +152,7 @@ struct OTPVerificationView: View {
                       message: Text(errorMessage),
                       dismissButton: .default(Text("OK")))
             }
+            // Display loading screen while API request is in progress
             if isLoading {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
@@ -160,7 +165,7 @@ struct OTPVerificationView: View {
         }
     }
     
-    
+    // Custom reusable text box for each OTP
     @ViewBuilder
     func OTPTextBox(_ index: Int) -> some View {
         ZStack {
