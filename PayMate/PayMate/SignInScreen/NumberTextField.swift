@@ -46,7 +46,9 @@ struct NumberTextField: View {
             Spacer()
             
             if !inputText.isEmpty {
-                if !isInputValid {
+                if !isInputValid
+                    && errorMessage == .numTooShortOrLong
+                    || errorMessage == .startsWithOne {
                     Text(errorMessage.localizedDescription)
                         .foregroundStyle(isInputValid ? .white : .yellow)
                         .font(.subheadline)
@@ -55,7 +57,7 @@ struct NumberTextField: View {
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .transition(.move(edge: .bottom))
+        .transition(.opacity)
     }
     
     // Validate input after user clicks a button
@@ -66,7 +68,7 @@ struct NumberTextField: View {
         if filteredString.first == "1" {
             errorMessage = NumErrorType.startsWithOne
             return false
-        } else if filteredString.count != 10 {
+        } else if filteredString.count < 10 {
             errorMessage = NumErrorType.numTooShortOrLong
             return false
         }

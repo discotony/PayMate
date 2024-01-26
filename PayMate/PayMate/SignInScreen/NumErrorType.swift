@@ -26,4 +26,18 @@ enum NumErrorType: Error {
             return message
         }
     }
+    
+    static func ==(lhs: NumErrorType, rhs: NumErrorType) -> Bool {
+        switch (lhs, rhs) {
+        case (.invalidNum, .invalidNum),
+            (.numTooShortOrLong, .numTooShortOrLong),
+            (.startsWithOne, .startsWithOne),
+            (.null, .null):
+            return true
+        case (.customError(let a), .customError(let b)):
+            return a == b
+        default:
+            return false
+        }
+    }
 }
