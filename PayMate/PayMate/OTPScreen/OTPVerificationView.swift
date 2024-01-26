@@ -17,6 +17,7 @@ struct OTPVerificationView: View {
     @State private var showAlert: Bool = false
     @State private var errorMessage: String = ""
     @State private var isLoading: Bool = false
+    private let isSmallDevice = UIScreen.main.bounds.height <= 736
     
     var body: some View {
         ZStack {
@@ -72,7 +73,7 @@ struct OTPVerificationView: View {
                             }
                         }
                 })
-                Spacer().frame(height: 24)
+                Spacer().frame(height: isSmallDevice && isTextFieldFocused ? 48: 24)
                 
                 HStack(spacing: 8) {
                     Text("Didn't receive OTP?")
@@ -94,7 +95,9 @@ struct OTPVerificationView: View {
                             .foregroundStyle(.white)
                     })
                 }
+                Spacer().frame(height: 16)
             }
+            .offset(y: isSmallDevice && isTextFieldFocused ? -100 : 0)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.customBackground)
             .navigationBarBackButtonHidden(true)

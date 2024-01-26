@@ -70,6 +70,7 @@ struct SignInView: View {
                          isNumValid: $isNumValid,
                          e164Number: $e164Number,
                          isTextFieldFocused: $isTextFieldFocused)
+            Spacer().frame(height: 16)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
