@@ -11,7 +11,7 @@ struct HomeView: View {
     var body: some View {
         VStack {
             Text("This is Home View")
-                .font(.title)
+                .font(.title).bold()
                 .foregroundStyle(.white)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

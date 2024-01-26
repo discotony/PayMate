@@ -18,7 +18,7 @@ struct LaunchScreenView: View {
     let animationDuration: Double = 0.8
     let delayDuration: Double = 0.5
     let pauseDuration: Double = 0.1
-    let loopCount: Int = 0
+    let loopCount: Int = 1
     
     var onCompletion: (() -> Void)?
     
