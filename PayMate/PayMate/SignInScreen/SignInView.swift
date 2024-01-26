@@ -34,7 +34,6 @@ struct SignInView: View {
                 .multilineTextAlignment(.center)
                 .font(.title.bold())
                 .foregroundStyle(.white)
-//            Spacer().frame(height: isTextFieldFocused ? 0 : 16) // Revisit
             Spacer().frame(height: 8)
             
             Text(instructions[instructionIndex])
@@ -109,7 +108,7 @@ struct SignInView: View {
         if filteredString.first == "1" {
             errorMessage = NumErrorType.startsWithOne
             return false
-        } else if filteredString.count != 10 { // Revisit
+        } else if filteredString.count != 10 {
             errorMessage = NumErrorType.numTooShortOrLong
             return false
         }

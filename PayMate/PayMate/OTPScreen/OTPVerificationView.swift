@@ -27,7 +27,6 @@ struct OTPVerificationView: View {
                 .multilineTextAlignment(.center)
                 .font(.title.bold())
                 .foregroundStyle(.white)
-            //            Spacer().frame(height: isTextFieldFocused ? 0 : 16) // Revisit
             Spacer().frame(height: 8)
             
             Text("Enter the OTP sent to \(displayNumber)")
@@ -94,16 +93,16 @@ struct OTPVerificationView: View {
         .background(.customBackground)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            //            ToolbarItem(placement: .navigationBarLeading) {
-            //                Button(action: {
-            //                    presentationMode.wrappedValue.dismiss()
-            //                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-            //                }) {
-            //                    Image(systemName: "arrow.left.circle.fill")
-            //                        .font(.title)
-            //                        .foregroundStyle(.white)
-            //                }
-            //            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                }) {
+                    Image(systemName: "arrow.left.circle.fill")
+                        .font(.title)
+                        .foregroundStyle(.white)
+                }
+            }
             ToolbarItem(placement: .principal) {
                 NavigationLogo()
             }

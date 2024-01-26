@@ -55,7 +55,6 @@ struct SignInAnimationImage: View {
             }
         }
         .transition(.move(edge: .top))
-//        .transition(.opacity)
         .animation(.linear(duration: 0.25), value: isTextFieldFocused)
     }
 }
