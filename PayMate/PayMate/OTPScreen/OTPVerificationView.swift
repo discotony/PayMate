@@ -13,8 +13,9 @@ struct OTPVerificationView: View {
     @FocusState private var isTextFieldFocused: Bool
     @Binding  var e164Number: String
     @Binding var displayNumber: String
-    @State private var isOTPValid: Bool = false
+    @State private var isOPTValid: Bool = false
     @State private var showAlert: Bool = false
+    @State private var errorMessage: String = ""
     
     var body: some View {
         VStack {
@@ -51,6 +52,20 @@ struct OTPVerificationView: View {
                     .opacity(0)
                     .blendMode(.screen)
                     .focused($isTextFieldFocused)
+                    .onChange(of: otpText) { _, otp in
+                        if otp.count == 6 {
+                            Task {
+                                do {
+                                    let _ = try await Api.shared.checkVerificationToken(e164PhoneNumber: e164Number, code: otp)
+                                    isOPTValid = true
+                                } catch let error as ApiError {
+                                    errorMessage = error.message
+                                    showAlert = true
+                                    otpText = ""
+                                }
+                            }
+                        }
+                    }
             })
             Spacer().frame(height: 24)
             
@@ -60,7 +75,14 @@ struct OTPVerificationView: View {
                     .foregroundStyle(.white).opacity(0.8)
                 
                 Button(action: {
-                    print("RESEND OTP BUTTON PRESSED")
+                    Task {
+                        do {
+                            let _ = try await Api.shared.sendVerificationToken(e164PhoneNumber: e164Number)
+                            otpText = ""
+                        } catch let error as ApiError {
+                            print(error.message)
+                        }
+                    }
                 }, label: {
                     Text("Resend OTP")
                         .font(.caption).bold()
@@ -86,7 +108,7 @@ struct OTPVerificationView: View {
                 NavigationLogo()
             }
         }
-        .navigationDestination(isPresented: $isOTPValid) {
+        .navigationDestination(isPresented: $isOPTValid) {
             HomeView()
         }
         .onAppear {
@@ -99,7 +121,7 @@ struct OTPVerificationView: View {
         }
         .alert(isPresented: $showAlert) {
             Alert(title: Text(""),
-                  message: Text("ERROR"),
+                  message: Text(errorMessage),
                   dismissButton: .default(Text("OK")))
         }
     }
@@ -137,8 +159,4 @@ extension Binding where Value == String {
         }
         return self
     }
-}
-
-#Preview {
-    OTPVerificationView(e164Number: .constant("(500) 454-5454"), displayNumber: .constant("(500) 454-5454"))
 }
