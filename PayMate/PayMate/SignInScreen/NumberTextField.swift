@@ -19,7 +19,7 @@ struct NumberTextField: View {
         VStack {
             HStack(alignment: .center) {
                 Text("+1").foregroundStyle(.white)
-                TextField("", text: $inputText, prompt: Text("(000) 000-0000").foregroundColor(.gray.opacity(0.5)))
+                TextField("", text: $inputText.limit(14), prompt: Text("(000) 000-0000").foregroundColor(.gray.opacity(0.5)))
                     .keyboardType(.numberPad)
                     .background(.clear)
                     .foregroundStyle(.white)
@@ -28,7 +28,6 @@ struct NumberTextField: View {
                     .onChange(of: inputText) {
                         isInputValid = validateInput(of: inputText)
                         inputText = PartialFormatter().formatPartial(inputText)
-//                        isInputValid = false // Revisit
                     }
             }
             
@@ -36,12 +35,10 @@ struct NumberTextField: View {
             
             Divider()
                 .overlay(.white)
-//                .overlay(isInputValid ? .clear : .white)
-//                .opacity(isInputValid ? 0 : 1)
                 .transition(.move(edge: .bottom))
             Spacer()
             
-            if !inputText.isEmpty { // revisit
+            if !inputText.isEmpty {
                 if !isInputValid {
                     Text(errorMessage.localizedDescription)
                         .foregroundStyle(isInputValid ? .white : .yellow)
