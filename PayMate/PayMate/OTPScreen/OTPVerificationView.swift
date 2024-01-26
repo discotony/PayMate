@@ -17,6 +17,8 @@ struct OTPVerificationView: View {
     @State private var showAlert: Bool = false
     @State private var errorMessage: String = ""
     @State private var isLoading: Bool = false
+    @State private var isResent: Bool = false
+    @State private var shouldShake: Bool = false
     private let isSmallDevice = UIScreen.main.bounds.height <= 736
     
     var body: some View {
@@ -32,12 +34,23 @@ struct OTPVerificationView: View {
                     .foregroundStyle(.white)
                 Spacer().frame(height: 8)
                 
-                Text("Enter the OTP sent to \(displayNumber)")
+                Text(isResent ? "OTP has been resent to \(displayNumber)" : "Enter the OTP sent to \(displayNumber)")
                     .multilineTextAlignment(.center)
                     .font(.callout)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(isResent ? .yellow : .white)
                     .padding(.horizontal, 32)
                     .frame(height: 60)
+                    .offset(x: shouldShake ? CGFloat(sin(Double(3) * .pi / 2)) : 0)
+                    .animation(shouldShake ? Animation.default.repeatCount(10).speed(20) : .default, value: shouldShake)
+                    .onChange(of: shouldShake) { _, newValue in
+                        if newValue {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                shouldShake = false
+                            }
+                        }
+                    }
+
+                
                 Spacer().frame(height: 24)
                 
                 HStack {
@@ -81,10 +94,12 @@ struct OTPVerificationView: View {
                         .foregroundStyle(.white).opacity(0.8)
                     
                     Button(action: {
+                        shouldShake = true
                         Task {
                             do {
                                 let _ = try await Api.shared.sendVerificationToken(e164PhoneNumber: e164Number)
                                 otpText = ""
+                                isResent = true
                             } catch let error as ApiError {
                                 print(error.message)
                             }

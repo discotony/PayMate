@@ -27,7 +27,9 @@ struct NumberTextField: View {
                     .font(.title3)
                     .frame(width: 150)
                     .onChange(of: inputText) { _, newInput in
-                        if newInput.count < previousInput.count && newInput.count == previousInput.count - 1 {
+                        if newInput.count < previousInput.count 
+                            && newInput.count == previousInput.count - 1
+                            && newInput.count < 14 {
                             inputText = ""
                         } else {
                             isInputValid = validateInput(of: newInput)
@@ -41,7 +43,6 @@ struct NumberTextField: View {
             
             Divider()
                 .overlay(.white)
-                .transition(.move(edge: .bottom))
             Spacer()
             
             if !inputText.isEmpty {
@@ -49,12 +50,12 @@ struct NumberTextField: View {
                     Text(errorMessage.localizedDescription)
                         .foregroundStyle(isInputValid ? .white : .yellow)
                         .font(.subheadline)
-                        .transition(.move(edge: .bottom))
                 }
             }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .transition(.move(edge: .bottom))
     }
     
     // Validate input after user clicks a button
