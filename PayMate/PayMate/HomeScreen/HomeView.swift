@@ -16,7 +16,7 @@ struct HomeView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.customBackground)
-//        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(true)
         
     }
 }

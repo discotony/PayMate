@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct PayMateApp: App {
+    init() {
+        Api.shared.appId = "QSQEo5xSmENL"
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

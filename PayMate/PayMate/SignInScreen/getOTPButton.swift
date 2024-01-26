@@ -15,6 +15,7 @@ struct getOTPButton: View {
     @Binding var isNumValid: Bool
     @Binding var e164Number: String
     @State private var showAlert: Bool = false
+    @State private var isOTPSent: Bool = false
     
     @FocusState.Binding var isTextFieldFocused: Bool
     
@@ -30,6 +31,16 @@ struct getOTPButton: View {
                 isTextFieldFocused = false
                 isNumValid = true
                 e164Number = formatToE164(phoneNumber: validatedPhoneNumber)
+                
+                Task {
+                    do {
+                        let _ = try await Api.shared.sendVerificationToken(e164PhoneNumber: e164Number)
+                        isOTPSent = true
+                        print("OTP Sent!")
+                    } catch let error as ApiError {
+                        print(error.message)
+                    }
+                }
             }
             catch {
                 isNumValid = false
