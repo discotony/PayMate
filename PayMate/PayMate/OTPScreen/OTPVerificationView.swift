@@ -16,114 +16,131 @@ struct OTPVerificationView: View {
     @State private var isOPTValid: Bool = false
     @State private var showAlert: Bool = false
     @State private var errorMessage: String = ""
+    @State private var isLoading: Bool = false
     
     var body: some View {
-        VStack {
-            SignInAnimationImage(isTextFieldFocused: $isTextFieldFocused)
-                .fixedSize()
-            Spacer().frame(height: 36)
-            
-            Text("OTP Verification")
-                .multilineTextAlignment(.center)
-                .font(.title.bold())
-                .foregroundStyle(.white)
-            Spacer().frame(height: 8)
-            
-            Text("Enter the OTP sent to \(displayNumber)")
-                .multilineTextAlignment(.center)
-                .font(.callout)
-                .foregroundStyle(.white)
-                .padding(.horizontal, 32)
-                .frame(height: 60)
-            Spacer().frame(height: 24)
-            
-            HStack {
-                ForEach(0..<6, id: \.self) { index in
-                    OTPTextBox(index)
+        ZStack {
+            VStack {
+                SignInAnimationImage(isTextFieldFocused: $isTextFieldFocused)
+                    .fixedSize()
+                Spacer().frame(height: 36)
+                
+                Text("OTP Verification")
+                    .multilineTextAlignment(.center)
+                    .font(.title.bold())
+                    .foregroundStyle(.white)
+                Spacer().frame(height: 8)
+                
+                Text("Enter the OTP sent to \(displayNumber)")
+                    .multilineTextAlignment(.center)
+                    .font(.callout)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 32)
+                    .frame(height: 60)
+                Spacer().frame(height: 24)
+                
+                HStack {
+                    ForEach(0..<6, id: \.self) { index in
+                        OTPTextBox(index)
+                    }
                 }
-            }
-            .padding(.leading, 24)
-            .padding(.trailing, 24)
-            .background(content: {
-                TextField("", text: $otpText.limit(6))
-                    .keyboardType(.numberPad)
-                    .textContentType(.oneTimeCode)
-                    .opacity(0)
-                    .blendMode(.screen)
-                    .focused($isTextFieldFocused)
-                    .onChange(of: otpText) { _, otp in
-                        if otp.count == 6 {
-                            Task {
-                                do {
-                                    let _ = try await Api.shared.checkVerificationToken(e164PhoneNumber: e164Number, code: otp)
-                                    isOPTValid = true
-                                } catch let error as ApiError {
-                                    errorMessage = error.message
-                                    showAlert = true
-                                    otpText = ""
+                .padding(.leading, 24)
+                .padding(.trailing, 24)
+                .background(content: {
+                    TextField("", text: $otpText.limit(6))
+                        .keyboardType(.numberPad)
+                        .textContentType(.oneTimeCode)
+                        .opacity(0)
+                        .blendMode(.screen)
+                        .focused($isTextFieldFocused)
+                        .onChange(of: otpText) { _, otp in
+                            if otp.count == 6 {
+                                isTextFieldFocused = false
+                                isLoading = true
+                                Task {
+                                    do {
+                                        let _ = try await Api.shared.checkVerificationToken(e164PhoneNumber: e164Number, code: otp)
+                                        isOPTValid = true
+                                    } catch let error as ApiError {
+                                        errorMessage = error.message
+                                        showAlert = true
+                                        otpText = ""
+                                    }
+                                    isLoading = false
+                                    isTextFieldFocused = true
                                 }
                             }
                         }
-                    }
-            })
-            Spacer().frame(height: 24)
-            
-            HStack(spacing: 8) {
-                Text("Didn't receive OTP?")
-                    .font(.caption)
-                    .foregroundStyle(.white).opacity(0.8)
-                
-                Button(action: {
-                    Task {
-                        do {
-                            let _ = try await Api.shared.sendVerificationToken(e164PhoneNumber: e164Number)
-                            otpText = ""
-                        } catch let error as ApiError {
-                            print(error.message)
-                        }
-                    }
-                }, label: {
-                    Text("Resend OTP")
-                        .font(.caption).bold()
-                        .foregroundStyle(.white)
                 })
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.customBackground)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss()
-                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                }) {
-                    Image(systemName: "arrow.left.circle.fill")
-                        .font(.title)
-                        .foregroundStyle(.white)
+                Spacer().frame(height: 24)
+                
+                HStack(spacing: 8) {
+                    Text("Didn't receive OTP?")
+                        .font(.caption)
+                        .foregroundStyle(.white).opacity(0.8)
+                    
+                    Button(action: {
+                        Task {
+                            do {
+                                let _ = try await Api.shared.sendVerificationToken(e164PhoneNumber: e164Number)
+                                otpText = ""
+                            } catch let error as ApiError {
+                                print(error.message)
+                            }
+                        }
+                    }, label: {
+                        Text("Resend OTP")
+                            .font(.caption).bold()
+                            .foregroundStyle(.white)
+                    })
                 }
             }
-            ToolbarItem(placement: .principal) {
-                NavigationLogo()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.customBackground)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    }) {
+                        Image(systemName: "arrow.left.circle.fill")
+                            .font(.title)
+                            .foregroundStyle(.white)
+                    }
+                }
+                ToolbarItem(placement: .principal) {
+                    NavigationLogo()
+                }
             }
-        }
-        .navigationDestination(isPresented: $isOPTValid) {
-            HomeView()
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                self.isTextFieldFocused = true
+            .navigationDestination(isPresented: $isOPTValid) {
+                HomeView()
             }
-        }
-        .onTapGesture {
-            isTextFieldFocused.toggle()
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text(""),
-                  message: Text(errorMessage),
-                  dismissButton: .default(Text("OK")))
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    self.isTextFieldFocused = true
+                }
+            }
+            .onTapGesture {
+                isTextFieldFocused.toggle()
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text(""),
+                      message: Text(errorMessage),
+                      dismissButton: .default(Text("OK")))
+            }
+            if isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1.5)
+                    .tint(.white)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.45))
+                    .edgesIgnoringSafeArea(.all)
+            }
         }
     }
+    
     
     @ViewBuilder
     func OTPTextBox(_ index: Int) -> some View {
