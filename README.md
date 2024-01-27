@@ -1,3 +1,5 @@
+### Antony Bluemel
+
 # PayMate - An iOS Digital Mobile Wallet App Built with SwiftUI
 
 ## Description
@@ -62,5 +64,37 @@ Status messages for these errors are displayed in real-time, guiding users in fo
 ### 8. Successful Input Notification
 <img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/ValidNumber.gif" width="277" height="600"/>
 Upon entering a valid phone number, users are promptly notified with a pop-up view, confirming the successful input and readying them for the next step in their PayMate experience.
+
+---
+
+### 9. OTP Style Text Field & Auto-Focus Movement
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/delete.gif" width="277" height="600"/>
+
+- When users receive an OTP, they will notice it's displayed in a unique style - six separate boxes, each containing one digit. This format is not only visually appealing but also makes it easier to track which digit users are on.
+
+- As users enter the OTP, our app smartly moves the focus to the next text field after each digit is entered. Similarly, if users need to delete a digit, the focus automatically shifts back to the previous text field. This intuitive navigation saves time and reduces the chances of input errors.
+
+---
+
+### 10. OTP Auto-Verification
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/correctOTP.gif" width="277" height="600"/>
+Say goodbye to the hassle of pressing a 'Next' or 'Verify' button after entering users' OTP. Our app automatically verifies the code as soon as all six digits are entered. If the code is correct, you'll be directly taken to the main home page, ensuring a smooth and efficient login process.
+
+---
+
+### 11. Resend OTP Functionality
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/resend.gif" width="277" height="600"/>
+If users did not receive the OTP or need it resent for any reason, our app has users covered. Simply tap the 'Resend' button, and a new verification code will be sent to the phone number users provided at the login stage. This feature is designed to make sure users are never stuck at the verification stage.
+
+---
+
+### 12. Instant Error Handling
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/incorrectOTP.gif" width="277" height="600"/>
+If the entered OTP is invalid, an error message promptly appears. This feature ensures that users are immediately informed of any input errors, allowing users to correct them without delay.
+
+---
+
+### 13. Phone Pad and Autofill
+Our digital wallet app exclusively presents a phone pad for numeric input, making it easier and faster to enter users' OTP. Plus, with the autofill functionality, the app can automatically fill in the OTP for users. This means if users' device receives the OTP via SMS, it can be auto-filled without any manual input, streamlining the verification process.
 
 ---
