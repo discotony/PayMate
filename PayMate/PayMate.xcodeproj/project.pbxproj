@@ -25,6 +25,7 @@
 		0498DF492B562CE700E848BE /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF482B562CE700E848BE /* WelcomeView.swift */; };
 		0498DF4C2B573E1F00E848BE /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF4B2B573E1F00E848BE /* LaunchScreenView.swift */; };
 		04CB9E1F2B630FE800A58BAB /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB9E1E2B630FE800A58BAB /* Api.swift */; };
+		04CB9E252B69B9AF00A58BAB /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB9E242B69B9AF00A58BAB /* UserModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		0498DF482B562CE700E848BE /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		0498DF4B2B573E1F00E848BE /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		04CB9E1E2B630FE800A58BAB /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		04CB9E242B69B9AF00A58BAB /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +70,6 @@
 				04417F6C2B5A278D00EA12C6 /* SignInAnimationImage.swift */,
 				04417F662B59E7FB00EA12C6 /* NumberTextField.swift */,
 				04417F6A2B5A24A600EA12C6 /* getOTPButton.swift */,
-				0462C3C62B5B226500816F7D /* NumErrorType.swift */,
 			);
 			path = SignInScreen;
 			sourceTree = "<group>";
@@ -85,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				045888E12B622D1F0014FA21 /* OTPVerificationView.swift */,
-				04CB9E1E2B630FE800A58BAB /* Api.swift */,
 			);
 			path = OTPScreen;
 			sourceTree = "<group>";
@@ -120,6 +120,7 @@
 				0498DF422B56169200E848BE /* Info.plist */,
 				0498DF312B55E77500E848BE /* PayMateApp.swift */,
 				0498DF332B55E77500E848BE /* ContentView.swift */,
+				04CB9E262B69B9C300A58BAB /* Model */,
 				045888E72B630DBD0014FA21 /* HomeScreen */,
 				045888E02B621D760014FA21 /* OTPScreen */,
 				04417F5B2B59BFB000EA12C6 /* SignInScreen */,
@@ -156,6 +157,16 @@
 				04417F362B5787A600EA12C6 /* WelcomeText.swift */,
 			);
 			path = WelcomeScreen;
+			sourceTree = "<group>";
+		};
+		04CB9E262B69B9C300A58BAB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04CB9E1E2B630FE800A58BAB /* Api.swift */,
+				04CB9E242B69B9AF00A58BAB /* UserModel.swift */,
+				0462C3C62B5B226500816F7D /* NumErrorType.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +255,7 @@
 				04417F6D2B5A278D00EA12C6 /* SignInAnimationImage.swift in Sources */,
 				04417F672B59E7FB00EA12C6 /* NumberTextField.swift in Sources */,
 				04417F372B5787A600EA12C6 /* WelcomeText.swift in Sources */,
+				04CB9E252B69B9AF00A58BAB /* UserModel.swift in Sources */,
 				0498DF4C2B573E1F00E848BE /* LaunchScreenView.swift in Sources */,
 				04417F6B2B5A24A600EA12C6 /* getOTPButton.swift in Sources */,
 				04417F352B5784A400EA12C6 /* SignInView.swift in Sources */,

@@ -132,7 +132,6 @@ class Api {
     var baseUrl = "https://ecs189e-sms-verification.uc.r.appspot.com"
     
     func sendVerificationToken(e164PhoneNumber: String) async throws -> SendVerificationResponse {
-        
         let url = baseUrl + "/send_verification_token"
         let headers = appId.map({ ["x-app-id": $0] }) ?? [:]
         let requestObject = SendVerificationRequest(e164PhoneNumber: e164PhoneNumber)
@@ -141,7 +140,6 @@ class Api {
     }
     
     func checkVerificationToken(e164PhoneNumber: String, code: String) async throws -> CheckVerificationResponse {
-
         let url = baseUrl + "/check_verification_token"
         let headers = appId.map({ ["x-app-id": $0] }) ?? [:]
         let requestObject = CheckVerificationRequest(e164PhoneNumber: e164PhoneNumber, code: code)
