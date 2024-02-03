@@ -7,19 +7,32 @@
 
 import SwiftUI
 
+enum CurrentView {
+    case launchScreen
+    case welcome
+//    case verification
+//    case home
+//    case loading
+}
+
 struct ContentView: View {
-    @State private var showLaunchAnimation = true
+    @State private var currentView: CurrentView = .launchScreen
     
     var body: some View {
         Group {
-            
-            // Diplays LaunchScreenView first before presenting WelcomeScreenView
-            if showLaunchAnimation {
+            switch currentView {
+            case .launchScreen:
                 LaunchScreenView {
-                    showLaunchAnimation = false
+                    currentView = .welcome
                 }
-            } else {
+            case .welcome:
                 WelcomeView()
+//            case .verification:
+//                <#code#>
+//            case .home:
+//                <#code#>
+//            case .loading:
+//                <#code#>
             }
         }
     }
