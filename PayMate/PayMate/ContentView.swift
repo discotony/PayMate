@@ -12,19 +12,21 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            switch viewRouter.currentView {
-            case .launchScreen:
-                LaunchScreenView()
-            case .loading:
-                LoadingScreen()
-            case .welcome:
-                WelcomeView().id(UUID())
-//            case .verification:
-//                <#code#>
-            case .home:
-                HomeView()
-//            case .loading:
-//                <#code#>
+            NavigationStack {
+                switch viewRouter.currentView {
+                case .launchScreen:
+                    LaunchScreenView()
+                case .loading:
+                    LoadingScreen()
+                case .welcome:
+                    WelcomeView().id(UUID())
+                    //            case .verification:
+                    //                <#code#>
+                case .home:
+                    HomeView()
+                    //            case .loading:
+                    //                <#code#>
+                }
             }
         }
     }

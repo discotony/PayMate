@@ -91,7 +91,7 @@ struct SignInView: View {
                 }
             }
             ToolbarItem(placement: .principal) {
-                NavigationLogo()
+                CustomNavigationLogo()
             }
         }
         .animation(.easeInOut, value: inputText.isEmpty)
@@ -114,12 +114,5 @@ struct SignInView: View {
             return false
         }
         return true
-    }
-}
-
-struct NavigationLogo: View {
-    var body: some View {
-        Image(.logoWithText)
-            .customFixedResize(height: 32)
     }
 }
