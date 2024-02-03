@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct PayMateApp: App {
+    @StateObject private var viewRouter = ViewRouter()
+    
     init() {
         Api.shared.appId = "QSQEo5xSmENL"
     }
@@ -16,6 +18,7 @@ struct PayMateApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(viewRouter)
         }
     }
 }

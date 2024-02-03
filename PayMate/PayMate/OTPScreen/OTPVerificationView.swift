@@ -130,7 +130,7 @@ struct OTPVerificationView: View {
                         Image(systemName: "arrow.left.circle.fill")
                             .font(.title)
                             .foregroundStyle(.white)
-                    }
+                    }   
                 }
                 ToolbarItem(placement: .principal) {
                     NavigationLogo()
