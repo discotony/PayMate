@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LaunchScreenView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var userModel: UserModel
     @State private var rotations: [Double] = [-24.0, -12.0, 0.0]
     @State private var isAnimating: Bool = false
     @State private var currentLoop: Int = 0
@@ -80,7 +81,12 @@ struct LaunchScreenView: View {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
-                viewRouter.currentView = .welcome
+                if self.userModel.isAuthenticated {
+                    self.viewRouter.currentView = .home
+                } else {
+                    self.viewRouter.currentView = .welcome
+                }
+            
             }
             return
         }

@@ -9,10 +9,10 @@ import Foundation
 
 enum CurrentView {
     case launchScreen
+    case loading
     case welcome
 //    case verification
     case home
-//    case loading
 }
 
 class ViewRouter: ObservableObject {
