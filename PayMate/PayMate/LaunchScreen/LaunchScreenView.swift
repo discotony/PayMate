@@ -20,7 +20,7 @@ struct LaunchScreenView: View {
     let animationDuration: Double = 0.8
     let delayDuration: Double = 0.5
     let pauseDuration: Double = 0.1
-    let loopCount: Int = 1
+    let loopCount: Int = 0
     
     var body: some View {
         ZStack {
@@ -82,7 +82,7 @@ struct LaunchScreenView: View {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
                 if self.userModel.isAuthenticated {
-                    self.viewRouter.currentView = .home
+                    self.viewRouter.currentView = .loading
                 } else {
                     self.viewRouter.currentView = .welcome
                 }

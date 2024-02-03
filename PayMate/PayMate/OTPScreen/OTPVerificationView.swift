@@ -141,7 +141,7 @@ struct OTPVerificationView: View {
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    NavigationLogo()
+                    CustomNavigationLogo()
                 }
             }
             .navigationDestination(isPresented: $isOPTValid) {
