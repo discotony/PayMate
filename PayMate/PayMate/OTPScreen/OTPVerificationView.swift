@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OTPVerificationView: View {
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var userModel: UserModel
     @State private var otpText: String = ""
     @FocusState private var isTextFieldFocused: Bool
     @Binding  var e164Number: String
@@ -51,7 +52,7 @@ struct OTPVerificationView: View {
                             }
                         }
                     }
-
+                
                 Spacer().frame(height: 24)
                 
                 HStack {
@@ -76,15 +77,22 @@ struct OTPVerificationView: View {
                                 isLoading = true
                                 Task {
                                     do {
-                                        let _ = try await Api.shared.checkVerificationToken(e164PhoneNumber: e164Number, code: otp)
-                                        isOPTValid = true
+                                        let response = try await Api.shared.checkVerificationToken(e164PhoneNumber: e164Number, code: otp)
+                                        DispatchQueue.main.async {
+                                            self.userModel.saveAuthToken(response.authToken)
+                                            self.isOPTValid = true
+                                        }
                                     } catch let error as ApiError {
-                                        errorMessage = error.message
-                                        showAlert = true
-                                        otpText = ""
+                                        DispatchQueue.main.async {
+                                            errorMessage = error.message
+                                            showAlert = true
+                                            otpText = ""
+                                        }
                                     }
-                                    isLoading = false
-                                    isTextFieldFocused = true
+                                    DispatchQueue.main.async {
+                                        isLoading = false
+                                        isTextFieldFocused = true
+                                    }
                                 }
                             }
                         }
@@ -130,7 +138,7 @@ struct OTPVerificationView: View {
                         Image(systemName: "arrow.left.circle.fill")
                             .font(.title)
                             .foregroundStyle(.white)
-                    }   
+                    }
                 }
                 ToolbarItem(placement: .principal) {
                     NavigationLogo()

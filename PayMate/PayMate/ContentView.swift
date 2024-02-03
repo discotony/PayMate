@@ -15,6 +15,8 @@ struct ContentView: View {
             switch viewRouter.currentView {
             case .launchScreen:
                 LaunchScreenView()
+            case .loading:
+                LoadingScreen()
             case .welcome:
                 WelcomeView().id(UUID())
 //            case .verification:

@@ -7,18 +7,12 @@
 
 import Foundation
 
-enum NavigationState {
-    case launchScreen
-    case welcome
-    case home
-}
-
 class UserModel: ObservableObject {
     @Published var currentUser: User?
-    @Published var apiError: ApiError?
-    @Published var didLoadUser = false
+    @Published var apiError: ApiError? // Instances of ApiError representing specific error conditions(like a missing authentication token)
+//    @Published var didLoadUser = false
     
-    private var authToken: String?
+    var authToken: String?
     
     var isLoading: Bool {
         currentUser == nil && apiError == nil
@@ -43,7 +37,7 @@ class UserModel: ObservableObject {
 
     func saveAuthToken(_ token: String) {
         UserDefaults.standard.set(token, forKey: "authToken")
-        UserDefaults.standard.synchronize()
+        UserDefaults.standard.synchronize() // Ensure any changes made to UserDefaults were saved to disk immediately.
         authToken = token
     }
 
@@ -52,12 +46,12 @@ class UserModel: ObservableObject {
             let userResponse = try await Api.shared.user(authToken: token)
             DispatchQueue.main.async {
                 self.currentUser = userResponse.user
-                self.didLoadUser = true
+//                self.didLoadUser = true
             }
         } catch let error as ApiError {
             DispatchQueue.main.async {
                 self.apiError = error
-                self.didLoadUser = false
+//                self.didLoadUser = false
             }
         } catch {
             // Handle other errors if applicable
