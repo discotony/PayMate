@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LaunchScreenView: View {
+    @EnvironmentObject var viewRouter: ViewRouter
     @State private var rotations: [Double] = [-24.0, -12.0, 0.0]
     @State private var isAnimating: Bool = false
     @State private var currentLoop: Int = 0
@@ -19,8 +20,6 @@ struct LaunchScreenView: View {
     let delayDuration: Double = 0.5
     let pauseDuration: Double = 0.1
     let loopCount: Int = 1
-    
-    var onCompletion: (() -> Void)?
     
     var body: some View {
         ZStack {
@@ -81,7 +80,7 @@ struct LaunchScreenView: View {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
-                onCompletion?()
+                viewRouter.currentView = .welcome
             }
             return
         }

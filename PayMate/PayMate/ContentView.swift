@@ -7,30 +7,20 @@
 
 import SwiftUI
 
-enum CurrentView {
-    case launchScreen
-    case welcome
-//    case verification
-//    case home
-//    case loading
-}
-
 struct ContentView: View {
-    @State private var currentView: CurrentView = .launchScreen
+    @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         Group {
-            switch currentView {
+            switch viewRouter.currentView {
             case .launchScreen:
-                LaunchScreenView {
-                    currentView = .welcome
-                }
+                LaunchScreenView()
             case .welcome:
-                WelcomeView()
+                WelcomeView().id(UUID())
 //            case .verification:
 //                <#code#>
-//            case .home:
-//                <#code#>
+            case .home:
+                HomeView()
 //            case .loading:
 //                <#code#>
             }

@@ -26,6 +26,7 @@
 		0498DF4C2B573E1F00E848BE /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498DF4B2B573E1F00E848BE /* LaunchScreenView.swift */; };
 		04CB9E1F2B630FE800A58BAB /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB9E1E2B630FE800A58BAB /* Api.swift */; };
 		04CB9E252B69B9AF00A58BAB /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB9E242B69B9AF00A58BAB /* UserModel.swift */; };
+		04EAE5D22B6EC9240050B603 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE5D12B6EC9240050B603 /* ViewRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		0498DF4B2B573E1F00E848BE /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		04CB9E1E2B630FE800A58BAB /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		04CB9E242B69B9AF00A58BAB /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		04EAE5D12B6EC9240050B603 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				04CB9E1E2B630FE800A58BAB /* Api.swift */,
+				04EAE5D12B6EC9240050B603 /* ViewRouter.swift */,
 				04CB9E242B69B9AF00A58BAB /* UserModel.swift */,
 				0462C3C62B5B226500816F7D /* NumErrorType.swift */,
 			);
@@ -258,6 +261,7 @@
 				04CB9E252B69B9AF00A58BAB /* UserModel.swift in Sources */,
 				0498DF4C2B573E1F00E848BE /* LaunchScreenView.swift in Sources */,
 				04417F6B2B5A24A600EA12C6 /* getOTPButton.swift in Sources */,
+				04EAE5D22B6EC9240050B603 /* ViewRouter.swift in Sources */,
 				04417F352B5784A400EA12C6 /* SignInView.swift in Sources */,
 				0462C3C72B5B226500816F7D /* NumErrorType.swift in Sources */,
 				04417F732B5A47A900EA12C6 /* Image+PayMate.swift in Sources */,
