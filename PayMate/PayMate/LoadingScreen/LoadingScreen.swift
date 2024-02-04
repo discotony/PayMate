@@ -13,25 +13,28 @@ struct LoadingScreen: View {
     @State private var errorString: String?
     
     var body: some View {
-        VStack {
-            ProgressView()
-                .progressViewStyle(CircularProgressViewStyle())
-                .scaleEffect(1.5)
-                .tint(.white)
-                .onAppear {
-                    // Ensures the progress indicator is clearly visible.
-                    self.errorString = nil
+        ZStack {
+            Rectangle()
+                .ignoresSafeArea()
+                .foregroundStyle(Color.customBackground)
+            VStack {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1.5)
+                    .tint(.white)
+                    .onAppear {
+                        self.errorString = nil
+                    }
+                Spacer().frame(height: 32)
+                if let errorString = errorString {
+                    Text(errorString)
+                        .foregroundColor(.yellow)
+                        .padding()
                 }
-            Spacer().frame(height: 32)
-            if let errorString = errorString {
-                Text(errorString)
-                    .foregroundColor(.red)
-                    .padding()
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black.opacity(0.45))
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-//        .background(Color.black.opacity(0.45))
-        .background(Color.customBackground)
         .navigationBarHidden(true)
         .task {
             await loadUserData()
@@ -39,6 +42,7 @@ struct LoadingScreen: View {
     }
     
     private func loadUserData() async {
+        userModel.loadAuthToken()
         guard let authToken = userModel.authToken else {
             self.errorString = "Authentication token not found."
             return

@@ -10,11 +10,16 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var userModel: UserModel
-    @State private var userName: String = ""
+    @EnvironmentObject var viewRouter: ViewRouter
+    @State private var newName: String = ""
     @State private var isLoading = false
     @State private var showAlert = false
     @State private var alertMessage = ""
     @FocusState private var isNameFieldFocused: Bool
+    
+    private var oldName: String {
+        userModel.currentUser?.name ?? ""
+    }
     
     var body: some View {
         ZStack {
@@ -25,9 +30,9 @@ struct SettingsView: View {
                 Form {
                     Section(header: Text("Name")
                         .foregroundStyle(.white)) {
-                            TextField("Enter your name", text: $userName)
+                            TextField("Enter your name", text: $newName)
                                 .onAppear {
-                                    userName = userModel.currentUser?.name ?? ""
+                                    newName = userModel.currentUser?.name ?? ""
                                 }
                                 .foregroundStyle(.white)
                                 .focused($isNameFieldFocused)
@@ -51,21 +56,42 @@ struct SettingsView: View {
                             isNameFieldFocused = false
                             isLoading = true
                             Task {
-                                await userModel.setUserName(with: userName)
+                                await userModel.setUserName(with: newName)
                                 DispatchQueue.main.async {
                                     isLoading = false
                                     self.presentationMode.wrappedValue.dismiss()
                                 }
                             }
                         }) {
-                            Text("SAVE")
+                            Text("Save")
+                                .foregroundStyle(Color.customBackground)
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity, minHeight: 44, alignment: .center)
+                                .background(newName == oldName ? .white.opacity(0.5) : .white)
+                                .cornerRadius(10)
+                        }
+                        .disabled(newName == oldName || isLoading)
+                        .animation(.easeInOut, value: newName == oldName)
+                        .listRowInsets(EdgeInsets())
+                    }
+                    .listRowBackground(Color.clear)
+                    Section {
+                        Button(action: {
+//                            Task {
+                                userModel.logout()
+                            print("button pressed!")
+                                DispatchQueue.main.async {
+                                    viewRouter.currentView = .welcome
+                                }
+//                            }
+                        }) {
+                            Text("Log Out")
                                 .foregroundStyle(Color.customBackground)
                                 .fontWeight(.semibold)
                                 .frame(maxWidth: .infinity, minHeight: 44, alignment: .center)
                                 .background(.white)
                                 .cornerRadius(10)
                         }
-                        .disabled(userName.isEmpty || isLoading)
                         .listRowInsets(EdgeInsets())
                     }
                     .listRowBackground(Color.clear)

@@ -13,13 +13,15 @@ struct HomeView: View {
     @EnvironmentObject var userModel: UserModel
     @State private var isScrolled = false
     @State private var showSettingsView = false
+//    @State private var totalAssets: Double = 0
+//    @State private var name: String = ""
     
-    private var totalAssets: Double {
+    var totalAssets: Double {
         userModel.currentUser?.accounts.reduce(0) { $0 + $1.balanceInUsd() } ?? 0
     }
     
-    private var name: String {
-        userModel.currentUser?.name ?? ""
+    var name: String {
+        userModel.currentUser?.name ?? "Loading..."
     }
     
     var body: some View {
@@ -124,6 +126,9 @@ struct HomeView: View {
                 Spacer()
             }
         }
+//        .onAppear {
+//            updateUserInfo()
+//        }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.customBackground)
         .coordinateSpace(name: "ScrollView") // Define coordinate space for the ScrollView
@@ -163,6 +168,11 @@ struct HomeView: View {
             SettingsView()
         }
     }
+    
+//    private func updateUserInfo() {
+//        self.totalAssets = userModel.currentUser?.accounts.reduce(0) { $0 + $1.balanceInUsd() } ?? 0
+//        self.name = userModel.currentUser?.name ?? ""
+//    }
 }
 
 // PreferenceKey to capture the scroll view's offset
