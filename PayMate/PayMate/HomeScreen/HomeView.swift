@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userModel: UserModel
+    @State private var isScrolled = false
     
     private var totalAssets: Double {
         userModel.currentUser?.accounts.reduce(0) { $0 + $1.balanceInUsd() } ?? 0
@@ -17,6 +19,11 @@ struct HomeView: View {
     
     var body: some View {
         ScrollView { // Use ScrollView to accommodate multiple accounts
+            GeometryReader { geometry in
+                Color.clear.preference(key: ViewOffsetKey.self, value: geometry.frame(in: .named("ScrollView")).minY)
+            }
+            .frame(height: 0)
+            
             VStack() {
                 ZStack {
                     Image("creditCard3")
@@ -106,28 +113,56 @@ struct HomeView: View {
                             .font(.headline)
                             .fontWeight(.medium)
                     }
+                    .padding(.horizontal, 21)
+                    .padding(.vertical, 6)
                 }
                 Spacer()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.customBackground)
+        .coordinateSpace(name: "ScrollView") // Define coordinate space for the ScrollView
+        .onPreferenceChange(ViewOffsetKey.self) { value in
+            // Update isScrolled based on the scroll offset
+            isScrolled = value < 0
+        }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                CustomNavigationLogo()
+                if colorScheme == .light {
+                    Image(isScrolled ? .logoWithTextDark : .logoWithText)
+                        .customFixedResize(height: 32)
+                } else {
+                    Image(.logoWithText)
+                        .customFixedResize(height: 32)
+                }
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }) {
-                    Image(systemName: "person.crop.circle")
-                        .font(.title3)
-                        .foregroundStyle(.white)
+                    if colorScheme == .light {
+                        Image(systemName: "person.crop.circle")
+                            .font(.title3)
+                            .foregroundStyle(isScrolled ? Color(hex: "055BFB") : .white)
+                    } else {
+                        
+                        Image(systemName: "person.crop.circle")
+                            .font(.title3)
+                            .foregroundStyle(.white)
+                    }
                 }
             }
         }
+    }
+}
+
+// PreferenceKey to capture the scroll view's offset
+struct ViewOffsetKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value += nextValue()
     }
 }
 

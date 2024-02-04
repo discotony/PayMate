@@ -29,6 +29,7 @@
 		04DB3E092B6ED23F00C7DC08 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E082B6ED23F00C7DC08 /* LoadingScreen.swift */; };
 		04DB3E0C2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E0B2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift */; };
 		04DB3E0E2B6EE00A00C7DC08 /* cardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E0D2B6EE00A00C7DC08 /* cardView.swift */; };
+		04DB3E102B6F158B00C7DC08 /* Color+PayMate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E0F2B6F158B00C7DC08 /* Color+PayMate.swift */; };
 		04EAE5D22B6EC9240050B603 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE5D12B6EC9240050B603 /* ViewRouter.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		04DB3E082B6ED23F00C7DC08 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		04DB3E0B2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationLogo.swift; sourceTree = "<group>"; };
 		04DB3E0D2B6EE00A00C7DC08 /* cardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cardView.swift; sourceTree = "<group>"; };
+		04DB3E0F2B6F158B00C7DC08 /* Color+PayMate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+PayMate.swift"; sourceTree = "<group>"; };
 		04EAE5D12B6EC9240050B603 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				04417F722B5A47A900EA12C6 /* Image+PayMate.swift */,
+				04DB3E0F2B6F158B00C7DC08 /* Color+PayMate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04DB3E102B6F158B00C7DC08 /* Color+PayMate.swift in Sources */,
 				0498DF342B55E77500E848BE /* ContentView.swift in Sources */,
 				045888E62B630DB80014FA21 /* HomeView.swift in Sources */,
 				0498DF492B562CE700E848BE /* WelcomeView.swift in Sources */,
