@@ -11,7 +11,6 @@ enum CurrentView {
     case launchScreen
     case loading
     case welcome
-//    case verification
     case home
 }
 

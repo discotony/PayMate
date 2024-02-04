@@ -12,9 +12,14 @@ struct HomeView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userModel: UserModel
     @State private var isScrolled = false
+    @State private var showSettingsView = false
     
     private var totalAssets: Double {
         userModel.currentUser?.accounts.reduce(0) { $0 + $1.balanceInUsd() } ?? 0
+    }
+    
+    private var name: String {
+        userModel.currentUser?.name ?? ""
     }
     
     var body: some View {
@@ -43,7 +48,7 @@ struct HomeView: View {
                 }
                 Spacer().frame(height: 40)
                 HStack {
-                    Text("Antony Bluemel")
+                    Text(name)
                         .foregroundStyle(.white)
                         .font(.caption)
                         .offset(y: -16)
@@ -140,6 +145,7 @@ struct HomeView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
+                    showSettingsView = true
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }) {
                     if colorScheme == .light {
@@ -147,13 +153,14 @@ struct HomeView: View {
                             .font(.title3)
                             .foregroundStyle(isScrolled ? Color(hex: "055BFB") : .white)
                     } else {
-                        
                         Image(systemName: "person.crop.circle")
                             .font(.title3)
                             .foregroundStyle(.white)
                     }
                 }
             }
+        }.navigationDestination(isPresented: $showSettingsView) {
+            SettingsView()
         }
     }
 }
