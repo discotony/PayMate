@@ -13,3 +13,10 @@ struct CustomNavigationLogo: View {
             .customFixedResize(height: 32)
     }
 }
+
+struct customHomeNavigationTitle: View {
+    var body: some View {
+        Image(.yourAccounts)
+            .customFixedResize(height: 32)
+    }
+}
