@@ -64,7 +64,7 @@ struct SignInView: View {
             .focused($isTextFieldFocused)
             Spacer().frame(height: 24)
             
-            getOTPButton(inputText: $inputText, 
+            GetOTPButton(inputText: $inputText, 
                          isInputValid: $isInputValid,
                          errorMessage: $errorMessage,
                          isNumValid: $isNumValid,

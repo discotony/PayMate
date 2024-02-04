@@ -8,7 +8,7 @@
 import SwiftUI
 import PhoneNumberKit
 
-struct getOTPButton: View {
+struct GetOTPButton: View {
     @Binding var inputText: String
     @Binding var isInputValid: Bool
     @Binding var errorMessage: NumErrorType
