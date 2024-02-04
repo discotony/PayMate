@@ -22,7 +22,7 @@ struct LoadingScreen: View {
                     self.errorString = nil
                 }
             Spacer().frame(height: 32)
-            if let errorString = errorString { // Revisit
+            if let errorString = errorString {
                 Text(errorString)
                     .foregroundColor(.red)
                     .padding()

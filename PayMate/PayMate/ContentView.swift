@@ -20,12 +20,8 @@ struct ContentView: View {
                     LoadingScreen()
                 case .welcome:
                     WelcomeView().id(UUID())
-                    //            case .verification:
-                    //                <#code#>
                 case .home:
                     HomeView()
-                    //            case .loading:
-                    //                <#code#>
                 }
             }
         }
