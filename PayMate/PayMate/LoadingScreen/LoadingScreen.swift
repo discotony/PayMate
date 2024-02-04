@@ -17,6 +17,7 @@ struct LoadingScreen: View {
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle())
                 .scaleEffect(1.5)
+                .tint(.white)
                 .onAppear {
                     // Ensures the progress indicator is clearly visible.
                     self.errorString = nil
@@ -29,7 +30,8 @@ struct LoadingScreen: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemBackground))
+//        .background(Color.black.opacity(0.45))
+        .background(Color.customBackground)
         .navigationBarHidden(true)
         .task {
             await loadUserData()
