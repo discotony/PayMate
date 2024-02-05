@@ -13,7 +13,8 @@ struct SettingsView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @State private var newName: String = ""
     @State private var isLoading: Bool = false
-    @State private var showAlert: Bool = false
+    @State private var showPhoneNumberAlert: Bool = false
+    @State private var showLogoutAlert: Bool = false
     @State private var alertMessage: String = ""
     @FocusState private var isNameFieldFocused: Bool
     
@@ -45,7 +46,7 @@ struct SettingsView: View {
                                 .foregroundColor(.white)
                                 .onTapGesture {
                                     alertMessage = "Phone number cannot be changed."
-                                    showAlert = true
+                                    showPhoneNumberAlert = true
                                 }
                         }
                         .listRowBackground(Color.white.opacity(0.2))
@@ -77,8 +78,7 @@ struct SettingsView: View {
                     .listRowBackground(Color.clear)
                     Section {
                         Button(action: {
-                            userModel.logout()
-                            viewRouter.currentView = .welcome
+                            showLogoutAlert = true
                         }) {
                             Text("Log Out")
                                 .foregroundStyle(Color.customBackground)
@@ -103,10 +103,19 @@ struct SettingsView: View {
                     .edgesIgnoringSafeArea(.all)
             }
         }
-        .alert("Oops!", isPresented: $showAlert) {
+        .alert("Oops!", isPresented: $showPhoneNumberAlert) {
             Button("OK", role: .cancel) { }
         } message: {
             Text(alertMessage)
+        }
+        .alert("", isPresented: $showLogoutAlert) {
+            Button("Cancel", role: .cancel) { }
+            Button("Log Out", role: .destructive) {
+                userModel.logout()
+                viewRouter.currentView = .welcome
+            }
+        } message: {
+            Text("Are you sure you want to log out?")
         }
         .scrollContentBackground(.hidden)
         .navigationTitle("Settings")
