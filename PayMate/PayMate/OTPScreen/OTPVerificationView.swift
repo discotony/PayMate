@@ -17,7 +17,7 @@ struct OTPVerificationView: View {
     @State private var isOPTValid: Bool = false
     @State private var showAlert: Bool = false
     @State private var errorMessage: String = ""
-    @State private var isLoading: Bool = false
+//    @State private var isLoading: Bool = false
     @State private var isResent: Bool = false
     @State private var shouldShake: Bool = false
     private let isSmallDevice = UIScreen.main.bounds.height <= 736
@@ -74,7 +74,7 @@ struct OTPVerificationView: View {
                             // Call API to verify OTP automatically once 6 digits are entered
                             if otp.count == 6 {
                                 isTextFieldFocused = false
-                                isLoading = true
+//                                isLoading = true
                                 Task {
                                     do {
                                         let response = try await Api.shared.checkVerificationToken(e164PhoneNumber: e164Number, code: otp)
@@ -90,7 +90,7 @@ struct OTPVerificationView: View {
                                         }
                                     }
                                     DispatchQueue.main.async {
-                                        isLoading = false
+//                                        isLoading = false
                                         isTextFieldFocused = true
                                     }
                                 }
@@ -145,7 +145,9 @@ struct OTPVerificationView: View {
                 }
             }
             .navigationDestination(isPresented: $isOPTValid) {
-                HomeView()
+                if isOPTValid {
+                    LoadingScreen()
+                }
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now()) {
@@ -161,15 +163,16 @@ struct OTPVerificationView: View {
                       dismissButton: .default(Text("OK")))
             }
             // Display loading screen while API request is in progress
-            if isLoading {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .scaleEffect(1.5)
-                    .tint(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.45))
-                    .edgesIgnoringSafeArea(.all)
-            }
+//            if isLoading {
+                //                viewRouter.currentView = .loading
+//                ProgressView()
+//                    .progressViewStyle(CircularProgressViewStyle())
+//                    .scaleEffect(1.5)
+//                    .tint(.white)
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                    .background(Color.black.opacity(0.45))
+//                    .edgesIgnoringSafeArea(.all)
+//            }
         }
     }
     

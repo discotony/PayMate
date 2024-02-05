@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct LaunchScreenView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
-    @EnvironmentObject var userModel: UserModel
     @State private var rotations: [Double] = [-24.0, -12.0, 0.0]
     @State private var isAnimating: Bool = false
     @State private var currentLoop: Int = 0
     @State private var scale: CGFloat = 1
     @State private var opacity: Double = 1
     @State private var textLogoOpacity: Double = 1
+    @State private var navigateToView: Bool = false
+    @EnvironmentObject var viewRouter: ViewRouter
     
     let animationDuration: Double = 0.8
     let delayDuration: Double = 0.5
     let pauseDuration: Double = 0.1
-    let loopCount: Int = 0
+    let loopCount: Int = 1
     
     var body: some View {
         ZStack {
@@ -30,16 +30,21 @@ struct LaunchScreenView: View {
                     createCardView(for: index)
                 }
             }
-            .onAppear {
-                startAnimationCycle()
-            }
-            
             VStack {
                 Spacer()
                 Image(.textLogo)
                     .customScaleResize(widthScale: 0.2)
                     .padding(.bottom, 24)
                     .opacity(textLogoOpacity)
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .onAppear {
+            startAnimationCycle()
+        }
+        .onChange(of: navigateToView) {
+            if navigateToView {
+                viewRouter.currentView = .loading
             }
         }
     }
@@ -81,12 +86,7 @@ struct LaunchScreenView: View {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
-                if self.userModel.isAuthenticated {
-                    self.viewRouter.currentView = .loading
-                } else {
-                    self.viewRouter.currentView = .welcome
-                }
-            
+                self.navigateToView = true
             }
             return
         }

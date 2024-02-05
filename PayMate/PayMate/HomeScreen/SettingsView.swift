@@ -10,7 +10,6 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var userModel: UserModel
-    @EnvironmentObject var viewRouter: ViewRouter
     @State private var newName: String = ""
     @State private var isLoading = false
     @State private var showAlert = false
@@ -81,7 +80,7 @@ struct SettingsView: View {
                                 userModel.logout()
                             print("button pressed!")
                                 DispatchQueue.main.async {
-                                    viewRouter.currentView = .welcome
+//                                    viewRouter.currentView = .welcome
                                 }
 //                            }
                         }) {

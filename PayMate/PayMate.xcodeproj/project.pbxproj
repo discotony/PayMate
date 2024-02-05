@@ -30,7 +30,8 @@
 		04DB3E0C2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E0B2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift */; };
 		04DB3E102B6F158B00C7DC08 /* Color+PayMate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E0F2B6F158B00C7DC08 /* Color+PayMate.swift */; };
 		04DB3E122B6F16D900C7DC08 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E112B6F16D900C7DC08 /* SettingsView.swift */; };
-		04EAE5D22B6EC9240050B603 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE5D12B6EC9240050B603 /* ViewRouter.swift */; };
+		04DB3E142B70561C00C7DC08 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E132B70561C00C7DC08 /* TestView.swift */; };
+		04DB3E162B706F3A00C7DC08 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E152B706F3A00C7DC08 /* ViewRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,7 +59,8 @@
 		04DB3E0B2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationLogo.swift; sourceTree = "<group>"; };
 		04DB3E0F2B6F158B00C7DC08 /* Color+PayMate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+PayMate.swift"; sourceTree = "<group>"; };
 		04DB3E112B6F16D900C7DC08 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		04EAE5D12B6EC9240050B603 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		04DB3E132B70561C00C7DC08 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		04DB3E152B706F3A00C7DC08 /* ViewRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,9 +179,9 @@
 			isa = PBXGroup;
 			children = (
 				04CB9E1E2B630FE800A58BAB /* Api.swift */,
-				04EAE5D12B6EC9240050B603 /* ViewRouter.swift */,
 				04CB9E242B69B9AF00A58BAB /* UserModel.swift */,
 				0462C3C62B5B226500816F7D /* NumErrorType.swift */,
+				04DB3E152B706F3A00C7DC08 /* ViewRouter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				04DB3E082B6ED23F00C7DC08 /* LoadingScreen.swift */,
+				04DB3E132B70561C00C7DC08 /* TestView.swift */,
 			);
 			path = LoadingScreen;
 			sourceTree = "<group>";
@@ -268,12 +271,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04DB3E142B70561C00C7DC08 /* TestView.swift in Sources */,
 				04DB3E102B6F158B00C7DC08 /* Color+PayMate.swift in Sources */,
 				0498DF342B55E77500E848BE /* ContentView.swift in Sources */,
 				045888E62B630DB80014FA21 /* HomeView.swift in Sources */,
 				0498DF492B562CE700E848BE /* WelcomeView.swift in Sources */,
 				04CB9E1F2B630FE800A58BAB /* Api.swift in Sources */,
 				0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */,
+				04DB3E162B706F3A00C7DC08 /* ViewRouter.swift in Sources */,
 				04417F5A2B59BFA100EA12C6 /* WelcomeAnimationImage.swift in Sources */,
 				045888E22B622D1F0014FA21 /* OTPVerificationView.swift in Sources */,
 				04417F6D2B5A278D00EA12C6 /* SignInAnimationImage.swift in Sources */,
@@ -284,7 +289,6 @@
 				04CB9E252B69B9AF00A58BAB /* UserModel.swift in Sources */,
 				0498DF4C2B573E1F00E848BE /* LaunchScreenView.swift in Sources */,
 				04417F6B2B5A24A600EA12C6 /* GetOTPButton.swift in Sources */,
-				04EAE5D22B6EC9240050B603 /* ViewRouter.swift in Sources */,
 				04417F352B5784A400EA12C6 /* SignInView.swift in Sources */,
 				0462C3C72B5B226500816F7D /* NumErrorType.swift in Sources */,
 				04417F732B5A47A900EA12C6 /* Image+PayMate.swift in Sources */,
