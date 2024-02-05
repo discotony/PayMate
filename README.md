@@ -98,3 +98,28 @@ If the entered OTP is invalid, an error message promptly appears. This feature e
 Our digital wallet app exclusively presents a phone pad for numeric input, making it easier and faster to enter users' OTP. Plus, with the autofill functionality, the app can automatically fill in the OTP for users. This means if users' device receives the OTP via SMS, it can be auto-filled without any manual input, streamlining the verification process.
 
 ---
+
+### 14. Persistent User Session
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/persistLogIn1.gif" width="277" height="600"/>
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/persistLogIn2.gif" width="277" height="600"/>
+Our digital wallet app utilizes an authorization token to retain user information after the initial login with a One-Time Password (OTP), ensuring seamless access in future sessions.
+
+---
+
+### 15. HomeView: Account Information Dashboard
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/dashboard.gif" width="277" height="600"/>
+Our digital wallet app displays total assets, the balance of each account, and the user's name, offering a snapshot of your financial status at a glance.
+
+---
+
+### 16. Settings Page: Username Update
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/dashboard.gif" width="277" height="600"/>
+Our digital wallet app automatically enables the save option when a new username is typed into the text field, facilitating easy updates without additional steps.
+
+---
+
+### 16. Secure Logout with Confirmation Alert
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/logout.gif" width="277" height="600"/>
+Our digital wallet app prevents accidental logout and features a confirmation alert when logging out, ensuring that users only exit the app intentionally.
+
+---
