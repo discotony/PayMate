@@ -10,10 +10,11 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var viewRouter: ViewRouter
     @State private var newName: String = ""
-    @State private var isLoading = false
-    @State private var showAlert = false
-    @State private var alertMessage = ""
+    @State private var isLoading: Bool = false
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
     @FocusState private var isNameFieldFocused: Bool
     
     private var oldName: String {
@@ -76,13 +77,8 @@ struct SettingsView: View {
                     .listRowBackground(Color.clear)
                     Section {
                         Button(action: {
-//                            Task {
-                                userModel.logout()
-                            print("button pressed!")
-                                DispatchQueue.main.async {
-//                                    viewRouter.currentView = .welcome
-                                }
-//                            }
+                            userModel.logout()
+                            viewRouter.currentView = .welcome
                         }) {
                             Text("Log Out")
                                 .foregroundStyle(Color.customBackground)
