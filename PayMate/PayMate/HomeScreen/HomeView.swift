@@ -10,8 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var userModel: UserModel
-    @State private var isScrolled = false
-    @State private var showSettingsView = false
+    @State private var isScrolled: Bool = false
+    @State private var showSettingsView: Bool = false
     @State private var contentOpacity: Double = 0
     
     var totalAssets: Double {
@@ -19,7 +19,7 @@ struct HomeView: View {
     }
     
     var name: String {
-        userModel.currentUser?.name ?? "Loading..."
+        userModel.currentUser?.name ?? ""
     }
     
     var body: some View {
