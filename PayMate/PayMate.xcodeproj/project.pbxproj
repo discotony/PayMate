@@ -30,7 +30,6 @@
 		04DB3E0C2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E0B2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift */; };
 		04DB3E102B6F158B00C7DC08 /* Color+PayMate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E0F2B6F158B00C7DC08 /* Color+PayMate.swift */; };
 		04DB3E122B6F16D900C7DC08 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E112B6F16D900C7DC08 /* SettingsView.swift */; };
-		04DB3E142B70561C00C7DC08 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E132B70561C00C7DC08 /* TestView.swift */; };
 		04DB3E162B706F3A00C7DC08 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB3E152B706F3A00C7DC08 /* ViewRouter.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +58,6 @@
 		04DB3E0B2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationLogo.swift; sourceTree = "<group>"; };
 		04DB3E0F2B6F158B00C7DC08 /* Color+PayMate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+PayMate.swift"; sourceTree = "<group>"; };
 		04DB3E112B6F16D900C7DC08 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		04DB3E132B70561C00C7DC08 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		04DB3E152B706F3A00C7DC08 /* ViewRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				04DB3E082B6ED23F00C7DC08 /* LoadingScreen.swift */,
-				04DB3E132B70561C00C7DC08 /* TestView.swift */,
 			);
 			path = LoadingScreen;
 			sourceTree = "<group>";
@@ -271,7 +268,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04DB3E142B70561C00C7DC08 /* TestView.swift in Sources */,
 				04DB3E102B6F158B00C7DC08 /* Color+PayMate.swift in Sources */,
 				0498DF342B55E77500E848BE /* ContentView.swift in Sources */,
 				045888E62B630DB80014FA21 /* HomeView.swift in Sources */,

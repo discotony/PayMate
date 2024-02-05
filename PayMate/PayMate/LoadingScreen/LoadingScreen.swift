@@ -25,9 +25,10 @@ struct LoadingScreen: View {
                     .scaleEffect(1.5)
                     .tint(.white)
                     .opacity(contentOpacity)
-                    .onAppear {            withAnimation(.easeIn(duration: 0.5)) {
-                        contentOpacity = 1
-                    }
+                    .onAppear {
+                        withAnimation(.easeIn(duration: 0.5)) {
+                            contentOpacity = 1
+                        }
                         self.errorString = nil
                     }
                     .onDisappear {
@@ -37,9 +38,9 @@ struct LoadingScreen: View {
                     }
                 Spacer().frame(height: 32)
             }
-            .onChange(of: errorString) { _, newValue in
-                if let newValue = newValue {
-                    print(newValue)
+            .onChange(of: errorString) { _, errorString in
+                if let errorString = errorString {
+                    print(errorString)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -48,10 +49,10 @@ struct LoadingScreen: View {
             await userModel.loadUser()
             DispatchQueue.main.async {
                 if userModel.isUserLoaded {
+                    self.navigateToView = true
                 } else {
                     self.errorString = "Authentication token not found."
                 }
-                self.navigateToView = true
             }
         }
         .onChange(of: navigateToView) {
