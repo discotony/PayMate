@@ -113,7 +113,7 @@ Our digital wallet app displays total assets, the balance of each account, and t
 ---
 
 ### 16. Settings Page: Username Update
-<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/dashboard.gif" width="277" height="600"/>
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/nameSettings.gif" width="277" height="600"/>
 Our digital wallet app automatically enables the save option when a new username is typed into the text field, facilitating easy updates without additional steps.
 
 ---
