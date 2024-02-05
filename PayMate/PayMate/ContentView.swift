@@ -12,15 +12,17 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            NavigationStack {
-                switch viewRouter.currentView {
-                case .launchScreen:
-                    LaunchScreenView()
-                case .loading:
-                    LoadingScreen()
-                case .welcome:
-                    WelcomeView().id(UUID())
-                case .home:
+            switch viewRouter.currentView {
+            case .launchScreen:
+                LaunchScreenView()
+            case .loading:
+                LoadingScreen()
+            case .welcome:
+                NavigationStack {
+                    WelcomeView()
+                }
+            case .home:
+                NavigationStack {
                     HomeView()
                 }
             }

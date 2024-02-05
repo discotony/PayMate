@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userModel: UserModel
     @State private var isScrolled = false
     @State private var showSettingsView = false

@@ -12,28 +12,13 @@ class UserModel: ObservableObject {
     @Published var apiError: ApiError? // Instances of ApiError representing specific error conditions(like a missing authentication token)
     //    @Published var didLoadUser = false
     
-    var authToken: String?
+    private var authToken: String?
     
     var isLoading: Bool {
         currentUser == nil && apiError == nil
     }
     
-    var isAuthenticated: Bool {
-        authToken != nil && currentUser != nil
-    }
-    
-    init() {
-        loadAuthToken()
-    }
-    
-    func loadAuthToken() {
-        authToken = UserDefaults.standard.string(forKey: "authToken")
-        if let token = authToken {
-            Task {
-                await loadUser(with: token)
-            }
-        }
-    }
+    var isAuthenticated: Bool = false
     
     func saveAuthToken(_ token: String) {
         UserDefaults.standard.set(token, forKey: "authToken")
@@ -41,17 +26,22 @@ class UserModel: ObservableObject {
         authToken = token
     }
     
-    func loadUser(with token: String) async {
+    func loadUser() async {
+        guard let token = UserDefaults.standard.string(forKey: "authToken") else {
+            self.isAuthenticated = false
+            return
+        }
+        self.authToken = token
         do {
             let userResponse = try await Api.shared.user(authToken: token)
             DispatchQueue.main.async {
                 self.currentUser = userResponse.user
-                //                self.didLoadUser = true
+                self.isAuthenticated = true
             }
         } catch let error as ApiError {
             DispatchQueue.main.async {
                 self.apiError = error
-                //                self.didLoadUser = false
+                self.isAuthenticated = false
             }
         } catch {
             // Handle other errors if applicable
