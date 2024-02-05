@@ -12,8 +12,7 @@ struct HomeView: View {
     @EnvironmentObject var userModel: UserModel
     @State private var isScrolled = false
     @State private var showSettingsView = false
-//    @State private var totalAssets: Double = 0
-//    @State private var name: String = ""
+    @State private var contentOpacity: Double = 0
     
     var totalAssets: Double {
         userModel.currentUser?.accounts.reduce(0) { $0 + $1.balanceInUsd() } ?? 0
@@ -125,9 +124,12 @@ struct HomeView: View {
                 Spacer()
             }
         }
-//        .onAppear {
-//            updateUserInfo()
-//        }
+        .opacity(contentOpacity)
+        .onAppear {
+            withAnimation(.easeIn(duration: 0.5)) {
+                contentOpacity = 1
+            }
+        }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.customBackground)
         .coordinateSpace(name: "ScrollView") // Define coordinate space for the ScrollView

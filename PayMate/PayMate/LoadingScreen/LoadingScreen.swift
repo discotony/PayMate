@@ -12,6 +12,7 @@ struct LoadingScreen: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @State private var errorString: String?
     @State private var navigateToView: Bool = false
+    @State private var contentOpacity: Double = 0
     
     var body: some View {
         ZStack {
@@ -23,8 +24,16 @@ struct LoadingScreen: View {
                     .progressViewStyle(CircularProgressViewStyle())
                     .scaleEffect(1.5)
                     .tint(.white)
-                    .onAppear {
+                    .opacity(contentOpacity)
+                    .onAppear {            withAnimation(.easeIn(duration: 0.5)) {
+                        contentOpacity = 1
+                    }
                         self.errorString = nil
+                    }
+                    .onDisappear {
+                        withAnimation(.easeIn(duration: 0.5)) {
+                            contentOpacity = 0
+                        }
                     }
                 Spacer().frame(height: 32)
             }
@@ -34,7 +43,6 @@ struct LoadingScreen: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black.opacity(0.45))
         }
         .task {
             await userModel.loadUser()
