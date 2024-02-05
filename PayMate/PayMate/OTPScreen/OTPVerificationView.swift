@@ -10,6 +10,7 @@ import SwiftUI
 struct OTPVerificationView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var userModel: UserModel
+    @EnvironmentObject var viewRouter: ViewRouter
     @State private var otpText: String = ""
     @FocusState private var isTextFieldFocused: Bool
     @Binding  var e164Number: String
@@ -17,7 +18,6 @@ struct OTPVerificationView: View {
     @State private var isOPTValid: Bool = false
     @State private var showAlert: Bool = false
     @State private var errorMessage: String = ""
-//    @State private var isLoading: Bool = false
     @State private var isResent: Bool = false
     @State private var shouldShake: Bool = false
     private let isSmallDevice = UIScreen.main.bounds.height <= 736
@@ -74,7 +74,6 @@ struct OTPVerificationView: View {
                             // Call API to verify OTP automatically once 6 digits are entered
                             if otp.count == 6 {
                                 isTextFieldFocused = false
-//                                isLoading = true
                                 Task {
                                     do {
                                         let response = try await Api.shared.checkVerificationToken(e164PhoneNumber: e164Number, code: otp)
@@ -90,7 +89,6 @@ struct OTPVerificationView: View {
                                         }
                                     }
                                     DispatchQueue.main.async {
-//                                        isLoading = false
                                         isTextFieldFocused = true
                                     }
                                 }
@@ -144,14 +142,14 @@ struct OTPVerificationView: View {
                     CustomNavigationLogo()
                 }
             }
-            .navigationDestination(isPresented: $isOPTValid) {
-                if isOPTValid {
-                    LoadingScreen()
-                }
-            }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now()) {
                     self.isTextFieldFocused = true
+                }
+            }
+            .onChange(of: isOPTValid) { _, isOPTValid in
+                if isOPTValid {
+                    viewRouter.currentView = .loading
                 }
             }
             .onTapGesture {
@@ -162,17 +160,6 @@ struct OTPVerificationView: View {
                       message: Text(errorMessage),
                       dismissButton: .default(Text("OK")))
             }
-            // Display loading screen while API request is in progress
-//            if isLoading {
-                //                viewRouter.currentView = .loading
-//                ProgressView()
-//                    .progressViewStyle(CircularProgressViewStyle())
-//                    .scaleEffect(1.5)
-//                    .tint(.white)
-//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                    .background(Color.black.opacity(0.45))
-//                    .edgesIgnoringSafeArea(.all)
-//            }
         }
     }
     
