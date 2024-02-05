@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LaunchScreenView: View {
+    @EnvironmentObject var userModel: UserModel
     @State private var rotations: [Double] = [-24.0, -12.0, 0.0]
     @State private var isAnimating: Bool = false
     @State private var currentLoop: Int = 0
@@ -40,11 +41,16 @@ struct LaunchScreenView: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
+            userModel.loadAuthToken()
             startAnimationCycle()
         }
         .onChange(of: navigateToView) {
             if navigateToView {
-                viewRouter.currentView = .loading
+                if userModel.isAuthenticated {
+                    viewRouter.currentView = .loading
+                } else {
+                    viewRouter.currentView = .welcome
+                }
             }
         }
     }

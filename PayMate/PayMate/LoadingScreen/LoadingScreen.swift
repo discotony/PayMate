@@ -12,7 +12,6 @@ struct LoadingScreen: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @State private var errorString: String?
     @State private var navigateToView: Bool = false
-    @State private var navigateToHome: Bool = false
     
     var body: some View {
         ZStack {
@@ -20,14 +19,14 @@ struct LoadingScreen: View {
                 .ignoresSafeArea()
                 .foregroundStyle(Color.customBackground)
             VStack {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(1.5)
-                        .tint(.white)
-                        .onAppear {
-                            self.errorString = nil
-                        }
-                    Spacer().frame(height: 32)
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1.5)
+                    .tint(.white)
+                    .onAppear {
+                        self.errorString = nil
+                    }
+                Spacer().frame(height: 32)
             }
             .onChange(of: errorString) { _, newValue in
                 if let newValue = newValue {
@@ -40,22 +39,16 @@ struct LoadingScreen: View {
         .task {
             await userModel.loadUser()
             DispatchQueue.main.async {
-                if userModel.isAuthenticated {
-                    self.navigateToHome = true
+                if userModel.isUserLoaded {
                 } else {
                     self.errorString = "Authentication token not found."
-                    self.navigateToHome = false
                 }
                 self.navigateToView = true
             }
         }
         .onChange(of: navigateToView) {
             if navigateToView {
-                if navigateToHome {
-                    viewRouter.currentView = .home
-                } else {
-                    viewRouter.currentView = .welcome
-                }
+                viewRouter.currentView = .home
             }
         }
     }
