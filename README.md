@@ -118,7 +118,7 @@ Our digital wallet app automatically enables the save option when a new username
 
 ---
 
-### 16. Secure Logout with Confirmation Alert
+### 17. Secure Logout with Confirmation Alert
 <img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/logout.gif" width="277" height="600"/>
 Our digital wallet app prevents accidental logout and features a confirmation alert when logging out, ensuring that users only exit the app intentionally.
 
