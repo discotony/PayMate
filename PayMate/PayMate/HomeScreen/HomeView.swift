@@ -15,6 +15,8 @@ struct HomeView: View {
     @State private var contentOpacity: Double = 0
     @State private var showCreateAccountAlert = false
     @State private var newAccountName = ""
+    @State private var selectedAccount: Account?
+    @State private var showTransactionView = false
     
     var totalAssets: Double {
         userModel.currentUser?.accounts.reduce(0) { $0 + $1.balanceInUsd() } ?? 0
@@ -88,6 +90,13 @@ struct HomeView: View {
                         }
                         .padding(.horizontal, 21)
                         .padding(.vertical, 6)
+                        .onTapGesture {
+                            self.selectedAccount = account
+                            self.showTransactionView = true
+                        }
+                    }
+                    .sheet(isPresented: $showTransactionView) {
+                        TransactionView(account: $selectedAccount)
                     }
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
@@ -144,7 +153,7 @@ struct HomeView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
-//                    newAccountName = ""
+                    //                    newAccountName = ""
                     showCreateAccountAlert = true
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }) {
@@ -202,7 +211,7 @@ struct HomeView: View {
                 }
                 print(newAccountName)
             }
-//            .disabled(newAccountName.isEmpty) // Revisit
+            //            .disabled(newAccountName.isEmpty) // Revisit
         } message: {
             Text("Enter the name for the new account.")
         }
