@@ -15,6 +15,9 @@
 		04417F6D2B5A278D00EA12C6 /* SignInAnimationImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F6C2B5A278D00EA12C6 /* SignInAnimationImage.swift */; };
 		04417F732B5A47A900EA12C6 /* Image+PayMate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04417F722B5A47A900EA12C6 /* Image+PayMate.swift */; };
 		044C26212B72DD4C00955124 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C26202B72DD4C00955124 /* TransactionView.swift */; };
+		044C26232B72E01100955124 /* AccountPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C26222B72E01100955124 /* AccountPickerView.swift */; };
+		044C26252B72F05700955124 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C26242B72F05700955124 /* TransactionType.swift */; };
+		044C26272B72F08000955124 /* TransactionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044C26262B72F08000955124 /* TransactionButton.swift */; };
 		045888E22B622D1F0014FA21 /* OTPVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045888E12B622D1F0014FA21 /* OTPVerificationView.swift */; };
 		045888E62B630DB80014FA21 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045888E52B630DB80014FA21 /* HomeView.swift */; };
 		0462C3C72B5B226500816F7D /* NumErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462C3C62B5B226500816F7D /* NumErrorType.swift */; };
@@ -43,6 +46,9 @@
 		04417F6C2B5A278D00EA12C6 /* SignInAnimationImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAnimationImage.swift; sourceTree = "<group>"; };
 		04417F722B5A47A900EA12C6 /* Image+PayMate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+PayMate.swift"; sourceTree = "<group>"; };
 		044C26202B72DD4C00955124 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
+		044C26222B72E01100955124 /* AccountPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPickerView.swift; sourceTree = "<group>"; };
+		044C26242B72F05700955124 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
+		044C26262B72F08000955124 /* TransactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionButton.swift; sourceTree = "<group>"; };
 		045888E12B622D1F0014FA21 /* OTPVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationView.swift; sourceTree = "<group>"; };
 		045888E52B630DB80014FA21 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		0462C3C62B5B226500816F7D /* NumErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumErrorType.swift; sourceTree = "<group>"; };
@@ -96,6 +102,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		044C26282B72F08C00955124 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				044C26202B72DD4C00955124 /* TransactionView.swift */,
+				044C26222B72E01100955124 /* AccountPickerView.swift */,
+				044C26262B72F08000955124 /* TransactionButton.swift */,
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
 		045888E02B621D760014FA21 /* OTPScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,7 +125,6 @@
 			children = (
 				045888E52B630DB80014FA21 /* HomeView.swift */,
 				04DB3E112B6F16D900C7DC08 /* SettingsView.swift */,
-				044C26202B72DD4C00955124 /* TransactionView.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -137,12 +152,13 @@
 				0498DF312B55E77500E848BE /* PayMateApp.swift */,
 				0498DF332B55E77500E848BE /* ContentView.swift */,
 				04CB9E262B69B9C300A58BAB /* Model */,
-				04DB3E0A2B6ED24300C7DC08 /* LoadingScreen */,
-				045888E72B630DBD0014FA21 /* HomeScreen */,
-				045888E02B621D760014FA21 /* OTPScreen */,
-				04417F5B2B59BFB000EA12C6 /* SignInScreen */,
-				0498DF4A2B562CF000E848BE /* WelcomeScreen */,
 				0498DF472B561D1800E848BE /* LaunchScreen */,
+				04DB3E0A2B6ED24300C7DC08 /* LoadingScreen */,
+				0498DF4A2B562CF000E848BE /* WelcomeScreen */,
+				04417F5B2B59BFB000EA12C6 /* SignInScreen */,
+				045888E02B621D760014FA21 /* OTPScreen */,
+				045888E72B630DBD0014FA21 /* HomeScreen */,
+				044C26282B72F08C00955124 /* Transaction */,
 				04417F742B5A47C400EA12C6 /* Extensions */,
 				0498DF352B55E77600E848BE /* Assets.xcassets */,
 				0498DF372B55E77600E848BE /* Preview Content */,
@@ -179,10 +195,11 @@
 		04CB9E262B69B9C300A58BAB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04DB3E152B706F3A00C7DC08 /* ViewRouter.swift */,
 				04CB9E1E2B630FE800A58BAB /* Api.swift */,
 				04CB9E242B69B9AF00A58BAB /* UserModel.swift */,
 				0462C3C62B5B226500816F7D /* NumErrorType.swift */,
-				04DB3E152B706F3A00C7DC08 /* ViewRouter.swift */,
+				044C26242B72F05700955124 /* TransactionType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -275,6 +292,8 @@
 				0498DF342B55E77500E848BE /* ContentView.swift in Sources */,
 				045888E62B630DB80014FA21 /* HomeView.swift in Sources */,
 				0498DF492B562CE700E848BE /* WelcomeView.swift in Sources */,
+				044C26272B72F08000955124 /* TransactionButton.swift in Sources */,
+				044C26232B72E01100955124 /* AccountPickerView.swift in Sources */,
 				04CB9E1F2B630FE800A58BAB /* Api.swift in Sources */,
 				044C26212B72DD4C00955124 /* TransactionView.swift in Sources */,
 				0498DF322B55E77500E848BE /* PayMateApp.swift in Sources */,
@@ -286,6 +305,7 @@
 				04417F672B59E7FB00EA12C6 /* NumberTextField.swift in Sources */,
 				04417F372B5787A600EA12C6 /* WelcomeText.swift in Sources */,
 				04DB3E0C2B6EDBFD00C7DC08 /* CustomNavigationLogo.swift in Sources */,
+				044C26252B72F05700955124 /* TransactionType.swift in Sources */,
 				04CB9E252B69B9AF00A58BAB /* UserModel.swift in Sources */,
 				0498DF4C2B573E1F00E848BE /* LaunchScreenView.swift in Sources */,
 				04417F6B2B5A24A600EA12C6 /* GetOTPButton.swift in Sources */,
