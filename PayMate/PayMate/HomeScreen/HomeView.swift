@@ -194,13 +194,15 @@ struct HomeView: View {
                 newAccountName = ""
             }
             Button("Create") {
-                print("Create button pressed")
-//                Task {
-//                    await userModel.createAccount(with: newAccountName)
-//                }
+                Task {
+                    await userModel.createAccount(with: newAccountName)
+                    DispatchQueue.main.async {
+                        newAccountName = ""
+                    }
+                }
                 print(newAccountName)
-                newAccountName = ""
-            }.disabled(newAccountName.isEmpty)
+            }
+//            .disabled(newAccountName.isEmpty) // Revisit
         } message: {
             Text("Enter the name for the new account.")
         }
