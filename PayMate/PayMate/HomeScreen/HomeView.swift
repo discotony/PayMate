@@ -97,6 +97,7 @@ struct HomeView: View {
                     }
                     .sheet(isPresented: $showTransactionView) {
                         TransactionView(account: $selectedAccount)
+                            .presentationDetents([.medium])
                     }
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
@@ -215,6 +216,7 @@ struct HomeView: View {
         } message: {
             Text("Enter the name for the new account.")
         }
+        
     }
 }
 
