@@ -13,6 +13,8 @@ struct HomeView: View {
     @State private var isScrolled: Bool = false
     @State private var showSettingsView: Bool = false
     @State private var contentOpacity: Double = 0
+    @State private var showCreateAccountAlert = false
+    @State private var newAccountName = ""
     
     var totalAssets: Double {
         userModel.currentUser?.accounts.reduce(0) { $0 + $1.balanceInUsd() } ?? 0
@@ -140,6 +142,23 @@ struct HomeView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+//                    newAccountName = ""
+                    showCreateAccountAlert = true
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                }) {
+                    if colorScheme == .light {
+                        Image(systemName: "plus.circle")
+                            .font(.title3)
+                            .foregroundStyle(isScrolled ? Color(hex: "055BFB") : .white)
+                    } else {
+                        Image(systemName: "plus.circle")
+                            .font(.title3)
+                            .foregroundStyle(.white)
+                    }
+                }
+            }
             ToolbarItem(placement: .principal) {
                 if colorScheme == .light {
                     Image(isScrolled ? .logoWithTextDark : .logoWithText)
@@ -168,12 +187,24 @@ struct HomeView: View {
         }.navigationDestination(isPresented: $showSettingsView) {
             SettingsView()
         }
+        .alert("Create New Account", isPresented: $showCreateAccountAlert) {
+            TextField("Account Name", text: $newAccountName)
+                .textInputAutocapitalization(.never)
+            Button("Cancel", role: .cancel) {
+                newAccountName = ""
+            }
+            Button("Create") {
+                print("Create button pressed")
+//                Task {
+//                    await userModel.createAccount(with: newAccountName)
+//                }
+                print(newAccountName)
+                newAccountName = ""
+            }.disabled(newAccountName.isEmpty)
+        } message: {
+            Text("Enter the name for the new account.")
+        }
     }
-    
-//    private func updateUserInfo() {
-//        self.totalAssets = userModel.currentUser?.accounts.reduce(0) { $0 + $1.balanceInUsd() } ?? 0
-//        self.name = userModel.currentUser?.name ?? ""
-//    }
 }
 
 // PreferenceKey to capture the scroll view's offset

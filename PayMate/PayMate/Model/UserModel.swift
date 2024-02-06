@@ -74,4 +74,21 @@ class UserModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "authToken")
         UserDefaults.standard.synchronize()
     }
+    
+    func createAccount(with name: String) async {
+        guard let token = authToken, !name.isEmpty else { return }
+        do {
+            let userResponse = try await Api.shared.createAccount(authToken: token, name: name)
+            DispatchQueue.main.async {
+                self.currentUser = userResponse.user
+            }
+        } catch let error as ApiError {
+            DispatchQueue.main.async {
+                self.apiError = error
+            }
+        } catch {
+            // Handle other errors if applicable
+        }
+    }
+
 }
