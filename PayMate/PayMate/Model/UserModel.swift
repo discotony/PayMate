@@ -90,5 +90,34 @@ class UserModel: ObservableObject {
             // Handle other errors if applicable
         }
     }
-
+    
+    func deposit(to account: Account, amount: Int) async {
+            guard let token = authToken, amount > 0 else { return }
+            do {
+                _ = try await Api.shared.deposit(authToken: token, account: account, amountInCents: amount * 100)
+                await loadUser() // Refresh user data
+            } catch {
+                print(error)
+            }
+        }
+        
+        func withdraw(from account: Account, amount: Int) async {
+            guard let token = authToken, amount > 0 else { return }
+            do {
+                _ = try await Api.shared.withdraw(authToken: token, account: account, amountInCents: amount * 100)
+                await loadUser() // Refresh user data
+            } catch {
+                print(error)
+            }
+        }
+        
+        func transfer(from sourceAccount: Account, to destinationAccount: Account, amount: Int) async {
+            guard let token = authToken, amount > 0 else { return }
+            do {
+                _ = try await Api.shared.transfer(authToken: token, from: sourceAccount, to: destinationAccount, amountInCents: amount * 100)
+                await loadUser() // Refresh user data
+            } catch {
+                print(error)
+            }
+        }
 }
