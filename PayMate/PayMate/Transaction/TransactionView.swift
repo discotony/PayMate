@@ -12,7 +12,7 @@ struct TransactionView: View {
     @EnvironmentObject var userModel: UserModel
     @Binding var account: Account?
     @State private var transactionType: TransactionType = .deposit
-    @State private var amount: String = ""
+    @State private var inputAmount: String = ""
     @State private var destinationAccount: Account?
     @State private var showAccountPicker = false
     @State private var isLoading = false
@@ -30,17 +30,22 @@ struct TransactionView: View {
     
     @State private var projectedBalance: Double = 0
     
-//    let currencyFormatter: NumberFormatter = {
-//        let formatter = NumberFormatter()
-//        formatter.numberStyle = .currency
-//        formatter.maximumFractionDigits = 2
-//        return formatter
-//    }()
+    private var formattedInputAmount: Binding<String> {
+        Binding<String>(
+            get: {
+                "$\(self.inputAmount)"
+            },
+            set: { newValue in
+                let numericValue = newValue.filter("0123456789.".contains)
+                self.inputAmount = numericValue
+            }
+        )
+    }
     
     var body: some View {
         VStack(spacing:
-            isSmallDevice ? (transactionType == .transfer ? 12 : 24) :
-                            (transactionType == .transfer ? 24 : 32)) {
+                isSmallDevice ? (transactionType == .transfer ? 12 : 24) :
+                (transactionType == .transfer ? 24 : 32)) {
             if let account = account {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
@@ -114,7 +119,9 @@ struct TransactionView: View {
                     }
                 }
                 .sheet(isPresented: $showAccountPicker) {
-                    AccountPickerView(selectedAccount: $destinationAccount, accounts: userModel.currentUser?.accounts ?? [])
+                    VStack {
+                        AccountPickerView(selectedAccount: $destinationAccount, accounts: userModel.currentUser?.accounts ?? [])
+                    }
                 }
             }
             
@@ -126,9 +133,8 @@ struct TransactionView: View {
                     .foregroundStyle(.white.opacity(0.2))
                     .shadow(radius: 3)
                 
-//                TextField("Enter Amount", value: $amount, formatter: NumberFormatter().numberStyle = .currency)
-                TextField("Enter Amount", text: $amount)
-                    .onChange(of: amount) { _, enteredAmount in
+                TextField("Enter Amount", text: formattedInputAmount)
+                    .onChange(of: inputAmount) { _, enteredAmount in
                         updateProjectedBalance()
                     }
                     .background(.clear)
@@ -153,7 +159,7 @@ struct TransactionView: View {
                 } else {
                     showAlert = true
                     isLoading = false
-                    amount = ""
+                    inputAmount = ""
                 }
             }) {
                 Text("Confirm Transaction")
@@ -161,11 +167,11 @@ struct TransactionView: View {
                     .foregroundStyle(.customBackground)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(!amount.isEmpty && !(transactionType == .transfer && destinationAccount == nil) ? .white : .white.opacity(0.5))
+                    .background(!inputAmount.isEmpty && !(transactionType == .transfer && destinationAccount == nil) ? .white : .white.opacity(0.5))
                     .cornerRadius(12)
             }
             .frame(height: 50)
-            .disabled(amount.isEmpty || (transactionType == .transfer && destinationAccount == nil))
+            .disabled(inputAmount.isEmpty || (transactionType == .transfer && destinationAccount == nil))
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Oops!"),
                       message: Text("You cannot withdraw more than your balance."),
@@ -175,31 +181,31 @@ struct TransactionView: View {
                 updateProjectedBalance()
             }
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.customBackground)
-        .overlay {
-            if isLoading {
-                ZStack {
-                    Color.black.opacity(0.45)
-                        .edgesIgnoringSafeArea(.all)
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(1.5)
-                        .tint(.white)
-                        .edgesIgnoringSafeArea(.all)
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.customBackground)
+                .overlay {
+                    if isLoading {
+                        ZStack {
+                            Color.black.opacity(0.45)
+                                .edgesIgnoringSafeArea(.all)
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                                .scaleEffect(1.5)
+                                .tint(.white)
+                                .edgesIgnoringSafeArea(.all)
+                        }
+                    }
                 }
-            }
-        }
-        .onAppear {
-            isTextFieldFocused = true
-        }
+                .onAppear {
+                    isTextFieldFocused = true
+                }
     }
     
     private func updateProjectedBalance() {
         guard let initialBalance = account?.balanceInUsd() else { return }
-        let enteredAmount = Double(amount) ?? 0
-
+        let enteredAmount = Double(inputAmount) ?? 0
+        
         switch transactionType {
         case .deposit:
             projectedBalance = initialBalance + enteredAmount
@@ -209,7 +215,7 @@ struct TransactionView: View {
     }
     
     private func performTransaction() async {
-        guard let account = account, let amountInt = Int(amount), amountInt > 0 else { return }
+        guard let account = account, let amountInt = Int(inputAmount), amountInt > 0 else { return }
         
         switch transactionType {
         case .deposit:

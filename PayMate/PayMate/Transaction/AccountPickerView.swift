@@ -77,3 +77,12 @@ struct AccountPickerView: View {
         .background(.customBackground)
     }
 }
+
+struct DragIndicator: View {
+    var body: some View {
+        RoundedRectangle(cornerRadius: 5)
+            .frame(width: 36, height: 5)
+            .foregroundColor(Color.white)
+            .padding(5)
+    }
+}
