@@ -45,7 +45,7 @@ struct SettingsView: View {
                             Text(userModel.currentUser?.e164PhoneNumber ?? "N/A")
                                 .foregroundColor(.white)
                                 .onTapGesture {
-                                    alertMessage = "Phone number cannot be changed."
+                                    alertMessage = "Phone number cannot be changed"
                                     showPhoneNumberAlert = true
                                 }
                         }

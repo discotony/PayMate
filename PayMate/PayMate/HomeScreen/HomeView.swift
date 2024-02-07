@@ -200,7 +200,7 @@ struct HomeView: View {
         }
         .alert("Create New Account", isPresented: $showCreateAccountAlert) {
             TextField("Account Name", text: $newAccountName)
-                .textInputAutocapitalization(.never)
+                .textInputAutocapitalization(.words)
             Button("Cancel", role: .cancel) {
                 newAccountName = ""
             }
@@ -217,7 +217,7 @@ struct HomeView: View {
             }
 //            .disabled(newAccountName.isEmpty)
         } message: {
-            Text("Enter the name for the new account.")
+            Text("Enter the name for the new account")
         }
         .onChange(of: userModel.newAccount) { _, newAccount in
             if let newAccount = newAccount {
