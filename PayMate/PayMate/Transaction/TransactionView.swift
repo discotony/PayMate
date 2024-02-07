@@ -117,7 +117,7 @@ struct TransactionView: View {
                     }
                     .sheet(isPresented: $showAccountPicker) {
                         VStack {
-                            AccountPickerView(selectedAccount: $destinationAccount, accounts: userModel.currentUser?.accounts ?? [])
+                            AccountPickerView(originalAccount: $account, selectedAccount: $destinationAccount, accounts: userModel.currentUser?.accounts ?? [])
                         }
                     }
                 }
