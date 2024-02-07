@@ -171,7 +171,7 @@ struct TransactionView: View {
                 .disabled(inputAmount.isEmpty || (transactionType == .transfer && destinationAccount == nil))
                 .alert(isPresented: $showNegativeBalanceAlert) {
                     Alert(title: Text("Oops!"),
-                          message: Text("You cannot withdraw more than your balance."),
+                          message: Text("You cannot withdraw more than your balance"),
                           dismissButton: .default(Text("OK")))
                 }
                 .onAppear {
