@@ -20,6 +20,8 @@ struct TransactionView: View {
     @State private var contentOpacity: Double = 0
     @FocusState private var isTextFieldFocused: Bool
     
+    private let isSmallDevice = UIScreen.main.bounds.height <= 736
+    
     // Display the balance before the transaction
     private var initialBalance: Double {
         guard let account = account else { return 0 }
@@ -36,7 +38,9 @@ struct TransactionView: View {
 //    }()
     
     var body: some View {
-        VStack(spacing: transactionType == .transfer ? 12 : 16) {
+        VStack(spacing:
+            isSmallDevice ? (transactionType == .transfer ? 12 : 24) :
+                            (transactionType == .transfer ? 24 : 32)) {
             if let account = account {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
@@ -67,9 +71,7 @@ struct TransactionView: View {
                         }
                     }
                 }
-//                .padding()
             }
-//            Spacer().frame(height: )
             
             // Transaction Type Selection Buttons
             HStack(spacing: 48) {
@@ -89,7 +91,6 @@ struct TransactionView: View {
             
             // Conditional UI for Transfer
             if transactionType == .transfer {
-                Spacer().frame(height: 4)
                 HStack {
                     Text("Transfer to ")
                         .font(.headline)
@@ -139,7 +140,6 @@ struct TransactionView: View {
                     .multilineTextAlignment(.center)
                     .focused($isTextFieldFocused)
             }
-//            .padding()
             
             // Confirm Transaction Button
             Button(action: {
@@ -163,7 +163,6 @@ struct TransactionView: View {
                     .padding()
                     .background(!amount.isEmpty && !(transactionType == .transfer && destinationAccount == nil) ? .white : .white.opacity(0.5))
                     .cornerRadius(12)
-//                    .padding()
             }
             .frame(height: 50)
             .disabled(amount.isEmpty || (transactionType == .transfer && destinationAccount == nil))
