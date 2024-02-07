@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum TransactionType {
-    case deposit, withdraw, transfer, none
+    case deposit, withdraw, transfer
     
     var title: String {
         switch self {
@@ -18,8 +18,6 @@ enum TransactionType {
             return "Withdraw"
         case .transfer:
             return "Transfer"
-        case .none:
-            return "None"
         }
     }
     
@@ -31,8 +29,6 @@ enum TransactionType {
             return Image(.withdraw)
         case .transfer:
             return Image(.transfer)
-        case .none:
-            return Image(systemName: "questionmark")
         }
     }
 }

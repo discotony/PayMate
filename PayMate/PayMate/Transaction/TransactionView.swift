@@ -11,77 +11,149 @@ struct TransactionView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var userModel: UserModel
     @Binding var account: Account?
-    @State private var transactionType: TransactionType = .none
+    @State private var transactionType: TransactionType = .deposit
     @State private var amount: String = ""
     @State private var destinationAccount: Account?
-    @State private var showingAccountPicker = false
+    @State private var showAccountPicker = false
     @State private var isLoading = false
+    @State private var showAlert = false
+    @State private var contentOpacity: Double = 0
+    @FocusState private var isTextFieldFocused: Bool
+    
+    // Display the balance before the transaction
+    private var initialBalance: Double {
+        guard let account = account else { return 0 }
+        return account.balanceInUsd()
+    }
+    
+    @State private var projectedBalance: Double = 0
+    
+//    let currencyFormatter: NumberFormatter = {
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .currency
+//        formatter.maximumFractionDigits = 2
+//        return formatter
+//    }()
     
     var body: some View {
-        VStack {
-            Text("Choose Transaction Type")
-                .font(.title3).bold()
-                .foregroundStyle(.white)
-            Spacer().frame(height: 16)
-            
-            // Amount Input Field
-            ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 74)
-                    .padding()
-                    .foregroundStyle(.white.opacity(0.2))
-                    .shadow(radius: 3)
-                
-                TextField("Enter Amount", text: $amount)
-                    .background(.clear)
-                    .foregroundStyle(.white)
-                    .font(.title3)
-                    .frame(width: 250, height: 74)
-                    .padding()
-                    .keyboardType(.decimalPad)
-                    .multilineTextAlignment(.center)
+        VStack(spacing: transactionType == .transfer ? 12 : 16) {
+            if let account = account {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 80)
+                        .foregroundStyle(.white.opacity(0.2))
+                        .shadow(radius: 3)
+                    VStack(spacing: 8) {
+                        HStack {
+                            Text("Current Balance:")
+                                .foregroundColor(.white)
+                                .font(.headline)
+                                .fontWeight(.medium)
+                            Text(account.balanceString())
+                                .foregroundColor(.white)
+                                .font(.headline)
+                                .fontWeight(.regular)
+                        }
+                        HStack {
+                            Text("Projected Balance:")
+                                .foregroundColor(.white)
+                                .font(.headline)
+                                .fontWeight(.medium)
+                            Text("$\(String(format: "%.2f", projectedBalance))")
+                                .foregroundColor(.white)
+                                .font(.headline)
+                                .fontWeight(.regular)
+                        }
+                    }
+                }
+//                .padding()
             }
-            
-            Spacer().frame(height: 8)
+//            Spacer().frame(height: )
             
             // Transaction Type Selection Buttons
             HStack(spacing: 48) {
                 TransactionButton(transactionType: .deposit, isSelected: transactionType == .deposit) {
                     transactionType = .deposit
+                    updateProjectedBalance()
                 }
                 TransactionButton(transactionType: .withdraw, isSelected: transactionType == .withdraw) {
                     transactionType = .withdraw
+                    updateProjectedBalance()
                 }
                 TransactionButton(transactionType: .transfer, isSelected: transactionType == .transfer) {
                     transactionType = .transfer
+                    updateProjectedBalance()
                 }
             }
             
             // Conditional UI for Transfer
             if transactionType == .transfer {
-                Button(action: { showingAccountPicker = true }) {
-                    HStack {
-                        Text(destinationAccount?.name ?? "Select Destination Account")
-                            .foregroundStyle(.primary)
-                        Image(systemName: "chevron.right")
-                            .foregroundStyle(.secondary)
+                Spacer().frame(height: 4)
+                HStack {
+                    Text("Transfer to ")
+                        .font(.headline)
+                        .foregroundStyle(.white)
+                    Button(action: { showAccountPicker = true }) {
+                        HStack {
+                            Text(destinationAccount?.name ?? "Select Destination")
+                                .font(.subheadline)
+                                .foregroundStyle(.white)
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(.white.opacity(0.8))
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 12).stroke(.white.opacity(0.8), lineWidth: 1))
                     }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
                 }
-                .sheet(isPresented: $showingAccountPicker) {
+                .opacity(contentOpacity)
+                .onAppear {
+                    withAnimation(.easeIn(duration: 0.5)) {
+                        contentOpacity = 1
+                    }
+                }
+                .sheet(isPresented: $showAccountPicker) {
                     AccountPickerView(selectedAccount: $destinationAccount, accounts: userModel.currentUser?.accounts ?? [])
                 }
             }
             
+            // Amount Input Field
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .foregroundStyle(.white.opacity(0.2))
+                    .shadow(radius: 3)
+                
+//                TextField("Enter Amount", value: $amount, formatter: NumberFormatter().numberStyle = .currency)
+                TextField("Enter Amount", text: $amount)
+                    .onChange(of: amount) { _, enteredAmount in
+                        updateProjectedBalance()
+                    }
+                    .background(.clear)
+                    .foregroundStyle(.white)
+                    .font(.headline)
+                    .fontWeight(.regular)
+                    .frame(height: 50)
+                    .keyboardType(.decimalPad)
+                    .multilineTextAlignment(.center)
+                    .focused($isTextFieldFocused)
+            }
+//            .padding()
+            
             // Confirm Transaction Button
             Button(action: {
                 isLoading = true
-                Task {
-                    await performTransaction()
+                if projectedBalance >= 0 {
+                    Task {
+                        await performTransaction()
+                        isLoading = false
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                } else {
+                    showAlert = true
                     isLoading = false
-                    presentationMode.wrappedValue.dismiss()
+                    amount = ""
                 }
             }) {
                 Text("Confirm Transaction")
@@ -89,11 +161,20 @@ struct TransactionView: View {
                     .foregroundStyle(.customBackground)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(transactionType != .none && !amount.isEmpty && !(transactionType == .transfer && destinationAccount == nil) ? .white : .white.opacity(0.5))
+                    .background(!amount.isEmpty && !(transactionType == .transfer && destinationAccount == nil) ? .white : .white.opacity(0.5))
                     .cornerRadius(12)
-                    .padding()
+//                    .padding()
             }
-            .disabled(transactionType == .none || amount.isEmpty || (transactionType == .transfer && destinationAccount == nil))
+            .frame(height: 50)
+            .disabled(amount.isEmpty || (transactionType == .transfer && destinationAccount == nil))
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Oops!"),
+                      message: Text("You cannot withdraw more than your balance."),
+                      dismissButton: .default(Text("OK")))
+            }
+            .onAppear {
+                updateProjectedBalance()
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -111,9 +192,24 @@ struct TransactionView: View {
                 }
             }
         }
+        .onAppear {
+            isTextFieldFocused = true
+        }
     }
     
-    func performTransaction() async {
+    private func updateProjectedBalance() {
+        guard let initialBalance = account?.balanceInUsd() else { return }
+        let enteredAmount = Double(amount) ?? 0
+
+        switch transactionType {
+        case .deposit:
+            projectedBalance = initialBalance + enteredAmount
+        case .withdraw, .transfer:
+            projectedBalance = initialBalance - enteredAmount
+        }
+    }
+    
+    private func performTransaction() async {
         guard let account = account, let amountInt = Int(amount), amountInt > 0 else { return }
         
         switch transactionType {
@@ -131,10 +227,13 @@ struct TransactionView: View {
                     await userModel.transfer(from: account, to: destinationAccount, amount: amountInt)
                 }
             }
-        default: break
         }
         
         // After transaction completion, refresh user data if necessary
         await userModel.loadUser()
     }
+}
+
+#Preview {
+    TransactionView(account: .constant(UserModel().currentUser?.accounts.first))
 }
