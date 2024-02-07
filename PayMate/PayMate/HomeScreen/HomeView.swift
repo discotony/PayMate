@@ -97,7 +97,7 @@ struct HomeView: View {
                     }
                     .sheet(isPresented: $showTransactionView) {
                         TransactionView(account: $selectedAccount)
-                            .presentationDetents([.medium])
+//                            .presentationDetents([.medium])
                     }
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)

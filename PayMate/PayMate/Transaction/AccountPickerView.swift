@@ -49,6 +49,7 @@ struct AccountPickerView: View {
                     .padding(.vertical, 6)
                     .onTapGesture {
                         selectedAccount = account
+                        presentationMode.wrappedValue.dismiss()
                     }
                 }
             }
