@@ -17,6 +17,9 @@ struct HomeView: View {
     @State private var newAccountName = ""
     @State private var selectedAccount: Account?
     @State private var showTransactionView = false
+    @State private var didCreateAccount = false
+    @State private var newlyCreatedAccount: Account?
+    @State private var isLoading = false
     
     var totalAssets: Double {
         userModel.currentUser?.accounts.reduce(0) { $0 + $1.balanceInUsd() } ?? 0
@@ -27,7 +30,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        ScrollView { // Use ScrollView to accommodate multiple accounts
+        ScrollView {
             GeometryReader { geometry in
                 Color.clear.preference(key: ViewOffsetKey.self, value: geometry.frame(in: .named("ScrollView")).minY)
             }
@@ -97,7 +100,6 @@ struct HomeView: View {
                     }
                     .sheet(isPresented: $showTransactionView) {
                         TransactionView(account: $selectedAccount)
-//                            .presentationDetents([.medium])
                     }
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
@@ -144,7 +146,7 @@ struct HomeView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.customBackground)
-        .coordinateSpace(name: "ScrollView") // Define coordinate space for the ScrollView
+        .coordinateSpace(name: "ScrollView")
         .onPreferenceChange(ViewOffsetKey.self) { value in
             // Update isScrolled based on the scroll offset
             isScrolled = value < 0
@@ -158,11 +160,11 @@ struct HomeView: View {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }) {
                     if colorScheme == .light {
-                        Image(systemName: "plus.circle")
+                        Image(systemName: "plus.circle.fill")
                             .font(.title3)
                             .foregroundStyle(isScrolled ? Color(hex: "055BFB") : .white)
                     } else {
-                        Image(systemName: "plus.circle")
+                        Image(systemName: "plus.circle.fill")
                             .font(.title3)
                             .foregroundStyle(.white)
                     }
@@ -183,11 +185,11 @@ struct HomeView: View {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }) {
                     if colorScheme == .light {
-                        Image(systemName: "person.crop.circle")
+                        Image(systemName: "person.crop.circle.fill")
                             .font(.title3)
                             .foregroundStyle(isScrolled ? Color(hex: "055BFB") : .white)
                     } else {
-                        Image(systemName: "person.crop.circle")
+                        Image(systemName: "person.crop.circle.fill")
                             .font(.title3)
                             .foregroundStyle(.white)
                     }
@@ -203,23 +205,47 @@ struct HomeView: View {
                 newAccountName = ""
             }
             Button("Create") {
+                isLoading = true
                 Task {
                     await userModel.createAccount(with: newAccountName)
                     DispatchQueue.main.async {
                         newAccountName = ""
+                        isLoading = false
+                        didCreateAccount = true
                     }
                 }
-                print(newAccountName)
             }
-            //            .disabled(newAccountName.isEmpty) // Revisit
+//            .disabled(newAccountName.isEmpty)
         } message: {
             Text("Enter the name for the new account.")
         }
-        
+        .onChange(of: userModel.newAccount) { _, newAccount in
+            if let newAccount = newAccount {
+                self.newlyCreatedAccount = newAccount
+                self.didCreateAccount = true
+                self.userModel.newAccount = nil
+            }
+        }
+        .sheet(isPresented: $didCreateAccount) {
+            TransactionView(account: $newlyCreatedAccount)
+        }
+        .overlay {
+            if isLoading {
+                ZStack {
+                    Color.black.opacity(0.45)
+                        .edgesIgnoringSafeArea(.all)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1.5)
+                        .tint(.white)
+                        .edgesIgnoringSafeArea(.all)
+                }
+            }
+        }
     }
 }
 
-// PreferenceKey to capture the scroll view's offset
+// Capture the scroll view's offset
 struct ViewOffsetKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {

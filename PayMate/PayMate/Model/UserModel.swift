@@ -10,6 +10,7 @@ import Foundation
 class UserModel: ObservableObject {
     @Published var currentUser: User?
     @Published var apiError: ApiError?
+    @Published var newAccount: Account?
     private var authToken: String?
     
     var isAuthenticated: Bool = false
@@ -81,6 +82,23 @@ class UserModel: ObservableObject {
             let userResponse = try await Api.shared.createAccount(authToken: token, name: name)
             DispatchQueue.main.async {
                 self.currentUser = userResponse.user
+                self.newAccount = self.currentUser?.accounts.last
+            }
+        } catch let error as ApiError {
+            DispatchQueue.main.async {
+                self.apiError = error
+            }
+        } catch {
+            // Handle other errors if applicable
+        }
+    }
+    
+    func deleteAccount(account: Account?) async {
+        guard let token = authToken, let account = account else { return }
+        do {
+            let userResponse = try await Api.shared.deleteAccount(authToken: token, account: account)
+            DispatchQueue.main.async {
+                self.currentUser = userResponse.user
             }
         } catch let error as ApiError {
             DispatchQueue.main.async {
@@ -92,32 +110,32 @@ class UserModel: ObservableObject {
     }
     
     func deposit(to account: Account, amount: Int) async {
-            guard let token = authToken, amount > 0 else { return }
-            do {
-                _ = try await Api.shared.deposit(authToken: token, account: account, amountInCents: amount * 100)
-                await loadUser() // Refresh user data
-            } catch {
-                print(error)
-            }
+        guard let token = authToken, amount > 0 else { return }
+        do {
+            _ = try await Api.shared.deposit(authToken: token, account: account, amountInCents: amount * 100)
+            await loadUser() // Refresh user data
+        } catch {
+            print(error)
         }
-        
-        func withdraw(from account: Account, amount: Int) async {
-            guard let token = authToken, amount > 0 else { return }
-            do {
-                _ = try await Api.shared.withdraw(authToken: token, account: account, amountInCents: amount * 100)
-                await loadUser() // Refresh user data
-            } catch {
-                print(error)
-            }
+    }
+    
+    func withdraw(from account: Account, amount: Int) async {
+        guard let token = authToken, amount > 0 else { return }
+        do {
+            _ = try await Api.shared.withdraw(authToken: token, account: account, amountInCents: amount * 100)
+            await loadUser() // Refresh user data
+        } catch {
+            print(error)
         }
-        
-        func transfer(from sourceAccount: Account, to destinationAccount: Account, amount: Int) async {
-            guard let token = authToken, amount > 0 else { return }
-            do {
-                _ = try await Api.shared.transfer(authToken: token, from: sourceAccount, to: destinationAccount, amountInCents: amount * 100)
-                await loadUser() // Refresh user data
-            } catch {
-                print(error)
-            }
+    }
+    
+    func transfer(from sourceAccount: Account, to destinationAccount: Account, amount: Int) async {
+        guard let token = authToken, amount > 0 else { return }
+        do {
+            _ = try await Api.shared.transfer(authToken: token, from: sourceAccount, to: destinationAccount, amountInCents: amount * 100)
+            await loadUser() // Refresh user data
+        } catch {
+            print(error)
         }
+    }
 }
