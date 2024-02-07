@@ -154,7 +154,6 @@ struct HomeView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
-                    //                    newAccountName = ""
                     showCreateAccountAlert = true
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }) {

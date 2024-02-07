@@ -134,7 +134,7 @@ struct OTPVerificationView: View {
                         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                     }) {
                         Image(systemName: "arrow.left.circle.fill")
-                            .font(.title)
+                            .font(.title3)
                             .foregroundStyle(.white)
                     }
                 }
