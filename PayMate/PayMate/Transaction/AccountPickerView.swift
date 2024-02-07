@@ -13,14 +13,13 @@ struct AccountPickerView: View {
     let accounts: [Account]
     
     var body: some View {
-        //        VStack {
         ScrollView {
             VStack(spacing: 8) {
                 Spacer().frame(height: 36)
-                Text("Please choose an account you wish to transfer the balance to")
-                    .font(.title3) // Adjust font size as needed
+                Text("Choose a Destination Account")
+                    .font(.title3)
                     .fontWeight(.semibold)
-                    .foregroundColor(.white) // Adjust color to fit your theme
+                    .foregroundColor(.white)
                     .padding()
                     .multilineTextAlignment(.center)
                 
@@ -54,15 +53,26 @@ struct AccountPickerView: View {
                 }
             }
             
-            Button("Dismiss") {
-                presentationMode.wrappedValue.dismiss()
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .foregroundStyle(.white)
+                    .shadow(radius: 3)
+                
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Text("Dimiss")
+                        .foregroundStyle(Color.customBackground)
+                        .fontWeight(.semibold)
+                }
             }
-            .foregroundColor(.blue) // Adjust the color to fit your design
+            .foregroundColor(.customBackground)
             .padding()
             
             .padding(.top)
         }
-        //        }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.customBackground)
     }
