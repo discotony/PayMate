@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AccountPickerView: View {
     @Environment(\.presentationMode) var presentationMode
+    @Binding var originalAccount: Account?
     @Binding var selectedAccount: Account?
     @State private var visuallySelectedAccount: Account? = nil
     let accounts: [Account]
@@ -25,33 +26,36 @@ struct AccountPickerView: View {
                     .multilineTextAlignment(.center)
                 
                 ForEach(accounts, id: \.self) { account in
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 74)
-                            .foregroundStyle(account == visuallySelectedAccount ? .white : .white.opacity(0.2))
-                            .shadow(radius: 3)
-                        
-                        HStack {
-                            Text(account.name)
-                                .foregroundColor(account == visuallySelectedAccount ? .customBackground : .white)
-                                .font(.headline)
-                                .fontWeight(.medium)
-                            Spacer()
-                            Text(account.balanceString())
-                                .foregroundColor(account == visuallySelectedAccount ? .customBackground : .white)
-                                .font(.headline)
-                                .fontWeight(.regular)
+                    if account != originalAccount {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 74)
+                                .foregroundStyle(account == visuallySelectedAccount ? .white : .white.opacity(0.2))
+                                .shadow(radius: 3)
+                            
+                            HStack {
+                                Text(account.name)
+                                    .foregroundColor(account == visuallySelectedAccount ? .customBackground : .white)
+                                    .font(.headline)
+                                    .fontWeight(.medium)
+                                Spacer()
+                                Text(account.balanceString())
+                                    .foregroundColor(account == visuallySelectedAccount ? .customBackground : .white)
+                                    .font(.headline)
+                                    .fontWeight(.regular)
+                            }
+                            .padding(.horizontal, 21)
                         }
                         .padding(.horizontal, 21)
-                    }
-                    .padding(.horizontal, 21)
-                    .padding(.vertical, 6)
-                    .onTapGesture {
-                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                        visuallySelectedAccount = account
-                        selectedAccount = account
-                        presentationMode.wrappedValue.dismiss()
+                        .padding(.vertical, 6)
+                        //                    .disabled(account == originalAccount)
+                        .onTapGesture {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            visuallySelectedAccount = account
+                            selectedAccount = account
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     }
                 }
             }
