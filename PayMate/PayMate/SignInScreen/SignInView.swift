@@ -85,7 +85,7 @@ struct SignInView: View {
                     presentationMode.wrappedValue.dismiss()
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }) {
-                    Image(systemName: "arrow.left.circle.fill")
+                    Image(systemName: "chevron.left.circle.fill")
                         .font(.title3)
                         .foregroundStyle(.white)
                 }
