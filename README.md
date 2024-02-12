@@ -123,3 +123,40 @@ Our digital wallet app automatically enables the save option when a new username
 Our digital wallet app prevents accidental logout and features a confirmation alert when logging out, ensuring that users only exit the app intentionally.
 
 ---
+
+### 18. Account Creation
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/createAccount.gif" width="277" height="600"/>
+PayMate ensures seamless account creation process.
+
+---
+
+### 19. Delete Account
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/deleteAccount.gif" width="277" height="600"/>
+PayMate alows users to easily delete their account.
+
+---
+
+### 20. Deposit Balance to Account
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/deposit.gif" width="277" height="600"/>
+Adding money to user's account is convenient and fast, readying you for seamless transactions.
+
+---
+
+### 21. Withdraw Balance from Account
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/withdraw.gif" width="277" height="600"/>
+Withdraw user's PayMate balance to their linked bank account with just a few taps, ensuring their money is always within reach.
+
+---
+
+### 22. Transfer Balance Between Accounts
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/transfer.gif" width="277" height="600"/>
+PayMate's balance transfer feature allows for quick and secure money movement between accounts.
+
+---
+
+### 23. Error Handling for Overdrawing
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/withdrawError.gif" width="277" height="600"/>
+<img src="https://github.com/discotony/PayMate/blob/main/ReadMeAssets/transferError.gif" width="277" height="600"/>
+If users attempt to withdraw or transfer more than their available balance, our system will alert them immediately, preventing transactions that could lead to overdrafts or financial discrepancies. This feature ensures a safe and trustworthy digital wallet experience, keeping user's finances in check.
+
+---
